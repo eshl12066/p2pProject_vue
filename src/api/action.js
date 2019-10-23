@@ -3,9 +3,13 @@
  * 模块名_实体名_操作
  */
 export default {
+  //业务模块
 	'SERVER': 'http://localhost:8080/p2pProject', //服务器
 	'SYSTEM_USER_DOLOGIN': '/vue/userAction_login.action', //用户登陆
   'SYSTEM_USER_USERCODE': '/vue/userAction_userCode.action', //验证码验证
+
+
+  //资产模块
   'SYSTEM_MENU_TREE_LIST': '/vue/treeNodeAction_selectbylist.action', //树形的另一个
 	'SYSTEM_USER_DOREG': '/vue/userAction_reg.action', //用户注册
 	'SYSTEM_MENU_TREE': '/vue/treeNodeAction_selectlist.action', //左侧树形菜单加载

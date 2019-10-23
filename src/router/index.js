@@ -8,13 +8,13 @@ import ReceptionLogin from '@/views/reception/home/ReceptionLogin'
 import ReceptionReg from '@/views/reception/home/ReceptionReg'
 
 //后台首页界面
-import ManageMent from '@/components/management/home/ManageMent'
+import ManageMent from '@/views/management/home/ManageMent'
 
 //后台其他组件
 
 
 //前台首页界面
-import Reception from '@/components/reception/home/Reception'
+import Reception from '@/views/reception/home/Reception'
 
 //前台其他组件
 
@@ -65,7 +65,7 @@ export default new Router({
       ]
     }
     ,
-    {//前台管理的主界面
+    {//前台的主界面
       path: '/',
       name: 'Reception',
       component: Reception,
