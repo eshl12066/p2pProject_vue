@@ -2,6 +2,7 @@ export default{
   resturantName:'五星餐馆',
   uname:'张飞',
   jwt:null,
+  verificationJwt:null,
   menus:[],
   options:[],  //存放tab页对象的容器（主要是路由路径以及tab页的名字）
   activeIndex:'',//被激活的tab页路由路径
