@@ -5,8 +5,9 @@
 export default {
   //业务模块
 	'SERVER': 'http://localhost:8080/p2pProject', //服务器
-	'SYSTEM_USER_DOLOGIN': '/vue/userAction_login.action', //用户登陆
-  'SYSTEM_USER_USERCODE': '/vue/userAction_userCode.action', //验证码验证
+  'SYSTEM_USER_VERIFICATION':'/sysUser/verificationCode',//验证码验证
+	'SYSTEM_USER_DOLOGIN': '/sysUser/login', //用户登陆
+  'SYSTEM_USER_USERCODE': '/vue/userAction_userCode.action',
 
 
   //资产模块
