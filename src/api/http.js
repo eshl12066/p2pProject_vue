@@ -24,7 +24,11 @@ axios.defaults.transformRequest = function(data) {
 // 请求拦截器
 axios.interceptors.request.use(function(config) {
 	var jwt = window.vm.$store.getters.getJwt;
+	//验证码的jwt令牌
+  var verificationJwt = window.vm.$store.getters.getVerificationJwt;
+
 	config.headers['jwt'] = jwt;
+	config.headers['verificationJwt'] = verificationJwt;
 	return config;
 }, function(error) {
 	return Promise.reject(error);
@@ -32,11 +36,21 @@ axios.interceptors.request.use(function(config) {
 
 // 响应拦截器
 axios.interceptors.response.use(function(response) {
-	// debugger;
-	var jwt = response.headers['jwt'];
+	// 用户权限Jwt;
+	var jwt = response.headers['userjwt'];
+
+	//验证码jwt;
+  var verificationJwt = response.headers['verificationjwt'];
+
+
+
 	if(jwt){
 		window.vm.$store.commit('setJwt',{jwt:jwt});
 	}
+	if(verificationJwt){
+	  window.vm.$store.commit('setVerificationJwt',{verificationJwt:verificationJwt})
+  }
+
 	return response;
 }, function(error) {
 	return Promise.reject(error);

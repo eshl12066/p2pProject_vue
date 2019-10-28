@@ -8,5 +8,9 @@ export default{
   getMenus:(state)=>{
     return state.menus;
   }
+  ,
+  getVerificationJwt:(state)=>{
+    return state.verificationJwt;
+  }
 
 }
