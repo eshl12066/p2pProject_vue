@@ -7,6 +7,15 @@ export default{
   },
   getMenus:(state)=>{
     return state.menus;
+  },
+  getShowName:(state) => {
+    return state.showName;
+  },
+  getOptions:(state) => {
+    return state.options;
+  },
+  getRole:(state) =>{
+    return state.role;
   }
 
 }
