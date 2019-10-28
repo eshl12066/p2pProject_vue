@@ -243,7 +243,7 @@ export default new Router({
       children: [{//首页载体
         path: '/reception/ReceptionHome',
         name: 'ReceptionHome',
-        component: ReceptionHome
+        component: ReceptionHome,
       },
         {//投资载体
           path: '/reception/Bid',

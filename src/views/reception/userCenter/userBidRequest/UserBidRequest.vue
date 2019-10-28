@@ -1,5 +1,5 @@
 <template>
-
+<p>会员借贷管理</p>
 </template>
 
 <script>
