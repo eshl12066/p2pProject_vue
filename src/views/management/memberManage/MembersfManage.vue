@@ -13,8 +13,8 @@
   <!--通过材料认证后跟据后台打的分数(上顶40分)，1分为10额度（最多增加400元），来增加会员额度-->
   <!--也就是说所有认证后最高可获额度为1000，-->
   <!--其他增加额度方式有：-->
-    <!--1、每次投资的增加比例为1:100 (0.01)-->
-    <!--2、每次成功还款的增加比例为1：10 (0.1)-->
+  <!--1、每次投资的增加比例为1:100 (0.01)-->
+  <!--2、每次成功还款的增加比例为1：10 (0.1)-->
   <div id="app">
     <el-form label-width="100px">
       <el-form-item style="background-color: rgb(195, 202, 215);" label="会员身份审核">
@@ -64,7 +64,9 @@
                 fixed="right"
                 label="操作"
                 width="100">
-                  <el-button type="warning" size="small" @click="dialogFormVisible = true">审核</el-button>
+                <template slot-scope="scope"><!--toolbar按钮-->
+                  <!--弹出框-->
+                  <el-button type="warning" plain size="small" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
 
                   <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
                     <el-form :model="form">
@@ -83,6 +85,9 @@
                       <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
                     </div>
                   </el-dialog>
+
+
+                </template>
 
               </el-table-column>
             </el-table>
@@ -113,78 +118,66 @@
 </template>
 
 <script>
-    export default {
-        name: "MembersfManage",
-      data() {
-        return {
-          input1: '',
-          input2: '',
-          input3: '',
-          input4: '',
-          input5: '',
-          input6: '',
-          tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1517 弄',
-            zip: 200333
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1519 弄',
-            zip: 200333
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1516 弄',
-            zip: 200333
-          }],
-          gridData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }],
-          dialogFormVisible: false,
-          form: {
-            name: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
-          },
-          formLabelWidth: '120px'
-        }
-
+  export default {
+    name: "MembersfManage",
+    data() {
+      return {
+        input1: '',
+        input2: '',
+        input3: '',
+        input4: '',
+        input5: '',
+        input6: '',
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1519 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1516 弄',
+          zip: 200333
+        }],
+        gridData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }]
       }
+
     }
+  }
 </script>
 
 <style scoped>
