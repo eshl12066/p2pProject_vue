@@ -8,6 +8,8 @@ export default {
 	'SYSTEM_USER_DOLOGIN': '/vue/userAction_login.action', //用户登陆
   'SYSTEM_USER_USERCODE': '/vue/userAction_userCode.action', //验证码验证
 
+  //后台
+  'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
 
   //资产模块
   'SYSTEM_MENU_TREE_LIST': '/vue/treeNodeAction_selectbylist.action', //树形的另一个
