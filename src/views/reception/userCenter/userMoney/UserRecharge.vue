@@ -1,5 +1,5 @@
 <template>
-<p>充值</p>
+
 </template>
 
 <script>

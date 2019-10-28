@@ -132,40 +132,40 @@ export default new Router({
       path: '/ManageMent',
       name: 'ManageMent',
       component: ManageMent,
-      children: [{//资金管理
+      children: [{//资金管理  平台资金记录
         path: '/financeManage/BackMoneyDetail',
         name: 'BackMoneyDetail',
         component: BackMoneyDetail
       },
-        {
+        {//用户充值提现表
           path: '/financeManage/MemMoneyDetail',
           name: 'MemMoneyDetail',
           component: MemMoneyDetail
         },
-        {
+        {//用户交易记录
           path: '/financeManage/MemDealDetail',
           name: 'MemDealDetail',
           component: MemDealDetail
         }
         ,
-        {
+        {//提现审核界面
           path: '/financeManage/FinanceCheck',
           name: 'FinanceCheck',
           component: FinanceCheck
         }
         ,
-        {//会员管理
+        {//会员管理界面
           path: '/memberManage/MemberManage',
           name: 'MemberManage',
           component: MemberManage
         },
-        {
+        {//会员身份管理界面
           path: '/memberManage/MembersfManage',
           name: 'MembersfManage',
           component: MembersfManage
         }
         ,
-        {
+        {//会员材料管理界面
           path: '/memberManage/MemberclManage',
           name: 'MemberclManage',
           component: MemberclManage
@@ -243,7 +243,7 @@ export default new Router({
       children: [{//首页载体
         path: '/reception/ReceptionHome',
         name: 'ReceptionHome',
-        component: ReceptionHome,
+        component: ReceptionHome
       },
         {//投资载体
           path: '/reception/Bid',

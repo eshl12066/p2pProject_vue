@@ -1,7 +1,5 @@
 <template>
-<div>
-  米西米西
-</div>
+
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-<p>会员投资管理</p>
+
 </template>
 
 <script>
