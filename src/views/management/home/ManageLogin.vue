@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item label="验证码">
         <el-input type="text" v-model="ruleForm.userCode"></el-input>
-        {{code}}
+        <img id="img" :src="userCodeSrc" width="230px" height="60px" @click="changeCode" >
       </el-form-item>
 
       <el-form-item>
@@ -44,56 +44,61 @@
           pwd: '',
           userCode:''
         },
-        code:null
+        userCodeSrc:null
       };
     }
-    // ,
-    // created(){
-    //
-    //   let url = this.axios.urls.SYSTEM_USER_USERCODE;
-    //
-    //   this.axios.post(url,{}).then((response)=>{
-    //     console.log(response);
-    //     this.code = response.data.msg;
-    //   }).catch(function(error){
-    //       console.log(error);
-    //   });
-    //
-    //
-    // }
+    ,
+    created(){
+      let url = this.axios.urls.SYSTEM_USER_VERIFICATION;
+
+      console.log(url);
+      this.axios.post(url,{}).then((response)=>{
+
+        console.log(response.data);
+        this.userCodeSrc = response.data;
+      }).catch(function(error){
+        console.log(error);
+      });
+    }
     ,
     methods: {
-
       doLogin() {
         let url = this.axios.urls.SYSTEM_USER_DOLOGIN;
         console.log(url);
 
-
         this.axios.post(url, this.ruleForm).then((response)=> {
           console.log(response.data);
-          if (response.data.code == 1) {
-            this.$message({
-              showClose: true,
-              message: response.data.msg,
-              type: 'success'
-            });
-            this.$router.push({path:'/ManageMent'})
-
-          } else {
-            this.$message({
-              showClose: true,
-              message: response.data.msg,
-              type: 'error'
-            });
-          }
+          // if (response.data.code == 1) {
+          //   this.$message({
+          //
+          //     showClose: true,
+          //     message: response.data.msg,
+          //     type: 'success'
+          //   });
+          //   this.$router.push({path:'/ManageMent'})
+          //
+          // } else {
+          //   this.$message({
+          //     showClose: true,
+          //     message: response.data.msg,
+          //     type: 'error'
+          //   });
+          // }
 
         }).catch(function(error) {
-
           console.log(error);
-
         });
+      }
+      ,
+      changeCode(){
+        let url = this.axios.urls.SYSTEM_USER_VERIFICATION;
 
-
+        this.axios.post(url,{}).then((response)=>{
+          console.log(response.data);
+          this.userCodeSrc = response.data;
+        }).catch(function(error){
+          console.log(error);
+        });
       }
 
     }
