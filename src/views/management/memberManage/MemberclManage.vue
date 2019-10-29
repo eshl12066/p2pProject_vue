@@ -7,12 +7,193 @@
   <!--其他增加额度方式有：-->
   <!--1、每次投资的增加比例为1:100 (0.01)-->
   <!--2、每次成功还款的增加比例为1：10 (0.1)-->
+
+  <div id="app">
+    <el-form label-width="100px">
+      <el-form-item style="background-color: rgb(195, 202, 215);">
+        用户征信文件审核管理
+      </el-form-item>
+      <el-row>
+        <el-col :span="4">
+			<span>
+			</span>
+        </el-col>
+
+        <div align="center">
+          <el-col :span="20">状态：
+            <el-select value="1" v-model="input1" @focus="focus" placeholder="请选择" popper-class="RNQuery" no-data-text="请选择" no-match-text="没有找到相应的结果..." loading-text="请稍后" multiple-limit="6" multiple collapse-tags automatic-dropdown default-first-option reserve-keyword allow-create>
+              <el-option label="请选择" value="-1"></el-option>
+            </el-select>申请时间：
+            <el-date-picker v-model="value2" :editable="true" :clearable="true" type="daterange">
+            </el-date-picker>
+            <el-button type="primary">查询</el-button>
+          </el-col>
+        </div>
+        <br>
+      </el-row>
+      <pre>
+
+      </pre>
+      <el-row>
+        <div style="width: 72%;">
+          <el-col style="width: 128%;" :span="24">
+            <el-table  :data="tableData"  border style="left: 45px;" :fit="true" :show-header="true" highlight-current-row>
+              <el-table-column prop="date" style="width: 0%;"  label="用户名" width="0px" resizable="true" sortable>
+              </el-table-column>
+              <el-table-column prop="name" style="width: 0%; max-height: 0px;"  label="状态" resizable="true" sortable filter-multiple="true" :type="selection">
+              </el-table-column>
+              <el-table-column  prop="province"  label="分数" sortable resizable="true">
+              </el-table-column>
+              <el-table-column prop="city" label="资料类型" resizable="true" sortable>
+              </el-table-column>
+              <el-table-column prop="address" label="审核人" resizable="true" sortable>
+              </el-table-column>
+              <el-table-column
+                fixed="right"
+                label="操作"
+                width="100">
+                <template slot-scope="scope"><!--toolbar按钮-->
+                  <!--弹出框-->
+                  <el-button type="warning" plain size="small" @click="dialogFormVisible = true">待审核</el-button>
+
+
+                  <el-dialog title="实名认证审核" :visible.sync="dialogFormVisible" append-to-body="false" >
+                    <el-form :model="form" size="mini">
+                      <el-row>
+                        <el-col :span="12">
+                          <el-form-item label="用户名" :label-width="formLabelWidth">
+                            <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                          <el-form-item  label="材料类型" :label-width="formLabelWidth">
+                            <el-input style="width: 90%;"  v-model="form.name" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+                          <el-form-item label="资料图片" :label-width="formLabelWidth">
+                            <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                          </el-form-item>
+                          <el-form-item label="征信分数" :label-width="formLabelWidth">
+                            <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                          </el-form-item>
+
+                        <el-form-item label="审核备注" :label-width="formLabelWidth">
+                          <el-input type="textarea"  v-model="form.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                      </el-row>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                      <el-button @click="dialogFormVisible = false">取 消</el-button>
+                      <el-button type="primary" @click="dialogFormVisible = false">审核通过</el-button>
+                      <el-button type="warning" @click="dialogFormVisible = false">审核拒绝</el-button>
+                    </div>
+
+                  </el-dialog>
+
+
+                </template>
+
+              </el-table-column>
+            </el-table>
+          </el-col>
+        </div>
+
+        <div align="center">
+          <el-col :span="24">
+            <el-row>
+              <el-col :span="24">
+                <el-button>首页</el-button>
+                <el-button icon="el-icon-arrow-left">
+                </el-button>
+                <el-input style="width: 5%;" v-model="input5">
+                </el-input>
+                <el-button icon="el-icon-arrow-right">
+                </el-button>
+                <el-button>尾页</el-button>
+              </el-col>
+            </el-row>
+          </el-col>
+        </div>
+        <br>
+      </el-row>
+    </el-form>
+  </div>
+
 </template>
 
 <script>
-    export default {
-        name: "MemberclManage"
+  export default {
+    name: "MemberclManage",
+    data() {
+      return {
+        input1: '',
+        input2: '',
+        input3: '',
+        input4: '',
+        input5: '',
+        input6: '',
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1519 弄',
+
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1516 弄',
+
+        }],
+        gridData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }],
+        dialogFormVisible: false,
+        form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        formLabelWidth: '120px'
+      }
+
     }
+  }
 </script>
 
 <style scoped>

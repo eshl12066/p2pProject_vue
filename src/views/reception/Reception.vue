@@ -32,7 +32,6 @@
 
 <script>
   // 导入组件
-  import index22 from "./home/ReceptionHome";
 
   // 导出模块
   export default {
@@ -42,7 +41,7 @@
       };
     },
     components:{
-      index22
+
     }
   };
 </script>

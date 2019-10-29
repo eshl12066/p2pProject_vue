@@ -12,6 +12,9 @@ export default {
   //后台
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
 
+  //会员
+  'MEMBER_MANAGE_GETALL':'/members/MList',//会员管理模糊查
+
   //资产模块
   'SYSTEM_MENU_TREE_LIST': '/vue/treeNodeAction_selectbylist.action', //树形的另一个
 	'SYSTEM_USER_DOREG': '/vue/userAction_reg.action', //用户注册

@@ -15,7 +15,6 @@
   <!--其他增加额度方式有：-->
   <!--1、每次投资的增加比例为1:100 (0.01)-->
   <!--2、每次成功还款的增加比例为1：10 (0.1)-->
-  <div id="app">
     <el-form label-width="100px">
       <el-form-item style="background-color: rgb(195, 202, 215);" label="会员身份审核">
       </el-form-item>
@@ -30,9 +29,7 @@
             <el-select value="1" v-model="input1" @focus="focus" placeholder="请选择" popper-class="RNQuery" no-data-text="请选择" no-match-text="没有找到相应的结果..." loading-text="请稍后" multiple-limit="6" multiple collapse-tags automatic-dropdown default-first-option reserve-keyword allow-create>
               <el-option label="请选择" value="-1"></el-option>
             </el-select>申请时间：
-            <el-date-picker :editable="true" :clearable="true" v-model="input2">
-            </el-date-picker>到
-            <el-date-picker :editable="true" :clearable="true" v-model="input3">
+            <el-date-picker v-model="value2" :editable="true" :clearable="true" type="daterange">
             </el-date-picker>
             <el-button type="primary">查询</el-button>
           </el-col>
@@ -66,24 +63,61 @@
                 width="100">
                 <template slot-scope="scope"><!--toolbar按钮-->
                   <!--弹出框-->
-                  <el-button type="warning" plain size="small" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
+                  <el-button type="warning" plain size="small" @click="dialogFormVisible = true">审核</el-button>
 
-                  <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-                    <el-form :model="form">
-                      <el-form-item label="活动名称" :label-width="formLabelWidth">
-                        <el-input v-model="form.name" autocomplete="off"></el-input>
-                      </el-form-item>
-                      <el-form-item label="活动区域" :label-width="formLabelWidth">
-                        <el-select v-model="form.region" placeholder="请选择活动区域">
-                          <el-option label="区域一" value="shanghai"></el-option>
-                          <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-                      </el-form-item>
+
+                  <el-dialog title="实名认证审核" :visible.sync="dialogFormVisible" append-to-body="false" >
+                    <el-form :model="form" size="mini">
+                      <el-row>
+                      <el-col :span="12">
+                        <el-form-item label="用户名" :label-width="formLabelWidth">
+                          <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                      </el-col>
+                        <el-col :span="12">
+                        <el-form-item  label="真实姓名" :label-width="formLabelWidth">
+                          <el-input style="width: 90%;"  v-model="form.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                    <el-form-item label="身份证号" :label-width="formLabelWidth">
+                      <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                    <el-form-item label="性别" :label-width="formLabelWidth">
+                      <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                        </el-col>
+
+                    <el-form-item label="生日" :label-width="formLabelWidth">
+                      <el-input style="width: 50%;" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="身份证地址" :label-width="formLabelWidth">
+                      <el-input style="width: 90%;" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                        <el-col :span="12">
+                    <el-form-item label="身份证正面" :label-width="formLabelWidth">
+                      <el-input style="width: 40%;" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                    <el-form-item label="身份证反面" :label-width="formLabelWidth">
+                      <el-input style="width: 30%;" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                        </el-col>
+                    <el-form-item label="审核备注" :label-width="formLabelWidth">
+                      <el-input type="textarea"  v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                      </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                       <el-button @click="dialogFormVisible = false">取 消</el-button>
-                      <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                      <el-button type="primary" @click="dialogFormVisible = false">审核通过</el-button>
+                      <el-button type="warning" @click="dialogFormVisible = false">审核拒绝</el-button>
                     </div>
+
                   </el-dialog>
 
 
@@ -113,7 +147,6 @@
         <br>
       </el-row>
     </el-form>
-  </div>
 
 </template>
 
@@ -173,7 +206,19 @@
           date: '2016-05-03',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
-        }]
+        }],
+        dialogFormVisible: false,
+        form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        formLabelWidth: '120px'
       }
 
     }
