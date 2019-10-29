@@ -11,6 +11,7 @@ export default {
 
   //后台
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
+  'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
 
   //资产模块
   'SYSTEM_MENU_TREE_LIST': '/vue/treeNodeAction_selectbylist.action', //树形的另一个
