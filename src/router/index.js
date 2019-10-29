@@ -78,6 +78,10 @@ import Bidding from '@/views/reception/bid/Bidding'
 import BidRequest from '@/views/reception/bidRequest/BidRequest'
 //4、信用贷  进行贷款  BidRequestCreditting
 import BidRequestCreditting from '@/views/reception/bidRequest/BidRequestCreditting'
+//4、车贷  进行贷款  BidRequestCarring
+import BidRequestCarring from '@/views/reception/bidRequest/BidRequestCarring'
+//4、房贷  进行贷款  BidRequestHousing
+import BidRequestHousing from '@/views/reception/bidRequest/BidRequestHousing'
 
 //3、会员中心
 //4、会员中心首页（默认跳转到用户信息界面）
@@ -259,10 +263,20 @@ export default new Router({
           name: 'BidRequest',
           component: BidRequest
         },
-        {// 信用贷  信用贷贷款载体  bidRequestCreditting
+        {// 信用贷  信用贷贷款载体  idRequestCreditting
           path: '/reception/BidRequestCreditting',
           name: 'BidRequestCreditting',
           component: BidRequestCreditting
+        },
+        {// 车贷  车贷贷款载体  BidRequestCarring
+          path: '/reception/BidRequestCarring',
+          name: 'BidRequestCarring',
+          component: BidRequestCarring
+        },
+        {// 房贷  房贷贷款载体  BidRequestHousing
+          path: '/reception/BidRequestHousing',
+          name: 'BidRequestHousing',
+          component: BidRequestHousing
         },
         {//用户中心载体
           path: '/reception/UserCenter',

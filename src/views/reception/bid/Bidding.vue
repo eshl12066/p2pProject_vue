@@ -51,6 +51,7 @@
             <el-col :span="6">总利息 : 100￥</el-col>
           </div><br/><br/><br/><br/><br/>
         </el-card>
+        <p align="left"><el-button @click="cancle" type="default">取消投标</el-button></p>
         <div style="float: right; margin: 20px;">
           <el-button @click="back" type="default">修改投标金额</el-button>
           <el-button @click="next" icon="el-icon-check" type="success">申请投标</el-button>
