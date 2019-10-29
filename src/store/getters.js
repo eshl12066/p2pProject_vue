@@ -4,7 +4,12 @@ export default{
   },
   getJwt:(state)=>{
     return state.jwt;
+  }
+  ,
+  getVerificationJwt:(state)=>{
+    return state.verificationJwt;
   },
+
   getMenus:(state)=>{
     return state.menus;
   },

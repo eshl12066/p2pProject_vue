@@ -4,6 +4,10 @@ export default{
   },
   setJwt:(state, payload)=>{
     state.jwt = payload.jwt;
+  }
+  ,
+  setVerificationJwt:(state, payload)=>{
+    state.verificationJwt = payload.verificationJwt;
   },
   setMenus:(state, payload)=>{
     state.menus = payload.menus;
