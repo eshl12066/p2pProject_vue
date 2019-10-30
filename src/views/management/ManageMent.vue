@@ -1,5 +1,5 @@
 <template>
-    <!--后台界面-->
+  <!--后台界面-->
   <el-container class="main-container">
     <el-aside v-bind:class="asideClass">
       <LeftNav></LeftNav>
