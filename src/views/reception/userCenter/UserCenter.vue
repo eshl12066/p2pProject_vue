@@ -1,4 +1,5 @@
 <template>
+  <!--<router-view></router-view>-->
   <div >
     <el-container class="main-container">
       <el-aside v-bind:class="asideClass">
@@ -15,7 +16,6 @@
 <script>
   // 导入组件
   import LeftNav from './Left.vue'
-
   export default {
     name: "UserCenter",
     components:{

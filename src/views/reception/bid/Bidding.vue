@@ -87,7 +87,7 @@
       toRouter(){
         // 跳转路由 返回首页
         this.$router.push({
-          path: '/Reception'
+          path: '/Reception/ReceptionHome'
         });
       },
       //取消投标  返回上一界面

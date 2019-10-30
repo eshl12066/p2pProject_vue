@@ -89,9 +89,13 @@ import UserCenter from '@/views/reception/userCenter/UserCenter'
 
 //5、会员投资管理
 import UserBid from '@/views/reception/userCenter/userBid/UserBid'
+//5、会员 投资管理 详情
+import UserBidDetails from '@/views/reception/userCenter/userBid/UserBidDetails'
 
 //5、会员借贷管理
 import UserBidRequest from '@/views/reception/userCenter/userBidRequest/UserBidRequest'
+//5、会员 借贷管理 详情
+import UserBidRequestDetails from '@/views/reception/userCenter/userBidRequest/UserBidRequestDetails'
 
 //5、会员消息管理
 import UserMessage from '@/views/reception/userCenter/userMessage/UserMessage'
@@ -286,11 +290,20 @@ export default new Router({
             path: '/reception/userCenter/UserBid',
             name: 'UserBid',
             component: UserBid
+          },{//会员中心下面的跳转组件(会员的 某一 投资 详情)
+            path: '/reception/userCenter/UserBidDetails',
+            name: 'UserBidDetails',
+            component: UserBidDetails
           },
             {//会员借贷
               path: '/reception/userCenter/UserBidRequest',
               name: 'UserBidRequest',
               component: UserBidRequest
+            },
+            {//会员 的 某一 借贷 详情
+              path: '/reception/userCenter/UserBidRequestDetails',
+              name: 'UserBidRequestDetails',
+              component: UserBidRequestDetails
             },
             {//会员信息
               path: '/reception/userCenter/UserMessage',

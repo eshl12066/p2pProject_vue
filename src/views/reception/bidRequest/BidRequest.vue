@@ -1,14 +1,42 @@
 <template>
   <!--<el-container>-->
   <!--<el-aside></el-aside>&lt;!&ndash;居中&ndash;&gt;-->
-
+  <div style="background-color: white;">
+    <el-row>
+      <el-col :span="24">
+        <el-carousel trigger="click" :height="bannerH +'2000px'" >
+          <el-carousel-item v-for="(item,index) in bannerImgLst" :key="index">
+            <img src="../../../assets/img/3.jpg" class="bannerImg" width="1500px"/>
+          </el-carousel-item>
+          <el-carousel-item v-for="(item,index) in bannerImgLst" :key="index">
+            <img src="../../../assets/img/4.jpg" class="bannerImg" width="1500px"/>
+          </el-carousel-item>
+          <el-carousel-item v-for="(item,index) in bannerImgLst" :key="index">
+            <img src="../../../assets/img/5.jpg" class="bannerImg" width="1500px"/>
+          </el-carousel-item>
+          <el-carousel-item v-for="(item,index) in bannerImgLst" :key="index">
+            <img src="../../../assets/img/6.jpg" class="bannerImg" width="1500px"/>
+          </el-carousel-item>
+        </el-carousel><br/><br/>
+      </el-col>
+      <div style="background-color: #eee;">
+        <el-col style="text-indent: 48px; font-size: 36px;" :span="8">
+          <i class="el-icon-s-management" style="text-indent: 13px; height: 50px;">安全理财</i>
+        </el-col>
+        <el-col style="text-indent: 48px; font-size: 36px;" :span="8">
+          <i class="el-icon-s-marketing" style="text-indent: 13px; height: 50px;">高收益</i>
+        </el-col>
+        <el-col style="text-indent: 48px; font-size: 36px;" :span="8">
+          <i class="el-icon-s-finance" style="height: 50px;">随时随</i>
+        </el-col>
+      </div>
+    </el-row><br/><br/>
   <el-row >
-    <br/><br/>
     <!--空格 间隙-->
     <el-col :span="2">&nbsp;</el-col>
     <el-col :span="6">
       <!--信用贷-->
-        <el-card class="box-card" style="background-color: #FFC062;"><br/>
+        <el-card class="box-card" style="background-color: powderblue;"><br/>
           <div slot="header" class="clearfix">
             <strong style="color: deeppink">&nbsp;信 用 贷</strong><br/>
             <el-tooltip align="right" effect="light" placement="left-end">
@@ -48,7 +76,7 @@
     <el-col :span="1">&nbsp;</el-col>
     <el-col :span="6">
       <!--车易贷-->
-        <el-card class="box-card" style="background-color: #FFC062 ;"><br/>
+        <el-card class="box-card" style="background-color: lightblue;"><br/>
           <div slot="header" class="clearfix">
             <strong style="color: deeppink">&nbsp;车 易 贷</strong><br/>
             <el-tooltip align="right" effect="light" placement="left-end">
@@ -90,7 +118,7 @@
 
     <el-col :span="6">
       <!--房易贷-->
-        <el-card class="box-card" style="background-color: #FFC062;"><br/>
+        <el-card class="box-card" style="background-color: lightskyblue;"><br/>
           <div slot="header" class="clearfix">
             <strong style="color: deeppink">&nbsp;房 易 贷</strong><br/>
             <el-tooltip align="right" effect="light" placement="left-end">
@@ -132,6 +160,7 @@
 
   </el-row>
   <!--</el-container>-->
+  </div>
 </template>
 
 <script>
@@ -139,10 +168,14 @@
     name: "BidRequestCreditting",
     data() {
       return {
-
+        bannerH:200,//图片轮番滚动
+        bannerImgLst:['src/assets/img/7.png'],
       };
     },
     methods: {
+      setBannerH(){//图片轮番滚动
+        this.bannerH = document.body.clientWidth / 4
+      },
       //跳转到信用贷贷款
       toCreditting(){
         // 跳转路由 去信用贷贷款界面 Creditting
@@ -164,8 +197,10 @@
           path:"/reception/BidRequestHousing"
         });
       }
-
-    }
+    },
+    mounted(){
+      this.setBannerH()
+    },
   };
 </script>
 
