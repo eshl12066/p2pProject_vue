@@ -18,6 +18,7 @@
           <el-col :span="24">
             <div class="grid-content bg-purple-dark">
               <el-button type="primary" style="width:100%;" @click="doLogin">提交</el-button>
+              <!--<el-button type="primary" style="width:100%;" @click="selectone">测试</el-button>-->
             </div>
           </el-col>
         </el-row>
@@ -54,7 +55,7 @@
       console.log(url);
       this.axios.post(url,{}).then((response)=>{
 
-        console.log(response.data);
+        // console.log(response.data);
         this.userCodeSrc = response.data;
       }).catch(function(error){
         console.log(error);
@@ -68,22 +69,22 @@
 
         this.axios.post(url, this.ruleForm).then((response)=> {
           console.log(response.data);
-          // if (response.data.code == 1) {
-          //   this.$message({
-          //
-          //     showClose: true,
-          //     message: response.data.msg,
-          //     type: 'success'
-          //   });
-          //   this.$router.push({path:'/ManageMent'})
-          //
-          // } else {
-          //   this.$message({
-          //     showClose: true,
-          //     message: response.data.msg,
-          //     type: 'error'
-          //   });
-          // }
+          if (response.data.code == 1) {
+            this.$message({
+
+              showClose: true,
+              message: response.data.msg,
+              type: 'success'
+            });
+            this.$router.push({path:'/ManageMent'})
+
+          } else {
+            this.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: 'error'
+            });
+          }
 
         }).catch(function(error) {
           console.log(error);
@@ -94,12 +95,27 @@
         let url = this.axios.urls.SYSTEM_USER_VERIFICATION;
 
         this.axios.post(url,{}).then((response)=>{
-          console.log(response.data);
+          // console.log(response.data);
           this.userCodeSrc = response.data;
         }).catch(function(error){
           console.log(error);
         });
       }
+      // ,
+      // selectone(){
+      //   let url = this.axios.urls.SYSTEM_USER_SELECTONE;
+      //   // console.log(url+","+window.vm.$store.getters.getJwt+",get"+window.vm.$store.getters.getVerificationJwt);
+      //
+      //   this.axios.post(url,{id:1}).then((response)=>{
+      //     console.log("整个："+response.data);
+      //     console.log(response.data);
+      //
+      //   }).catch(function(error){
+      //     console.log(error);
+      //   });
+      // }
+
+
 
     }
 
