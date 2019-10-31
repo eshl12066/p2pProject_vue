@@ -9,16 +9,16 @@
     <el-tab-pane label="充值记录" name="recharge">
       <!--查询               -->
       <el-form size="mini" :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="编号">
+        <el-form-item label="用户名">
           <el-input v-model="formInline.name" placeholder="用户名"></el-input>
         </el-form-item>
         <el-form-item label="充值时间">
           <el-col :span="8">
-            <el-date-picker value-format="yyyy-MM-dd" type="date" placeholder="选择日期" v-model="formInline.date1" style="width: 100%;"></el-date-picker>
+            <el-date-picker value-format="yyyy-MM-dd" type="date" @change="dateChangebirthday1" placeholder="选择日期" v-model="value1" style="width: 100%;"></el-date-picker>
           </el-col>
           <el-col class="line" :span="2">&nbsp;&nbsp;至</el-col>
           <el-col :span="8">
-            <el-date-picker value-format="yyyy-MM-dd"  type="date" placeholder="选择日期" v-model="formInline.date2" style="width: 100%;"></el-date-picker>
+            <el-date-picker value-format="yyyy-MM-dd"  type="date" @change="dateChangebirthday2" placeholder="选择日期" v-model="value2" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item>
@@ -62,10 +62,10 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage4"
-        :page-sizes="[10, 20, 30, 40, 50]"
-        :page-size="query.size"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="query.total">
+        :total="40">
       </el-pagination>
 
     </el-tab-pane>
@@ -125,15 +125,15 @@
     data() {
       return {
         //分页
-        currentPage4: 1, //默认第几页
-        total:'',
-        size:"",
-        qurey:"",
+        currentPage4: 4,
+        value1:'',
+        value2:'',
         //充值查询属性
+
         formInline: {
           name: '',
-          date1:"",
-          date2:""
+          start:"",
+          stop:""
         },
         //提现查询属性
         formInline2: {
@@ -145,7 +145,7 @@
         activeName: 'recharge',
         //充值tab的data
         rechargedata: [],
-        //提现tab的data
+
       tableData2: [{
         date: '2016-05-02',
         name: '王小',
@@ -166,12 +166,19 @@
       }
     },
   methods: {
+    dateChangebirthday1(val){
+      this.formInline.start = new date(val);
+
+    },
+    dateChangebirthday2(val){
+      this.formInline.stop = new date(val);
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
     onSubmit() {
-      console.log('submit!');
       console.log(this.formInline);
+      this.search();
     },
     onSubmit2() {
       console.log('submit2!');
@@ -181,14 +188,34 @@
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+    },
+    search(){
+      var formData = {
+        name: this.name,
+        start:'',
+        stop: ''
+      };
+      if(this.value1!=null){
+        formData.start =  this.value1
+      };
+      if(this.value2!=null){
+        formData.stop =  this.value2
+      };
+      let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
+      this.axios.post(url, formData).then((response) => {
+        console.log(response);
+        this.rechargedata = response.data.data;
+      }).catch((response) => {
+        //carch则是异常
+        console.log(response);
+      });
     }
   },
     created(){
-      //获取充值data
       let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
-      this.axios.post(url, this.formInline).then((response) => {
+      this.axios.post(url, {}).then((response) => {
+        console.log(response);
         this.rechargedata = response.data.data;
-        this.query = response.data.query;
       }).catch((response) => {
         //carch则是异常
         console.log(response);
