@@ -11,20 +11,18 @@ export default {
 
   //后台
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
+  'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
 
-  //会员
-  'MEMBER_MANAGE_GETALL':'/members/MList',//会员管理模糊查
+  //会员模块
+  'MEMBER_MANAGE_GETALL':'/members/getMAll',//会员管理模糊查
+  'MEMBER_CLSELECT':'/membersMaterials/getCAll',//会员材料模糊查询
+  'MEMBER_CLONE':'/membersMaterials/getCLOne',//会员材料单个查询
 
   //资产模块
   'SYSTEM_MENU_TREE_LIST': '/vue/treeNodeAction_selectbylist.action', //树形的另一个
-	'SYSTEM_USER_DOREG': '/vue/userAction_reg.action', //用户注册
 	'SYSTEM_MENU_TREE': '/vue/treeNodeAction_selectlist.action', //左侧树形菜单加载
-	'SYSTEM_ARTICLE_LIST': '/vue/articleAction_list.action', //文章列表
-	'SYSTEM_ARTICLE_ADD': '/vue/articleAction_add.action', //文章新增
-	'SYSTEM_ARTICLE_EDIT': '/vue/articleAction_edit.action', //文章修改
-	'SYSTEM_ARTICLE_DEL': '/vue/articleAction_del.action', //文章删除
-	'SYSTEM_USER_GETASYNCDATA': '/vue/userAction_getAsyncData.action', //vuex中的异步加载数据
 	'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
 		return this.SERVER + this[k];
 	}
+
 }

@@ -7,7 +7,8 @@
 
   <div id="app">
     <el-form label-width="100px">
-      <el-form-item style="background-color: rgb(195, 202, 215);" label="实名审核管理">
+      <el-form-item style="background-color: rgb(195, 202, 215);">
+        实名审核管理
       </el-form-item>
       <el-row>
         <el-col :span="4">
@@ -95,13 +96,7 @@
         input5: '',
         input6: '',
         tableList:{
-          name:'',
-          realname:'',
-          sex:'',
-          id_number:'',
-          address:'',
-          state:'',
-          auditor_id:''
+
         },
       }
     },

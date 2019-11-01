@@ -16,7 +16,8 @@
   <!--1、每次投资的增加比例为1:100 (0.01)-->
   <!--2、每次成功还款的增加比例为1：10 (0.1)-->
     <el-form label-width="100px">
-      <el-form-item style="background-color: rgb(195, 202, 215);" label="会员身份审核">
+      <el-form-item style="background-color: rgb(195, 202, 215);">
+        会员身份审核
       </el-form-item>
       <el-row>
         <el-col :span="4">
@@ -26,10 +27,10 @@
 
         <div align="center">
           <el-col :span="20">状态：
-            <el-select value="1" v-model="input1" @focus="focus" placeholder="请选择" popper-class="RNQuery" no-data-text="请选择" no-match-text="没有找到相应的结果..." loading-text="请稍后" multiple-limit="6" multiple collapse-tags automatic-dropdown default-first-option reserve-keyword allow-create>
+            <el-select v-model="input1" @focus="focus" placeholder="请选择" popper-class="RNQuery" no-data-text="请选择" no-match-text="没有找到相应的结果..." loading-text="请稍后" multiple-limit="6" multiple collapse-tags automatic-dropdown default-first-option reserve-keyword allow-create>
               <el-option label="请选择" value="-1"></el-option>
             </el-select>申请时间：
-            <el-date-picker v-model="value2" :editable="true" :clearable="true" type="daterange">
+            <el-date-picker v-model="value2" :editable="true" type="daterange">
             </el-date-picker>
             <el-button type="primary">查询</el-button>
           </el-col>
@@ -42,20 +43,20 @@
       <el-row>
         <div style="width: 72%;">
           <el-col style="width: 128%;" :span="24">
-            <el-table  :data="tableData"  border style="left: 45px;" :fit="true" :show-header="true" highlight-current-row>
-              <el-table-column prop="date" style="width: 0%;"  label="用户名" width="0px" resizable="true" sortable>
+            <el-table  style="left: 45px;" :data="tableData" :fit="true" :show-header="true" highlight-current-row>
+              <el-table-column prop="name" style="width: 0%;"  label="用户名" width="0px" resizable="true" sortable>
               </el-table-column>
-              <el-table-column prop="name" style="width: 0%; max-height: 0px;"  label="真实姓名" resizable="true" sortable filter-multiple="true" :type="selection">
+              <el-table-column prop="realname" style="width: 0%; max-height: 0px;"  label="真实姓名" resizable="true" sortable filter-multiple="true" :type="selection">
               </el-table-column>
-              <el-table-column  prop="province"  label="性别" sortable resizable="true">
+              <el-table-column  prop="sex"  label="性别" sortable resizable="true">
               </el-table-column>
-              <el-table-column prop="city" label="身份证号码" resizable="true" sortable>
+              <el-table-column prop="id_number" label="身份证号码" resizable="true" sortable>
               </el-table-column>
               <el-table-column prop="address" label="身份证地址" resizable="true" sortable>
               </el-table-column>
-              <el-table-column prop="zip" label="状态" resizable="true" sortable>
+              <el-table-column prop="state" label="状态" resizable="true" sortable>
               </el-table-column>
-              <el-table-column prop="city" label="审核人" resizable="true" sortable>
+              <el-table-column prop="auditor_id" label="审核人" resizable="true" sortable>
               </el-table-column>
               <el-table-column
                 fixed="right"
@@ -65,8 +66,7 @@
                   <!--弹出框-->
                   <el-button type="warning" plain size="small" @click="dialogFormVisible = true">审核</el-button>
 
-
-                  <el-dialog title="实名认证审核" :visible.sync="dialogFormVisible" append-to-body="false" >
+                  <el-dialog title="身份认证审核" :visible.sync="dialogFormVisible" append-to-body="false" >
                     <el-form :model="form" size="mini">
                       <el-row>
                       <el-col :span="12">
@@ -161,52 +161,7 @@
         input4: '',
         input5: '',
         input6: '',
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1517 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1519 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        }],
-        gridData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
+        tableData: [ ],
         dialogFormVisible: false,
         form: {
           name: '',
@@ -221,6 +176,15 @@
         formLabelWidth: '120px'
       }
 
+    },created(){
+      let url = this.axios.urls.MEMBER_MANAGE_GETALL;
+      this.axios.post(url, {}).then((response) => {
+        console.log(response);
+        this.tableData = response.data.data;
+      }).catch((response) => {
+        //carch则是异常
+        console.log(response);
+      });
     }
   }
 </script>
