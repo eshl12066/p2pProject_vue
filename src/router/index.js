@@ -179,64 +179,64 @@ export default new Router({
         }
         ,
         {//业务管理
-          path: '/professionManage/BidManage',
+          path: '/professionManage/BidManage',//投资管理
           name: 'BidManage',
           component: BidManage
         }
         ,
         {
-          path: '/professionManage/BidRequestCredit',
+          path: '/professionManage/BidRequestCredit',//信用贷
           name: 'BidRequestCredit',
           component: BidRequestCredit
         },
         {
-          path: '/professionManage/BidRequestCar',
+          path: '/professionManage/BidRequestCar',//车贷
           name: 'BidRequestCar',
           component: BidRequestCar
         }
         ,
         {
-          path: '/professionManage/BidRequestHome',
+          path: '/professionManage/BidRequestHome',//房贷
           name: 'BidRequestHome',
           component: BidRequestHome
         }
         ,
         {//权限管理
-          path: '/sysManage/UserManage',
+          path: '/sysManage/UserManage',//用户管理
           name: 'UserManage',
           component: UserManage
         }
         ,
         {
-          path: '/sysManage/RoleManage',
+          path: '/sysManage/RoleManage',//角色管理
           name: 'RoleManage',
           component: RoleManage
         },
         {
-          path: '/sysManage/LoginManage',
+          path: '/sysManage/LoginManage',//登陆日志管理
           name: 'LoginManage',
           component: LoginManage
         }
         ,
         {
-          path: '/sysManage/OpenManage',
+          path: '/sysManage/OpenManage',//操作日志管理
           name: 'OpenManage',
           component: OpenManage
         }
         ,
         {//设置管理
-          path: '/settingManage/DictManage',
+          path: '/settingManage/DictManage',//数据字典
           name: 'DictManage',
           component: DictManage
         },
         {
-          path: '/settingManage/MessageManage',
+          path: '/settingManage/MessageManage',//消息管理
           name: 'MessageManage',
           component: MessageManage
         }
         ,
         {
-          path: '/settingManage/SettingManage',
+          path: '/settingManage/SettingManage',//设置管理
           name: 'SettingManage',
           component: SettingManage
         }
@@ -300,52 +300,55 @@ export default new Router({
               name: 'UserBidRequest',
               component: UserBidRequest
             },
+
             {//会员 的 某一 借贷 详情
               path: '/reception/userCenter/UserBidRequestDetails',
               name: 'UserBidRequestDetails',
               component: UserBidRequestDetails
             },
-            {//会员信息
+
+            {//会员消息
+
               path: '/reception/userCenter/UserMessage',
               name: 'UserMessage',
               component: UserMessage
             }
             ,
             {//会员账户
-              path: '/reception/userCenter/UserAccount',
+              path: '/reception/userCenter/UserAccount',//会员账户
               name: 'UserAccount',
               component: UserAccount
             },
             {
-              path: '/reception/userCenter/UserDetail',
+              path: '/reception/userCenter/UserDetail',//会员详情
               name: 'UserDetail',
               component: UserDetail
             }
             ,
             {
-              path: '/reception/userCenter/Usersf',
+              path: '/reception/userCenter/Usersf',//会员身份
               name: 'Usersf',
               component: Usersf
             },
             {
-              path: '/reception/userCenter/Usercl',
+              path: '/reception/userCenter/Usercl',//会员材料
               name: 'Usercl',
               component: Usercl
             }
             ,
             {//会员资产
-              path: '/reception/userCenter/UserMoney',
+              path: '/reception/userCenter/UserMoney',//会员交易记录
               name: 'UserMoney',
               component: UserMoney
             },
             {
-              path: '/reception/userCenter/UserRecharge',
+              path: '/reception/userCenter/UserRecharge',//充值记录
               name: 'UserRecharge',
               component: UserRecharge
             }
             ,
             {
-              path: '/reception/userCenter/UserWithdraw',
+              path: '/reception/userCenter/UserWithdraw',//提现记录
               name: 'UserWithdraw',
               component: UserWithdraw
             }
