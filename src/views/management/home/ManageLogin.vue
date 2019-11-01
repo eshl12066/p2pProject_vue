@@ -52,7 +52,6 @@
     created(){
       let url = this.axios.urls.SYSTEM_USER_VERIFICATION;
 
-      console.log(url);
       this.axios.post(url,{}).then((response)=>{
 
         // console.log(response.data);
