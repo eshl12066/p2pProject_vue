@@ -308,7 +308,6 @@ export default new Router({
             },
 
             {//会员消息
-
               path: '/reception/userCenter/UserMessage',
               name: 'UserMessage',
               component: UserMessage

@@ -61,7 +61,7 @@
         <el-table-column prop="disable_date" label="投标结束时" width="128" align="center" sortable ></el-table-column>
         <el-table-column prop="plan" label="投标进度" align="center" width="268" sortable>
           <template slot-scope="scope">
-           <!--<el-progress :percentage="plan"></el-progress>-->
+           <el-progress :percentage="plan"></el-progress>
           </template>
         </el-table-column>
         <el-table-column label="操  作" align="center">
