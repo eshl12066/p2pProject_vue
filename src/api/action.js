@@ -7,7 +7,14 @@ export default {
   'SERVER': 'http://localhost:8080/p2pProject', //服务器
   'SYSTEM_USER_VERIFICATION':'/sysUser/verificationCode',//验证码验证
   'SYSTEM_USER_DOLOGIN': '/sysUser/login', //用户登陆
-  'SYSTEM_USER_SELECTONE': '/sysUser/selectOne',//查询单个
+  'SYSTEM_USER_SELECTONE': '/sysUser/selectOne',//查询单个员工
+  'SYSTEM_ROLE_ROLEQUERY': '/sysRole/roleQuery',//查询角色
+  'SYSTEM_ROLE_SELECTONE': '/sysRole/selectOne',//查询角色单个角色
+  'SYSTEM_ROLE_ROLEADD': '/sysRole/roleAdd',//增加角色
+  'SYSTEM_ROLE_ROLEUPDATE': '/sysRole/roleUpdate',//修改角色
+  'SYSTEM_ROLE_ROLEDEL': '/sysRole/roleDel',//删除角色
+
+
 
   //业务模块
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
