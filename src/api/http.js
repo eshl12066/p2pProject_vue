@@ -37,7 +37,7 @@ axios.interceptors.request.use(function(config) {
 // 响应拦截器
 axios.interceptors.response.use(function(response) {
   // 用户权限Jwt;
-  var jwt = response.headers['userjwt'];
+  var jwt = response.headers['jwt'];
 
   //验证码jwt;
   var verificationJwt = response.headers['verificationjwt'];
