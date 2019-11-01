@@ -9,6 +9,11 @@ export default {
   'SYSTEM_USER_DOLOGIN': '/sysUser/login', //用户登陆
   'SYSTEM_USER_USERCODE': '/vue/userAction_userCode.action',
 
+  //前台-我要投标界面
+  'SYSTEM_BID_BIDQUERY': '/business/bidQuery', //投标界面数据展示
+  'SYSTEM_BID_SELECTONE':'/business/selectOne',//投标详情
+  'SYSTEM_BID_BIDADD': '/business/bidAdd', //我要投标
+
   //后台
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
 
