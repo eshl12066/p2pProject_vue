@@ -59,7 +59,6 @@ import MessageManage from '@/views/management/settingManage/MessageManage'
 import SettingManage from '@/views/management/settingManage/SettingManage'
 
 
-
 //1、前台界面
 import Reception from '@/views/reception/Reception'
 
@@ -71,10 +70,18 @@ import ReceptionHome from '@/views/reception/home/ReceptionHome'
 //3、我要投资
 //4、投资列表
 import Bid from '@/views/reception/bid/Bid'
+//4、进行投资界面
+import Bidding from '@/views/reception/bid/Bidding'
 
 //3、我要借贷
-//4、借贷列表
+//4、借贷列表bidRequestCreditting
 import BidRequest from '@/views/reception/bidRequest/BidRequest'
+//4、信用贷  进行贷款  BidRequestCreditting
+import BidRequestCreditting from '@/views/reception/bidRequest/BidRequestCreditting'
+//4、车贷  进行贷款  BidRequestCarring
+import BidRequestCarring from '@/views/reception/bidRequest/BidRequestCarring'
+//4、房贷  进行贷款  BidRequestHousing
+import BidRequestHousing from '@/views/reception/bidRequest/BidRequestHousing'
 
 //3、会员中心
 //4、会员中心首页（默认跳转到用户信息界面）
@@ -82,9 +89,13 @@ import UserCenter from '@/views/reception/userCenter/UserCenter'
 
 //5、会员投资管理
 import UserBid from '@/views/reception/userCenter/userBid/UserBid'
+//5、会员 投资管理 详情
+import UserBidDetails from '@/views/reception/userCenter/userBid/UserBidDetails'
 
 //5、会员借贷管理
 import UserBidRequest from '@/views/reception/userCenter/userBidRequest/UserBidRequest'
+//5、会员 借贷管理 详情
+import UserBidRequestDetails from '@/views/reception/userCenter/userBidRequest/UserBidRequestDetails'
 
 //5、会员消息管理
 import UserMessage from '@/views/reception/userCenter/userMessage/UserMessage'
@@ -96,25 +107,21 @@ import Usersf from '@/views/reception/userCenter/userAccount/Usersf'
 import UserDetail from '@/views/reception/userCenter/userAccount/UserDetail'
 
 
-
 // //5、会员资产管理
 import UserMoney from '@/views/reception/userCenter/userMoney/UserMoney'
 import UserRecharge from '@/views/reception/userCenter/userMoney/UserRecharge'
 import UserWithdraw from '@/views/reception/userCenter/userMoney/UserWithdraw'
 
 
-
-
-
 Vue.use(Router)
 
 export default new Router({
   routes: [{//管理员登陆
-      path: '/ManageLogin',
-      name: 'ManageLogin',
-      component: ManageLogin
+    path: '/ManageLogin',
+    name: 'ManageLogin',
+    component: ManageLogin
 
-    },
+  },
     {//前台登陆
       path: '/ReceptionLogin',
       name: 'ReceptionLogin',
@@ -250,12 +257,31 @@ export default new Router({
           name: 'Bid',
           component: Bid
         },
+        {//正在投资载体
+          path: '/reception/Bidding',
+          name: 'Bidding',
+          component: Bidding
+        },
         {//借贷载体
           path: '/reception/BidRequest',
           name: 'BidRequest',
           component: BidRequest
-        }
-        ,
+        },
+        {// 信用贷  信用贷贷款载体  idRequestCreditting
+          path: '/reception/BidRequestCreditting',
+          name: 'BidRequestCreditting',
+          component: BidRequestCreditting
+        },
+        {// 车贷  车贷贷款载体  BidRequestCarring
+          path: '/reception/BidRequestCarring',
+          name: 'BidRequestCarring',
+          component: BidRequestCarring
+        },
+        {// 房贷  房贷贷款载体  BidRequestHousing
+          path: '/reception/BidRequestHousing',
+          name: 'BidRequestHousing',
+          component: BidRequestHousing
+        },
         {//用户中心载体
           path: '/reception/UserCenter',
           name: 'UserCenter',
@@ -264,12 +290,23 @@ export default new Router({
             path: '/reception/userCenter/UserBid',
             name: 'UserBid',
             component: UserBid
+          },{//会员中心下面的跳转组件(会员的 某一 投资 详情)
+            path: '/reception/userCenter/UserBidDetails',
+            name: 'UserBidDetails',
+            component: UserBidDetails
           },
             {//会员借贷
               path: '/reception/userCenter/UserBidRequest',
               name: 'UserBidRequest',
               component: UserBidRequest
             },
+
+            {//会员 的 某一 借贷 详情
+              path: '/reception/userCenter/UserBidRequestDetails',
+              name: 'UserBidRequestDetails',
+              component: UserBidRequestDetails
+            },
+
             {//会员消息
               path: '/reception/userCenter/UserMessage',
               name: 'UserMessage',

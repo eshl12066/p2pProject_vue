@@ -73,15 +73,15 @@
       <!--查询               -->
       <el-form size="mini" :inline="true" :model="formInline2" class="demo-form-inline">
         <el-form-item label="用户名">
-          <el-input v-model="formInline2.user" placeholder="用户名"></el-input>
+          <el-input v-model="formInline2.name" placeholder="用户名"></el-input>
         </el-form-item>
-        <el-form-item label="活动时间">
+        <el-form-item label="提现时间">
           <el-col :span="8">
-            <el-date-picker type="date" placeholder="选择日期" v-model="formInline2.date1" style="width: 100%;"></el-date-picker>
+            <el-date-picker value-format="yyyy-MM-dd" type="date"  placeholder="选择日期" v-model="value3" style="width: 100%;"></el-date-picker>
           </el-col>
-          <el-col class="line" :span="2">-</el-col>
+          <el-col class="line" :span="2">&nbsp;&nbsp;至</el-col>
           <el-col :span="8">
-            <el-time-picker placeholder="选择时间" v-model="formInline2.date2" style="width: 100%;"></el-time-picker>
+            <el-date-picker value-format="yyyy-MM-dd"  type="date" placeholder="选择日期" v-model="value4" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item>
@@ -90,25 +90,17 @@
       </el-form>
       <!--表单                          -->
       <el-divider></el-divider>
-
-      <el-table
-        :data="tableData2"
-        style="width: 100%">
-        <el-table-column
-          prop="date"
-          label="日期"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="姓名"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="address"
-          label="地址">
-        </el-table-column>
+      <el-table :data="tableData2" style="width: 100%">
+        <el-table-column prop="id" label="ID" width="50"></el-table-column>
+        <el-table-column prop="name" label="申请人"width="70"> </el-table-column>
+        <el-table-column prop="apply_time" width="170" label="申请时间"> </el-table-column>
+        <el-table-column prop="amount" label="提现金额"> </el-table-column>
+        <el-table-column prop="fee" label="手续费"> </el-table-column>
+        <el-table-column prop="state" label="状态" width="180"></el-table-column>
+        <el-table-column prop="trade_code" label="说明"width="250"> </el-table-column>
       </el-table>
+
+
 
     </el-tab-pane>
   </el-tabs>
@@ -128,8 +120,9 @@
         currentPage4: 4,
         value1:'',
         value2:'',
+        value3:'',
+        value4:'',
         //充值查询属性
-
         formInline: {
           name: '',
           start:"",
@@ -137,7 +130,7 @@
         },
         //提现查询属性
         formInline2: {
-          user: '',
+          name: '',
           date1:"",
           date2:"",
         },
@@ -146,29 +139,14 @@
         //充值tab的data
         rechargedata: [],
 
-      tableData2: [{
-        date: '2016-05-02',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData2: []
       }
     },
   methods: {
     dateChangebirthday1(val){
+      console.log("11"+val);
       this.formInline.start = new date(val);
-
+      console.log("11"+this.formInline.start);
     },
     dateChangebirthday2(val){
       this.formInline.stop = new date(val);
@@ -182,6 +160,7 @@
     },
     onSubmit2() {
       console.log('submit2!');
+      this.search2();
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -191,7 +170,7 @@
     },
     search(){
       var formData = {
-        name: this.name,
+        name: this.formInline.name,
         start:'',
         stop: ''
       };
@@ -209,17 +188,32 @@
         //carch则是异常
         console.log(response);
       });
-    }
-  },
-    created(){
-      let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
-      this.axios.post(url, {}).then((response) => {
+    },
+    search2(){
+      var formData = {
+        name: this.formInline2.name,
+        start:'',
+        stop: ''
+      };
+      if(this.value3!=null){
+        formData.start =  this.value3
+      };
+      if(this.value4!=null){
+        formData.stop =  this.value4
+      };
+      let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTALL;
+      this.axios.post(url, formData).then((response) => {
         console.log(response);
-        this.rechargedata = response.data.data;
+        this.tableData2 = response.data.data;
       }).catch((response) => {
         //carch则是异常
         console.log(response);
       });
+    }
+  },
+    created(){
+      this.search();
+      this.search2();
     }
   };
 </script>

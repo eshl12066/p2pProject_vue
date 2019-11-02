@@ -10,13 +10,6 @@
             <img src="../../../assets/img/1.jpg" class="bannerImg" width="1500px"/>
           </el-carousel-item>
         </el-carousel>
-        <!-- <div class="block">
-           <el-carousel height="480px"  ref="carousel" >
-             <el-carousel-item v-for="item in list" :key="item">
-               <img :src="item.bgurl">
-             </el-carousel-item>
-           </el-carousel>
-         </div>-->
         <div class="newstitle">
           <ul>
             <li v-for="item in list" :key="item"  @mouseover="change(item)">{{item.title}}</li>
@@ -150,7 +143,7 @@
     data () {
       return {
         bannerH:200,
-        bannerImgLst:['src/assets/img/1.jpg','src/assets/img/2.png']
+        bannerImgLst:['src/assets/img/1.jpg','src/assets/img/1.png']
       }
     },
     methods:{

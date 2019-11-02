@@ -25,8 +25,8 @@
 
         <el-menu router :default-active="$route.path" style="background-color: rgb(90,150,252);" mode="horizontal">
           <el-menu-item  style="margin-left: 920px; text-indent: 0px; font-size: 18px; color: rgb(247, 238, 238); background-color: rgb(90,150,252);" index="/reception/ReceptionHome">首页</el-menu-item>
-          <el-menu-item style="font-size: 18px; color: rgb(242, 238, 238); background-color: rgb(90,150,252);" index="/reception/Bid">我要借款</el-menu-item>
-          <el-menu-item style="font-size: 18px; color: rgb(247, 242, 242); background-color: rgb(90,150,252);" index="/reception/BidRequest">我要投资</el-menu-item>
+          <el-menu-item style="font-size: 18px; color: rgb(242, 238, 238); background-color: rgb(90,150,252);" index="/reception/Bid">我要投资</el-menu-item>
+          <el-menu-item style="font-size: 18px; color: rgb(247, 242, 242); background-color: rgb(90,150,252);" index="/reception/BidRequest">我要借款</el-menu-item>
           <el-menu-item style="font-size: 18px; color: rgb(249, 245, 245); background-color: rgb(90,150,252);" index="/reception/UserCenter">个人中心</el-menu-item>
           <el-menu-item style="font-size: 18px; color: rgb(242, 237, 237); background-color: rgb(90,150,252);" index="3~~b3131e94-ac9c-4cc4-a851-0064adfd4d44">关于我们</el-menu-item>
         </el-menu>
