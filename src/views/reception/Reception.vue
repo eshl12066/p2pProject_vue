@@ -2,7 +2,7 @@
   <div style="background-color:white;">
     <!--前台界面-->
     <el-row >
-      <el-row style="margin-left: 700px;">
+      <el-row style="margin-left: 700px;" v-if="userMembers == null">
         <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
           <a href="http://www.magicalcoder.com">
             <i class="el-icon-user" style="color: rgb(92, 86, 86);">登录</i>
@@ -11,6 +11,13 @@
         <el-col style="color: rgb(52, 45, 45);" :span="3">
           <a href="http://www.magicalcoder.com">
             <i class="el-icon-thumb" style="color: rgb(92, 86, 86);">注册</i>
+          </a>
+        </el-col>
+      </el-row>
+      <el-row style="margin-left: 700px;" v-if="userMembers != null">
+        <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
+          <a href="http://www.magicalcoder.com">
+            <i class="el-icon-user" style="color: rgb(92, 86, 86);">{{userMembers.name}}用户中心</i>
           </a>
         </el-col>
       </el-row>
@@ -37,8 +44,11 @@
   export default {
     data(){
       return{
-
+          userMembers:null
       };
+    },
+    created(){
+      this.userMembers = this.$store.getters.getUserMembers;
     },
     components:{
 

@@ -68,13 +68,20 @@
 
         this.axios.post(url, this.ruleForm).then((response)=> {
           console.log(response.data);
-          if (response.data.code == 1) {
+          if (response.data.code == 0) {
             this.$message({
-
               showClose: true,
               message: response.data.msg,
               type: 'success'
             });
+            let user = response.data.data;
+
+
+            this.$store.commit('setUserManage',{
+              userManage:user
+            })
+
+
             this.$router.push({path:'/ManageMent'})
 
           } else {
