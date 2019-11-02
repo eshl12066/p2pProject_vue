@@ -4,9 +4,9 @@
       <img class="showimg" :src="collapsed?imgshow:imgsq" @click="doToggle()">
     </el-button>
     <el-submenu index="2" class="submenu">
-      <template slot="title">超级管理员</template>
+      <template slot="title">{{userManage.rolename}}</template>
       <el-menu-item index="2-1">设置</el-menu-item>
-      <el-menu-item index="2-2">个人中心</el-menu-item>
+      <el-menu-item index="2-2">{{userManage.username}}个人中心</el-menu-item>
       <el-menu-item @click="exit()" index="2-3">退出</el-menu-item>
     </el-submenu>
   </el-menu>
@@ -18,14 +18,33 @@
         return{
           collapsed:false,
           imgshow:require('@/assets/img/show.png'),
-          imgsq:require('@/assets/img/sq.png')
+          imgsq:require('@/assets/img/sq.png'),
+          userManage:null
         }
       },
+      created(){
+
+        this.userManage = this.$store.getters.getUserManage;
+
+
+      },
+
       methods:{
         exit(){
           this.$router.replace({
             path:'/ManageLogin'
           })
+          this.$store.commit('setUserManage',{
+            userManage:[]
+          })
+          this.$store.commit('setVerificationJwt',{
+            jwt:null
+          })
+          this.$store.commit('setJwt',{
+            verificationJwt:null
+          })
+
+
         },
         doToggle(){
           this.collapsed = !this.collapsed;

@@ -13,7 +13,6 @@
         <div align="left">
           <el-col :span="12">
             <el-select  v-model="ruleForm.rolestate" clearable placeholder="请选择" style="width: 20%;">
-              <el-option key="-1" label="全部" value="-1"></el-option>
               <el-option key="0" label="可用" value="0"></el-option>
               <el-option key="1" label="不可用" value="1"></el-option>
             </el-select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态
@@ -120,8 +119,6 @@
     </el-dialog>
 
     <!--弹出层 dialogFormVisible2-->
-
-
     <el-dialog title="修改角色" :visible.sync="dialogFormVisible2"  append-to-body="false">
       <el-form :model="form2" size="mini">
         <el-row>
@@ -143,7 +140,21 @@
         <el-button type="primary" @click="update">修改</el-button>
         <el-button @click="dialogFormVisible2 = false">取 消</el-button>
       </div>
+    </el-dialog>
 
+    <!--弹出层 dialogFormVisible3 ,角色授权-->
+    <el-dialog title="角色授权" :visible.sync="dialogFormVisible3"  append-to-body="false">
+      <el-form :model="form3" size="mini">
+        <el-row>
+          <el-tree :data="treedata" show-checkbox="" default-expand-all="" node-key="perid" ref="tree" highlight-current :props="defaultProps">
+          </el-tree>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="shouquan">确认授权</el-button>
+        <el-button @click="clearquan">清空</el-button>
+        <el-button @click="dialogFormVisible3 = false">取 消</el-button>
+      </div>
     </el-dialog>
 
   </div>
@@ -185,8 +196,97 @@
           description:"",
           rolestate:null
         },
-        formLabelWidth2: '120px'
+        formLabelWidth2: '120px',
 
+        dialogFormVisible3:false,
+        form3: {
+          roleid:null,
+          roleids:[]
+
+        },
+
+
+        //树形
+        defaultProps: {
+          children: 'children',
+          label: 'pername'
+        },
+        //树形静态数据
+        treedata:[{
+          perid: 1,
+          pername: '权限管理',
+          children: [{
+            perid: 17,
+            pername: '用户管理',
+          },{
+            perid:18,
+            pername:'角色管理'
+          },{
+            perid:19,
+            pername:'登陆日志管理'
+          },{
+            perid:20,
+            pername:'操作日志管理'
+          }]
+        }, {
+          perid: 2,
+          pername: '会员管理',
+          children: [{
+            perid: 25,
+            pername: '会员管理'
+          }, {
+            perid: 7,
+            pername: '会员身份管理'
+          },{
+            perid:8,
+            pername:'会员材料管理'
+          }]
+        }, {
+          perid: 3,
+          pername: '资金管理',
+          children: [{
+            perid: 4,
+            pername: '用户充值提现记录'
+          }, {
+            perid: 5,
+            pername: '用户交易记录'
+          },{
+            perid:6,
+            pername:'提现审核界面'
+          }
+          ]
+        },{
+          perid: 9,
+          pername: '业务管理',
+          children: [{
+            perid: 10,
+            pername: '投资管理'
+          }, {
+            perid: 14,
+            pername: '信用贷'
+          },{
+            perid:15,
+            pername:'车贷'
+          },{
+            perid:16,
+            pername:'房贷'
+          }
+          ]
+        },{
+          perid: 21,
+          pername: '设置管理',
+          children: [{
+            perid: 22,
+            pername: '数据字典'
+          }, {
+            perid: 23,
+            pername: '消息管理'
+          },{
+            perid:24,
+            pername:'费率管理'
+          }]
+        }
+        ]
 
 
 
@@ -223,6 +323,7 @@
         let url = this.axios.urls.SYSTEM_ROLE_SELECTONE;
         this.axios.post(url,{"roleid":roleid}).then((response)=>{
           console.log(response.data);
+
           let row = response.data
           this.form2.roleid = roleid;
           this.form2.rolename = row.rolename;
@@ -233,7 +334,34 @@
         });
 
       },
-      permissionDialog(roleid){
+      permissionDialog(roleid){//权限赋值
+        //给要传的参数赋值
+        this.form3.roleid = roleid;
+        this.dialogFormVisible3 = true;
+        let url = this.axios.urls.SYSTEM_ROLE_TREE;
+        this.axios.post(url,{"roleid":roleid}).then((response)=>{
+
+          let row = response.data
+
+          let checkedkeys = [];
+
+          for(var perid in row){
+            console.log(perid+","+row[perid].perid)
+            var childNodes =  this.$refs.tree.getNode(row[perid].perid).childNodes;
+            if(childNodes == null || childNodes.length == 0){
+              checkedkeys.push(row[perid].perid);
+            }
+          }
+          //设置选中
+          console.log(checkedkeys)
+          this.$refs.tree.setCheckedKeys([]);
+          this.$refs.tree.setCheckedKeys(checkedkeys);
+
+        }).catch(function(error){
+          console.log(error);
+        });
+
+
 
       },
       del(roleid){
@@ -398,6 +526,71 @@
         }).catch(function(error){
           console.log(error);
         });
+      }
+      ,
+      shouquan(){
+        //获取当前选中的节点
+        /* 获取选中的节点getCheckedKeys
+           获取半选中的节点 getHalfCheckedKeys
+        */
+        let checkedKeys = this.$refs.tree.getCheckedKeys();
+        let halfCheckedKeys = this.$refs.tree.getHalfCheckedKeys();
+        this.form3.roleids.push(checkedKeys,halfCheckedKeys);
+
+        let pList=this.form3.roleids.join(',');
+
+
+        let url = this.axios.urls.SYSTEM_PERMISSION_ADDROLEPERMISSION;
+        this.axios.post(url,{"roleid":this.form3.roleid,"roleids":pList}).then((response)=>{
+          let data = response.data
+          if(data.code==0){
+            this.dialogFormVisible3 = false;
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'success'
+            });
+          }
+          else{
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'error'
+            });
+          }
+
+
+        }).catch(function(error){
+          console.log(error);
+        });
+
+      },
+      clearquan(){
+        this.dialogFormVisible3 = false;
+        let url = this.axios.urls.SYSTEM_PERMISSION_DELROLEPERMISSION;
+        this.axios.post(url,{"roleid":this.form3.roleid}).then((response)=>{
+          let data = response.data
+          if(data.code==0){
+            this.dialogFormVisible3 = false;
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'success'
+            });
+          }
+          else{
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'error'
+            });
+          }
+
+
+        }).catch(function(error){
+          console.log(error);
+        });
+
       }
 
     }

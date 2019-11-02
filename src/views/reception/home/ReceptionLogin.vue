@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item label="验证码">
         <el-input type="text" v-model="ruleForm.userCode"></el-input>
-        {{code}}
+        <img id="img" :src="userCodeSrc" width="230px" height="60px" @click="changeCode" >
       </el-form-item>
 
       <el-form-item>
@@ -18,18 +18,19 @@
           <el-col :span="24">
             <div class="grid-content bg-purple-dark">
               <el-button type="primary" style="width:100%;" @click="doLogin">提交</el-button>
+              <!--<el-button type="primary" style="width:100%;" @click="selectone">测试</el-button>-->
             </div>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <div class="grid-content bg-purple-dark">
-              <el-link type="success" @click="toReg">用户注册</el-link>
+              <el-link type="success">忘记密码</el-link>
             </div>
           </el-col>
           <el-col :span="12">
             <div class="grid-content bg-purple-dark">
-              <el-link type="success">忘记密码</el-link>
+              <el-link type="success" @click="reg" >用户注册</el-link>
             </div>
           </el-col>
         </el-row>
@@ -49,45 +50,42 @@
           pwd: '',
           userCode:''
         },
-        code:null
+        userCodeSrc:null
       };
     }
-    // ,
-    // created(){
-    //
-    //   let url = this.axios.urls.SYSTEM_USER_USERCODE;
-    //
-    //   this.axios.post(url,{}).then((response)=>{
-    //     console.log(response);
-    //     this.code = response.data.msg;
-    //   }).catch(function(error){
-    //       console.log(error);
-    //   });
-    //
-    //
-    // }
+    ,
+    created(){
+      let url = this.axios.urls.SYSTEM_USER_VERIFICATION;
+      this.axios.post(url,{}).then((response)=>{
+        // console.log(response.data);
+        this.userCodeSrc = response.data;
+      }).catch(function(error){
+        console.log(error);
+      });
+    }
     ,
     methods: {
-      toReg() {
-        this.$router.push({
-          path: '/ReceptionReg'
-        });
-      },
-
       doLogin() {
-        let url = this.axios.urls.SYSTEM_USER_DOLOGIN;
-        console.log(url);
-
+        let url = this.axios.urls.SYSTEM_USER_MEMBERLOGIN;
 
         this.axios.post(url, this.ruleForm).then((response)=> {
           console.log(response.data);
-          if (response.data.code == 1) {
+          if (response.data.code == 0) {
             this.$message({
               showClose: true,
               message: response.data.msg,
               type: 'success'
             });
+            let user = response.data.data;
+
+            //设置用户存储
+            this.$store.commit('setUserMembers',{
+              userMembers:user
+            })
+
+            //用户跳转
             this.$router.push({path:'/'})
+
           } else {
             this.$message({
               showClose: true,
@@ -97,13 +95,41 @@
           }
 
         }).catch(function(error) {
-
           console.log(error);
-
         });
+      }
+      ,
+      changeCode(){
+        let url = this.axios.urls.SYSTEM_USER_VERIFICATION;
 
+        this.axios.post(url,{}).then((response)=>{
+          // console.log(response.data);
+          this.userCodeSrc = response.data;
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
+      ,
+      reg(){
+        //用户跳转
+        this.$router.push({path:'/ReceptionReg'})
 
       }
+      // ,
+      // selectone(){
+      //   let url = this.axios.urls.SYSTEM_USER_SELECTONE;
+      //   // console.log(url+","+window.vm.$store.getters.getJwt+",get"+window.vm.$store.getters.getVerificationJwt);
+      //
+      //   this.axios.post(url,{id:1}).then((response)=>{
+      //     console.log("整个："+response.data);
+      //     console.log(response.data);
+      //
+      //   }).catch(function(error){
+      //     console.log(error);
+      //   });
+      // }
+
+
 
     }
 
