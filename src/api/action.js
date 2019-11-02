@@ -15,15 +15,24 @@ export default {
   'SYSTEM_ROLE_ROLEDEL': '/sysRole/roleDel',//删除角色
 
 
-  //后台
+
+  //业务模块
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
 
   //会员模块
-  'MEMBER_MANAGE_GETALL':'/members/getMAll',//会员管理模糊查
-  'MEMBER_CLSELECT':'/membersMaterials/getCAll',//会员材料模糊查询
+  'MEMBER_MANAGE_GETALL':'/members/getAll',//会员管理模糊查
+  'MEMBER_MANAGE_GETCALL':'/membersMaterials/getCAll',//会员材料模糊查询
+  'MEMBER_MANAGE_GETRALL':'/membersRealname/getRAll',//会员实名模糊查
+
   'MEMBER_CLONE':'/membersMaterials/getCLOne',//会员材料单个查询
+  'MEMBER_RLONE':'/membersRealname/getRLOne',//会员实名认证单个查询
+
+  'MEMBER_CEDITSTATE':'/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
+  'MEMBER_REDITSTATE':'/membersRealname/updateRState',//修改会员实名认证审核状态
+
 //投资模块
+
   'SYSTEM_BID_BIDQUERY': '/business/bidQuery',//投资界面数据展示
   'SYSTEM_BID_SELECTONE': '/business/selectOne',//投资界面，查询单个投资数据
   'SYSTEM_BID_BIDADD': '/business/bidAdd',//进行投资
@@ -40,4 +49,5 @@ export default {
 	'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
 		return this.SERVER + this[k];
 	}
+
 }

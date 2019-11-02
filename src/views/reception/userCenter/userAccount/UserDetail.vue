@@ -10,48 +10,48 @@
     </pre>
     <el-col :span="12" style="margin-left: 100px;">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" size="mini">
-        <el-form-item label="用户名">
-          <span style="margin-left: 150px;" >tess</span>
+        <el-form-item label="用户名" prop="name">
+          <span style="margin-left: 150px;" v-model="ruleForm.name"></span>
         </el-form-item>
-        <el-form-item label="真实姓名">
-          <span style="margin-left: 150px;">颤三</span>
+        <el-form-item label="真实姓名" prop="id_number">
+          <span style="margin-left: 150px;" v-model="ruleForm.realname"></span>
         </el-form-item>
-        <el-form-item label="身份证号码" prop="name">
+        <el-form-item label="身份证号码" prop="id_number">
           <el-col  :span="10">
-            <el-input style="margin-left: 80px;" v-model="ruleForm.name"></el-input>
+            <el-input style="margin-left: 80px;" v-model="ruleForm.id_number"></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="手机号码" prop="name">
+        <el-form-item label="手机号码" prop="phone">
           <el-col  :span="10">
-            <el-input style="margin-left: 80px;" v-model="ruleForm.name"></el-input>
+            <el-input style="margin-left: 80px;" v-model="ruleForm.phone"></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="个人学历" prop="date1">
-          <el-select style="margin-left: 80px;" v-model="ruleForm.region" placeholder="请选择活动区域">
+        <el-form-item label="个人学历" prop="myself_background">
+          <el-select style="margin-left: 80px;" v-model="ruleForm.myself_background" placeholder="请选择">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="月收入" prop="type">
-          <el-select style="margin-left: 80px;" v-model="ruleForm.region" placeholder="请选择活动区域">
+        <el-form-item label="月收入" prop="monthly_income">
+          <el-select style="margin-left: 80px;" v-model="ruleForm.monthly_income" placeholder="请选择">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="婚姻情况" prop="region">
-          <el-select style="margin-left: 80px;" v-model="ruleForm.region" placeholder="请选择活动区域">
+        <el-form-item label="婚姻情况" prop="marital_status">
+          <el-select style="margin-left: 80px;" v-model="ruleForm.marital_status" placeholder="请选择">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="子女情况" prop="desc">
-          <el-select style="margin-left: 80px;" v-model="ruleForm.region" placeholder="请选择活动区域">
+        <el-form-item label="子女情况" prop="children">
+          <el-select style="margin-left: 80px;" v-model="ruleForm.children" placeholder="请选择">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="住房条件" prop="date2">
-          <el-select style="margin-left: 80px;" v-model="ruleForm.region" placeholder="请选择活动区域">
+        <el-form-item label="住房条件" prop="house">
+          <el-select style="margin-left: 80px;" v-model="ruleForm.house" placeholder="请选择">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
@@ -73,37 +73,41 @@
       return {
         ruleForm: {
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          realname:'',
+          phone: '',
+          id_number: '',
+          myself_background: '',
+          monthly_income: '',
+          marital_status: '',
+          children: '',
+          house: '',
         },
         rules: {
-          name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          phone: [
+            { required: true, message: '请输入电话号码', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 11 个字符', trigger: 'blur' }
           ],
-          region: [
-            { required: true, message: '请选择活动区域', trigger: 'change' }
+          id_number:[
+            { required: true, message: '请输入身份证号码', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 11 个字符', trigger: 'blur' }
           ],
-          date1: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          myself_background: [
+            { type: 'myself_background', required: true, message: '请选择个人学历', trigger: 'change' }
           ],
-          date2: [
-            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+          monthly_income: [
+            { type: 'monthly_income', required: true, message: '请选择月收入', trigger: 'change' }
           ],
-          type: [
-            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+          marital_status: [
+            { type: 'monthly_income', required: true, message: '请选择婚姻情况', trigger: 'change' }
           ],
-          resource: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
+
+          children: [
+            { type: 'children', required: true, message: '请选择子女情况', trigger: 'change' }
           ],
-          desc: [
-            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          house: [
+            { type: 'house', required: true, message: '请选择住房条件', trigger: 'change' }
           ]
+
         }
       };
     },

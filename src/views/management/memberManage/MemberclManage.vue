@@ -12,27 +12,25 @@
     <el-form label-width="100px">
       <el-form-item style="background-color: rgb(195, 202, 215);">
         用户征信文件审核管理
-        <el-button size="mini" icon="el-icon-refresh" style="margin-left: 920px;" :click="flush" circle > </el-button>
+        <el-button size="mini" icon="el-icon-refresh" style="margin-left: 920px;" @click="flush" circle > </el-button>
       </el-form-item>
       <el-row>
 
         <div align="center">
           <el-col :span="20">状态：
-            <el-select value="1" v-model="input1" placeholder="请选择">
-              <el-option
-                v-for="(item, index) in options"
-               :key="index"
-               :value="item.value"
-               :label="item.label">
-              </el-option>
+            <el-select  v-model="ruleForm.state" placeholder="请选择" clearable>
+              <el-option key="0" label="审核通过" value="0"></el-option>
+              <el-option key="1" label="等待审核" value="1"></el-option>
+              <el-option key="2" label="审核失败" value="2"></el-option>
             </el-select>申请时间：
-            <el-date-picker v-model="value2" type="daterange" >
+            <el-date-picker v-model="ruleForm.value2" type="daterange" >
             </el-date-picker>
-            <el-button type="primary" @click="commitup">查询</el-button>
+            <el-button type="primary"  @click="commitup" icon="el-icon-search">搜索</el-button>
           </el-col>
         </div>
         <br>
       </el-row>
+
       <pre>
 
       </pre>
@@ -59,11 +57,12 @@
                 width="100"  >
                 <template slot-scope="scope"><!--toolbar按钮-->
                   <!--弹出框按钮-->
-                  <el-button v-if="scope.row.state == 1 " type="warning" plain size="small" @click="dd(scope.$index,scope.row)">待审核</el-button>
-                  <el-button v-if="scope.row.state == 0 ||scope.row.state== 2 " type="success" plain size="small" @click="see(scope.$index,scope.row)">查看详情</el-button>
-                  <!--弹出框-->
+                  <el-button v-if="scope.row.state == 1 "   @click="dd(scope.$index,scope.row)" icon="el-icon-search" circle></el-button>
+                  <el-button v-if="scope.row.state == 0 ||scope.row.state== 2 " type="primary" icon="el-icon-view" @click="see(scope.$index,scope.row)"circle></el-button>
+                   <!--弹出框-->
                   <!--待审核编辑-->
                   <el-dialog width="35%" title="材料认证审核" :visible.sync="dialogFormVisible"  append-to-body="false">
+
                     <el-form :model="form" size="mini" align="center" >
                       <el-row>
                         <el-col :span="24"align="center" >
@@ -71,74 +70,67 @@
                             <el-input style="width: 90%;" v-model="form.name" autocomplete="off" readonly="true"></el-input>
                           </el-form-item>
                         </el-col>
-                        <el-col :span="24">
-                          <el-form-item label="资料图片" :label-width="formLabelWidth">
-                            <div class="demo-image__preview">
-                              <el-image
-                                style="width: 100px; height: 100px"
-                                :src="url"
-                                :preview-src-list="srcList">
-                              </el-image>
-                            </div>
-
-                          </el-form-item>
-                        </el-col>
+                        <el-form-item label="资料图片" :label-width="formLabelWidth">
+                          <div class="demo-image__preview">
+                            <el-image
+                              style="width: 100px; height: 100px"
+                              :src="form.image"
+                              :preview-src-list="srcList">
+                            </el-image>
+                          </div>
+                        </el-form-item>
                         <el-form-item label="征信分数" :label-width="formLabelWidth">
                           <el-input style="width: 90%;" v-model="form.score" autocomplete="off" ></el-input>
                         </el-form-item>
 
                         <el-form-item label="审核备注" :label-width="formLabelWidth">
                           <div style="margin: 20px 0;"></div>
-                          <el-input
-                            type="textarea"
-                            placeholder="请输入内容"
-                            v-model="textarea"
-                            maxlength="30"
-                            show-word-limit
+                          <el-input type="textarea"
+                                    placeholder="请输入内容"
+                                    v-model="form.remark"
+                                    maxlength="30"
+                                    show-word-limit
                           ></el-input>
                         </el-form-item>
                       </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                       <el-button @click="dialogFormVisible = false">取 消</el-button>
-                      <el-button type="primary" @click="dialogFormVisible = false">审核通过</el-button>
-                      <el-button type="warning" @click="dialogFormVisible = false">审核拒绝</el-button>
+                      <el-button  type="primary"  @click="update(0)" plain="true">审核通过</el-button>
+                      <el-button  type="warning" @click="update(2)" plain="true">审核拒绝</el-button>
                     </div>
                   </el-dialog>
+
                   <!--仅查看-->
                   <el-dialog width="35%" title="材料认证审核" :visible.sync="dialogFormVisible2"  append-to-body="false">
-                    <el-form :model="form" size="mini" align="center" >
+                    <el-form :model="form2" size="mini" align="center" >
                       <el-row>
                         <el-col :span="24"align="center" >
                           <el-form-item label="用户名" :label-width="formLabelWidth">
-                            <el-input style="width: 90%;" v-model="form.name" autocomplete="off" readonly="true"></el-input>
+                            <el-input style="width: 90%;" v-model="form2.name" autocomplete="off" readonly="true"></el-input>
                           </el-form-item>
                         </el-col>
-                        <el-col :span="24">
-                          <el-form-item label="资料图片" :label-width="formLabelWidth">
-                            <div class="demo-image__preview">
-                              <el-image
-                                style="width: 100px; height: 100px"
-                                :src="url"
-                                v-model="form.image"
-                                :preview-src-list="srcList">
-                              </el-image>
-                            </div>
-                          </el-form-item>
-                        </el-col>
+                        <el-form-item label="资料图片" :label-width="formLabelWidth">
+                          <div class="demo-image__preview">
+                            <el-image
+                              style="width: 100px; height: 100px"
+                              :src="form2.image"
+                              :preview-src-list="srcList1">
+                            </el-image>
+                          </div>
+                        </el-form-item>
+
                         <el-form-item label="征信分数" :label-width="formLabelWidth">
-                          <el-input style="width: 90%;" v-model="form.score" autocomplete="off" readonly="true"></el-input>
+                          <el-input style="width: 90%;" v-model="form2.score" autocomplete="off" readonly="true"></el-input>
                         </el-form-item>
 
                         <el-form-item label="审核备注" :label-width="formLabelWidth">
-                           <el-input type="textarea"  v-model="form.remark" autocomplete="off" readonly="true"></el-input>
+                          <el-input type="textarea"  v-model="form2.remark" autocomplete="off" readonly="true"></el-input>
                         </el-form-item>
                       </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                       <el-button @click="dialogFormVisible2 = false">取 消</el-button>
-                      <el-button type="primary" @click="dialogFormVisible2 = false">审核通过</el-button>
-                      <el-button type="warning" @click="dialogFormVisible2 = false">审核拒绝</el-button>
                     </div>
 
                   </el-dialog>
@@ -149,26 +141,20 @@
             </el-table>
           </el-col>
         </div>
-
-        <div align="center">
-          <el-col :span="24">
-            <el-row>
-              <el-col :span="24">
-                <el-button>首页</el-button>
-                <el-button icon="el-icon-arrow-left">
-                </el-button>
-                <el-input style="width: 5%;" v-model="input2">
-                </el-input>
-                <el-button icon="el-icon-arrow-right">
-                </el-button>
-                <el-button>尾页</el-button>
-              </el-col>
-            </el-row>
-          </el-col>
-        </div>
-        <br>
       </el-row>
     </el-form>
+    <br>
+    <div align="center">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ruleForm.page"
+        :page-sizes="[5, 10, 100, 200]"
+        :page-size="ruleForm.rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
   </div>
 
 </template>
@@ -178,66 +164,110 @@
     name: "MemberclManage",
     data() {
       return {
-        input1: '',
-        input2: '',
-        value2:'',
-        tableData: [ ],
-        textarea: '',
-        options: [
-          {
-            value: 0,
-            label: '审核成功'
-          },
-          {
-            value: 1,
-            label: '待审核'
-          },
-          {
-            value: 2,
-            label: '审核失败'
-          }
-        ],
+        /*行数*/
+        tableData:null,
+        total:null,
+        /*展示表格*/
+        ruleForm: {
+          start:'',
+          stop: '',
+          state: null,
+          value2:null,
+          page:1,
+          rows:5
+        },
+        /*弹框1 有修改功能*/
         dialogFormVisible: false,
-        dialogFormVisible2: false,
+        /*弹框表格*/
         form: {
+          audit_time:'',
+          id:'',
           name:'',
-          cltype:'',
+          image:'',
+          score:'',
+          state:null,
+          remark:''
+        },
+        /*预览大图展示*/
+        srcList:[],
+
+        /*弹框2 仅查看*/
+        dialogFormVisible2: false,
+        form2: {
+          name:'',
           image:'',
           score:'',
           remark:''
         },
+        srcList1:[],
+        /*弹框宽度*/
         formLabelWidth: '100px',
-        url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-        srcList: [
-          'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
-          'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
-        ],
 
       }
 
     },created(){
-      let url = this.axios.urls.MEMBER_CLSELECT;
-      this.axios.post(url, {}).then((response) => {
-        console.log(response);
+
+      let url = this.axios.urls.MEMBER_MANAGE_GETCALL;
+      this.axios.post(url, { page:1,
+        rows:5}).then((response) => {
+        console.log("分页查询的："+response.data.data)
         this.tableData = response.data.data;
+        this.total = response.data.total;
       }).catch((response) => {
         //carch则是异常
         console.log(response);
       });
-    },methods:{
+    },
+    /*方法*/
+    methods:{
+      getTime(){
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        //以下代码依次是获取当前时间的年月日时分秒
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var minute = date.getMinutes();
+        var hour = date.getHours();
+        var second = date.getSeconds();
+        //固定时间格式
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        if (hour >= 0 && hour <= 9) {
+          hour = "0" + hour;
+        }
+        if (minute >= 0 && minute <= 9) {
+          minute = "0" + minute;
+        }
+        if (second >= 0 && second <= 9) {
+          second = "0" + second;
+        }
+        var currentdate =  year + seperator1 + month + seperator1 + strDate
+          + " " + hour + seperator2 + minute + seperator2 + second;
+        return currentdate;
+      },
       /*时间*/
       commitup(){
-        var formData = {
-          value2: '',
-          start:'',
-          stop: ''
-        };
-          formData.start =  this.value2[0];
-          formData.stop =  this.value2[1];
-        let url = this.axios.urls.MEMBER_CLSELECT;
-        this.axios.post(url, formData).then((response) => {
-          console.log(response);
+
+        if (!this.ruleForm.value2 ==null){
+          this.ruleForm.start =  this.ruleForm.value2[0];
+          this.ruleForm.stop =  this.ruleForm.value2[1];
+        }
+        else{
+          this.ruleForm.start =  "";
+          this.ruleForm.stop =  "";
+        }
+
+        let url = this.axios.urls.MEMBER_MANAGE_GETCALL;
+        this.axios.post(url, this.ruleForm).then((response) => {
+          console.log("分页查询的："+response.data.data)
           this.tableData = response.data.data;
+          this.total = response.data.total;
         }).catch((response) => {
           //carch则是异常
           console.log(response);
@@ -255,14 +285,16 @@
           return '未通过！'
         }
       },
-      /*单个查*/
+      /*单个查返回数据 第一个*/
       dd(index,row){
         let url = this.axios.urls.MEMBER_CLONE;
-        console.log(row.id);
         this.axios.post(url, {id:row.id}).then((response) => {
-          console.log(response);
+          this.form.id = response.data.id;
           this.form.name = response.data.name;
           this.form.image = response.data.image;
+          this.srcList=[];
+          this.srcList.push(response.data.image);
+
           this.form.score = response.data.score;
           this.form.remark = response.data.remark;
           this.dialogFormVisible = true;
@@ -273,17 +305,67 @@
         console.log(row.id);
         this.axios.post(url, {id:row.id}).then((response) => {
           console.log(response);
-          this.form.name = response.data.name;
-          this.form.image = response.data.image;
-          this.form.score = response.data.score;
-          this.form.remark = response.data.remark;
+          this.form2.name = response.data.name;
+          this.form2.image = response.data.image;
+          this.srcList1.push(response.data.image) ;
+          this.form2.score = response.data.score;
+          this.form2.remark = response.data.remark;
           this.dialogFormVisible2 = true;
         });
+      },
+      /*修改状态*/
+      update(state){
+        this.form.state = state;
+        this.form.audit_time = this.getTime();
+        let url = this.axios.urls.MEMBER_CEDITSTATE;
+        this.axios.post(url,this.form).then((response)=>{
+          let data = response.data;
+          if(data.code==0){
+            this.commitup();
+            this.dialogFormVisible = false;
+            this.$message({
+              message: '审核成功！！',
+              type: 'success'
+            });
+          }else{
+            this.$message.error('审核失败！！');
+          }
+        })
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+        this.ruleForm.rows = val;
+        this.ruleForm.page = 1;
+        let url = this.axios.urls.MEMBER_MANAGE_GETCALL;
+        this.axios.post(url,this.ruleForm).then((response)=>{
+          console.log("分页查询的："+response.data.data)
+          // console.log(response.data);
+          this.tableData = response.data.data;
+          this.total = response.data.total;
+        }).catch(function(error){
+          console.log(error);
+        });
+
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.tableData.page = val;
+
+        let url = this.axios.urls.MEMBER_MANAGE_GETCALL;
+        this.axios.post(url,this.ruleForm).then((response)=>{
+          console.log("分页查询的："+response.data.data)
+          // console.log(response.data);
+          this.tableData = response.data.data;
+          this.total = response.data.total;
+        }).catch(function(error){
+          console.log(error);
+        });
+      },
+      /*刷新*/
+      flush(){
+        this.commitup();
       }
-      /*demo(){
-       this.readValue = '1' // 此处可以替换成接口读取的内容 在内容未知情况下用Number转换即可
-       this.form.select = Number(this.readValue) // 通过Number将类型转换
-     }*/
+
     }
   }
 </script>
