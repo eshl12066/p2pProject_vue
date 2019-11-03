@@ -8,9 +8,23 @@
 
 
     </pre>
+    <!--这是待审核状态-->
+    <el-card class="box-card" v-if="state == 1" style="height: 400px;">
+      <div class="clearfix" slot="header">
+        <strong style="font-size: 23px;">实名认证</strong>
+        <span style="float: right">材料已经提交</span>
+      </div>
+
+      <div style="text-align: center;margin-top: 55px;">
+        <i class="el-icon-warning" style="font-size: 38px; color: rgb(1, 170, 237); margin-top: 30px;">身份认证信息提交完成,请耐心等待后台人员审核</i>
+        <p style="color: rgb(153, 153, 153);">您的申请提交成功,申请结果将会在24小时内 短息/平台 同步,请耐心等待</p>
+        <p style="color: rgb(153, 153, 153);">如有疑问 请致电 13389165743,很高效为您服务</p>
+      </div>
+    </el-card>
+
     <el-col :span="12" style="margin-left: 100px;">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" size="mini">
-        <el-form-item label="用户名">
+        <el-form-item label="用户名" prop="name">
           <span style="margin-left: 150px;" v-model="ruleForm.name"></span>
         </el-form-item>
         <el-form-item label="真实姓名" prop="realname">
@@ -29,11 +43,9 @@
             <el-radio v-model="ruleForm.sex" label="2">女</el-radio>
           </el-col>
         </el-form-item>
-        <el-form-item label="出生日期" required>
+        <el-form-item label="出生日期" prop="born_date" required>
           <el-col :span="14">
-            <el-form-item prop="date1" style="margin-left:80px;">
-              <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.born_date" style="width: 100%;"></el-date-picker>
-            </el-form-item>
+              <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.born_date" style="margin-left: 80px;width: 100%;" ></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="证件地址" prop="address">
@@ -41,71 +53,52 @@
             <el-input style="margin-left:80px;" v-model="ruleForm.address"></el-input>
           </el-col>
         </el-form-item>
-        <el-form-item label="身份证照片" prop="name">
+        <el-form-item label="身份证照片" >
           <el-col :span="12">
-            <a style="margin-left:110px;color: dodgerblue">身份证正面</a>
+            <a style="margin-left:110px;color: dodgerblue" prop="image1">身份证正面</a>
             <el-upload style="margin-left:80px;"
-                       action="#"
+                       action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
                        list-type="picture-card"
-                       :auto-upload="false">
-              <i slot="default" class="el-icon-plus"></i>
-              <div slot="file" slot-scope="{file}">
-                <img
-                  class="el-upload-list__item-thumbnail"
-                  :src="file.url" alt=""
-                >
-                <span class="el-upload-list__item-actions">
-                <span
-                  class="el-upload-list__item-preview"
-                  @click="handlePictureCardPreview(file)"
-                >
-                  <i class="el-icon-zoom-in"></i>
-                </span>
-                <span
-                  v-if="!disabled"
-                  class="el-upload-list__item-delete"
-                  @click="handleRemove(file)"
-                >
-                  <i class="el-icon-delete"></i>
-                </span>
-              </span>
-              </div>
+                       :limit="1"
+                       name="picture"
+                       accept="image/*"
+                       :file-list="images1"
+                       :multiple="isMultipls1"
+                       :on-preview="handlePictureCardPreview"
+                       :on-error="errorimg"
+                       :on-success="handleAvatarSuccess"
+                       :on-remove="handleRemove"
+                       :headers="headers"
+                       :before-upload="beforeAvatarUpload"
+                       :on-exceed="exceed"
+            ><i class="el-icon-plus"></i>
             </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
+            <!--放大弹出框-->
+            <el-dialog :visible.sync="dialogVisible1">
+              <img width="100%" :src="dialogImageUrl1">
             </el-dialog>
           </el-col>
           <el-col :span="12">
-            <a style="margin-left:110px;color: dodgerblue">身份证反面</a>
+            <a style="margin-left:110px;color: dodgerblue" prop="image2">身份证反面</a>
             <el-upload style="margin-left:80px;"
-                       action="#"
+                       action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
                        list-type="picture-card"
-                       :auto-upload="false">
-              <i slot="default" class="el-icon-plus"></i>
-              <div slot="file" slot-scope="{file}">
-                <img
-                  class="el-upload-list__item-thumbnail"
-                  :src="file.url" alt=""
-                >
-                <span class="el-upload-list__item-actions">
-                <span
-                  class="el-upload-list__item-preview"
-                  @click="handlePictureCardPreview(file)"
-                >
-                  <i class="el-icon-zoom-in"></i>
-                </span>
-                <span
-                  v-if="!disabled"
-                  class="el-upload-list__item-delete"
-                  @click="handleRemove(file)"
-                >
-                  <i class="el-icon-delete"></i>
-                </span>
-              </span>
-              </div>
+                       :limit="1"
+                       name="picture"
+                       accept="image/*"
+                       :file-list="images2"
+                       :multiple="isMultipls2"
+                       :on-preview="handlePictureCardPreview"
+                       :on-error="errorimg"
+                       :on-success="handleAvatarSuccess"
+                       :on-remove="handleRemove"
+                       :headers="headers"
+                       :before-upload="beforeAvatarUpload"
+                       :on-exceed="exceed"
+            ><i class="el-icon-plus"></i>
             </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
+            <el-dialog :visible.sync="dialogVisible2">
+              <img width="100%" :src="dialogImageUrl2">
             </el-dialog>
           </el-col>
         </el-form-item>
@@ -124,29 +117,36 @@
     name: "Usersf",
     data() {
       return {
-        /**
-         * 文件上传
-         * */
-        dialogImageUrl: '',
-        dialogVisible: false,
-        disabled: false,
+
+        isMultipls1:true,
+        dialogImageUrl1:'',
+        images1:[],//放入身份证照片地址栏的
+        dialogVisible1:false,
+        isMultipls2:true,
+        images2:[],
+
+        fileList: [0,0], //缓存区文件
+        uploadFile:[[],[]] ,//  上传用文件
+        dialogVisible2: false,
+        dialogImageUrl2: '',
+
+       /* upimg:'http://localhost:8080/p2pProject/image',*/
         ruleForm: {
           name: '',
-          realname: '',
+          realname: 'fsd',
           sex:'1',
           id_number: '',
           born_date: '',
           address: '',
-          type: [],
         },
         rules: {
           realname: [
             {required: true, message: '请输入真实姓名', trigger: 'blur'},
-            {min: 3, max:6, message: '长度在 3 到 6 个字符', trigger: 'blur'}
+            {min: 2, max:6, message: '姓名长度在 2 到 6 个字符', trigger: 'blur'}
           ],
           id_number: [
             {required: true, message: '请输入身份证号码', trigger: 'blur'},
-            {min: 3, max: 5, message: '长度在 3 到 6 个字符', trigger: 'blur'}
+            {min: 6, max: 90, message: '长度在 3 到 6 个字符', trigger: 'blur'}
           ],
           born_date: [
             {required: true, message: '请输入与证件相同出生日', trigger: 'blur'}
@@ -158,32 +158,123 @@
         }
       };
     },
+    //在上传图片前获取token，前提是已经存到sessionStorage中
+    computed:{
+      headers(){
+        return {
+          'token':sessionStorage.getItem('token')
+        }
+      }
+    },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
+      getTime(){//系统时间
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        //以下代码依次是获取当前时间的年月日时分秒
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var minute = date.getMinutes();
+        var hour = date.getHours();
+        var second = date.getSeconds();
+        //固定时间格式
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        if (hour >= 0 && hour <= 9) {
+          hour = "0" + hour;
+        }
+        if (minute >= 0 && minute <= 9) {
+          minute = "0" + minute;
+        }
+        if (second >= 0 && second <= 9) {
+          second = "0" + second;
+        }
+        var currentdate =  year + seperator1 + month + seperator1 + strDate
+          + " " + hour + seperator2 + minute + seperator2 + second;
+        return currentdate;
+      },
+      submitForm(ruleForm) {
+        this.ruleForm.members_id =2;
+        this.ruleForm.apply_time=this.getTime();
+        this.$refs[ruleForm].validate((valid) => {
+
+            var url =  this.axios.urls.MEMBER_RADD;
+            this.axios.post(url, this.ruleForm).then(response => {
+              alert(this.ruleForm.apply_time);
+              //如果是操作失败
+              if (response.data.code == 500) {
+                this.$message({
+                  message: response.data.msg,
+                  type: 'warning'
+                });
+              } else {
+                //打印成功信息
+                this.$message({
+                  message: '材料已提交,请耐心等待审核',
+                  type: 'success'
+                });
+              }
+            }).catch(function(error) {
+              console.log(error);
+            });
         });
       },
+
+
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      /*文件上传*/
-      handleRemove(file) {
-        console.log(file);
+      errorimg(res){
+        this.$message({
+          message:res.msg,
+          type: 'warning'
+        });
       },
+      //预览图片时调用
       handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
-      handleDownload(file) {
         console.log(file);
-      }
+        this.dialogImageUrl1 = file.url;
+        this.dialogVisible1 = true;
+      },
+      //文件上传之前调用做一些拦截限制
+      beforeAvatarUpload(file) {
+        console.log(file);
+        const isJPG = true;
+        const isLt2M = file.size / 1024 / 1024 < 5;
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过 5MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      //图片上传成功
+      handleAvatarSuccess(res, file) {
+        console.log(res);
+        console.log(file);
+        this.imageUrl = URL.createObjectURL(file.raw);
+      },
+      //图片上传失败调用
+      imgUploadError(err, file, fileList){
+        console.log(err)
+        this.$message.error('上传图片失败!');
+      },
 
+   // 上传成功时调用
+      handleSuccess(response){
+        this.addform.foodpic= response.data[0]
+        console.log(this.addform.foodpic)
+      },
+      // 超出上传个数时调用
+      exceed(){
+        this.$message({
+          message: "正、反面证件照各上限为一张",
+          type: 'warning'
+        });
+      },
     }
   }
 </script>

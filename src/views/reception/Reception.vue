@@ -4,19 +4,19 @@
     <el-row >
       <el-row style="margin-left: 700px;" v-if="userMembers == null">
         <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
-          <a href="http://www.magicalcoder.com">
+          <router-link to="/ReceptionLogin">
             <i class="el-icon-user" style="color: rgb(92, 86, 86);">登录</i>
-          </a>
+          </router-link>
         </el-col>
         <el-col style="color: rgb(52, 45, 45);" :span="3">
-          <a href="http://www.magicalcoder.com">
+          <router-link to="/ReceptionReg">
             <i class="el-icon-thumb" style="color: rgb(92, 86, 86);">注册</i>
-          </a>
+          </router-link>
         </el-col>
       </el-row>
       <el-row style="margin-left: 700px;" v-if="userMembers != null">
         <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
-          <a href="http://www.magicalcoder.com">
+          <a href="">
             <i class="el-icon-user" style="color: rgb(92, 86, 86);">{{userMembers.name}}用户中心</i>
           </a>
         </el-col>
@@ -28,18 +28,20 @@
           <el-menu-item style="font-size: 18px; color: rgb(242, 238, 238); background-color: rgb(90,150,252);" index="/reception/Bid">我要投资</el-menu-item>
           <el-menu-item style="font-size: 18px; color: rgb(247, 242, 242); background-color: rgb(90,150,252);" index="/reception/BidRequest">我要借款</el-menu-item>
           <el-menu-item style="font-size: 18px; color: rgb(249, 245, 245); background-color: rgb(90,150,252);" index="/reception/UserCenter">个人中心</el-menu-item>
-          <el-menu-item style="font-size: 18px; color: rgb(242, 237, 237); background-color: rgb(90,150,252);" index="3~~b3131e94-ac9c-4cc4-a851-0064adfd4d44">关于我们</el-menu-item>
+          <el-menu-item style="font-size: 18px; color: rgb(242, 237, 237); background-color: rgb(90,150,252);" index="">关于我们</el-menu-item>
         </el-menu>
       </el-col>
     </el-row>
 
-    <router-view></router-view>
+    <router-view>
+      <ReceptionHome></ReceptionHome>
+    </router-view>
   </div>
 </template>
 
 <script>
   // 导入组件
-
+  import ReceptionHome from '@/views/reception/home/ReceptionHome.vue'
   // 导出模块
   export default {
     data(){
@@ -47,12 +49,13 @@
           userMembers:null
       };
     },
+    components:{
+      ReceptionHome
+    },
     created(){
       this.userMembers = this.$store.getters.getUserMembers;
     },
-    components:{
 
-    }
   };
 </script>
 <style scoped>

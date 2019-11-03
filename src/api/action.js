@@ -43,6 +43,14 @@ export default {
   'MEMBER_CEDITSTATE':'/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
   'MEMBER_REDITSTATE':'/membersRealname/updateRState',//修改会员实名认证审核状态
 
+  'MEMBER_DADD':'/membersDetail/membersDetailAdd',//增加会员详细资料实名表
+  'MEMBER_RADD':'/membersRealname/membersRealnameAdd',//增加会员身份实名表
+  'MEMBER_MADD':'/membersMaterials/membersMaterialsAdd',//增加会员身材料表
+
+  'MEMBER_QUERY_RNULL':'/membersRealname/queryRnull',//返回实名表是否进行认证
+  'MEMBER_QUERY_DNULL':'/membersDetail/queryDnull',//返回资料表是否进行认证
+  'MEMBER_QUERY_MNULL':'/membersMaterials/queryMnull',//返回材料表是否进行认证
+
 //投资模块
 
   'SYSTEM_BID_BIDQUERY': '/business/bidQuery',//投资界面数据展示

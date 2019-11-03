@@ -77,7 +77,7 @@
     </el-col>
     <el-col :span="18">
       <el-menu mode="horizontal">
-        <el-menu-item style="width: 45%;" index="3~~4ddb725a-513a-40be-bdc0-7ae1bf03165b">
+        <el-menu-item style="width: 45%;" index="">
         </el-menu-item>
         <el-menu-item index="3">常规发标时间每天10:00，13:00和20:00，其余时间根据需要随机发</el-menu-item>
       </el-menu>
@@ -117,6 +117,7 @@
 
 <script>
   export default {
+    name: "ReceptionHome",
     data() {
       return{
         imgHeight:"",
@@ -155,7 +156,6 @@
         this.imgHeight=this.$refs.imgHeight[0].height
         this.imgLoad();
       },false);
-        /*this.setBannerH()*/
 
     },
   }
