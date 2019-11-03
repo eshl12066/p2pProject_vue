@@ -1,4 +1,11 @@
 export default{
+  
+setUserManage:(state, payload)=>{//后台登陆后的实体(ll)
+  state.userManage = payload.userManage;
+},
+  setUserMembers:(state, payload)=>{//会员登陆后的实体(ll)
+  state.userMembers = payload.userMembers;
+},
   setResturantName:(state, payload)=>{
     state.resturantName = payload.resturantName;
   },
