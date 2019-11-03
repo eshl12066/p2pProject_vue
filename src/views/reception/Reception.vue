@@ -4,12 +4,12 @@
     <el-row >
       <el-row style="margin-left: 700px;" v-if="userMembers == null">
         <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
-          <a href="http://www.magicalcoder.com">
+          <a href="/#/ReceptionLogin">
             <i class="el-icon-user" style="color: rgb(92, 86, 86);">登录</i>
           </a>
         </el-col>
         <el-col style="color: rgb(52, 45, 45);" :span="3">
-          <a href="http://www.magicalcoder.com">
+          <a href="/#/ReceptionReg">
             <i class="el-icon-thumb" style="color: rgb(92, 86, 86);">注册</i>
           </a>
         </el-col>
@@ -33,7 +33,7 @@
           <el-menu-item style="font-size: 18px; color: rgb(242, 238, 238); background-color: rgb(90,150,252);" index="/reception/Bid">我要投资</el-menu-item>
           <el-menu-item style="font-size: 18px; color: rgb(247, 242, 242); background-color: rgb(90,150,252);" index="/reception/BidRequest">我要借款</el-menu-item>
           <el-menu-item style="font-size: 18px; color: rgb(249, 245, 245); background-color: rgb(90,150,252);" index="/reception/UserCenter">个人中心</el-menu-item>
-          <el-menu-item style="font-size: 18px; color: rgb(242, 237, 237); background-color: rgb(90,150,252);" index="3~~b3131e94-ac9c-4cc4-a851-0064adfd4d44">关于我们</el-menu-item>
+          <el-menu-item style="font-size: 18px; color: rgb(242, 237, 237); background-color: rgb(90,150,252);" index="/reception/white">关于我们</el-menu-item>
         </el-menu>
       </el-col>
     </el-row>
