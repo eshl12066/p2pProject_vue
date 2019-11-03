@@ -22,7 +22,11 @@ export default {
   'SYSTEM_ROLE_ROLEDEL': '/sysRole/roleDel',//删除角色
   'SYSTEM_PERMISSION_DELROLEPERMISSION': '/sysPermission/delRolePermission',//清空角色
   'SYSTEM_PERMISSION_ADDROLEPERMISSION': '/sysPermission/addRolePermission',//为角色授权
-  'SYSTEM_USER_MEMBERLOGIN': '/sysUser/memberLogin',//前台登陆
+  'SYSTEM_USER_MEMBERLOGIN': '/sysUser/memberLogin',//前台用户登陆addMembers
+  'SYSTEM_USER_ADDMEMBERS': '/sysUser/addMembers',//前台用户注册
+  'SYSTEM_USER_MANAGELOGINOUT': '/sysUser/manageLoginout',//后台管理员登出
+  'SYSTEM_USER_MEMBERSLOGINOUT': '/sysUser/membersLoginout',//前台会员登出
+
 
 
 

@@ -58,6 +58,10 @@ import MessageManage from '@/views/management/settingManage/MessageManage'
 //4、基础数据设置
 import SettingManage from '@/views/management/settingManage/SettingManage'
 
+//其他模块
+import backgroupImg from '@/views/management/elseManage/backgroupImg'
+import white from '@/views/management/elseManage/white'
+
 
 //1、前台界面
 import Reception from '@/views/reception/Reception'
@@ -239,6 +243,11 @@ export default new Router({
           path: '/settingManage/SettingManage',//设置管理
           name: 'SettingManage',
           component: SettingManage
+        },
+        {
+          path: '/elseManage/backgroupImg',//后台背景管理
+          name: 'backgroupImg',
+          component: backgroupImg
         }
       ]
     }
@@ -252,15 +261,22 @@ export default new Router({
         name: 'ReceptionHome',
         component: ReceptionHome
       },
+        {//关于我们
+          path: '/reception/white',
+          name: 'white',
+          component: white
+        },
         {//投资载体
           path: '/reception/Bid',
           name: 'Bid',
           component: Bid
+
         },
         {//正在投资载体
           path: '/reception/Bidding',
           name: 'Bidding',
           component: Bidding
+
         },
         {//借贷载体
           path: '/reception/BidRequest',
@@ -271,6 +287,7 @@ export default new Router({
           path: '/reception/BidRequestCreditting',
           name: 'BidRequestCreditting',
           component: BidRequestCreditting
+
         },
         {// 车贷  车贷贷款载体  BidRequestCarring
           path: '/reception/BidRequestCarring',
@@ -285,11 +302,14 @@ export default new Router({
         {//用户中心载体
           path: '/reception/UserCenter',
           name: 'UserCenter',
-          component: UserCenter,
+          component: UserCenter
+          ,meta: { requiresAuth: true }, // 添加表示需要验证
           children: [{//会员中心下面的跳转组件(会员投资)
             path: '/reception/userCenter/UserBid',
             name: 'UserBid',
             component: UserBid
+
+
           },{//会员中心下面的跳转组件(会员的 某一 投资 详情)
             path: '/reception/userCenter/UserBidDetails',
             name: 'UserBidDetails',

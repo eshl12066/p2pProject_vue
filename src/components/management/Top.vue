@@ -23,10 +23,7 @@
         }
       },
       created(){
-
         this.userManage = this.$store.getters.getUserManage;
-
-
       },
 
       methods:{
@@ -34,15 +31,28 @@
           this.$router.replace({
             path:'/ManageLogin'
           })
-          this.$store.commit('setUserManage',{
+          let url = this.axios.urls.SYSTEM_USER_MANAGELOGINOUT;
+          this.axios.post(url,{}).then((response)=>{//清空所有这个id的redis数据
+            console.log(response)
+          }).catch(function(error){
+            console.log(error);
+          });
+
+          this.$store.commit('setUserManage',{//清空后台登录状态
             userManage:[]
           })
-          this.$store.commit('setVerificationJwt',{
+          this.$store.commit('setVerificationJwt',{//清空验证码Jwt
             jwt:null
           })
-          this.$store.commit('setJwt',{
+          this.$store.commit('setJwt',{//清空用户状态jwt
             verificationJwt:null
           })
+          this.$store.commit('set_active_index',{//清空激活tab页
+            index:''
+          })
+
+
+
 
 
         },

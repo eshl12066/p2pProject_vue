@@ -1,7 +1,7 @@
 export default{
   //ll
-  userManage:null,//管理员的实体(ll)
-  userMembers:null,//前台登陆后的实体
+  userManage:null,//管理员的实体(userid,username,userstate,creaetedate,rolename,description)
+  userMembers:null,//前台登陆后的实体()
 
   resturantName:'五星餐馆',
   uname:'张飞',
