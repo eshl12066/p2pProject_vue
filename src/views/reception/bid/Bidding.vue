@@ -16,14 +16,16 @@
           <el-card class="box-card" style="background-color: whitesmoke;">
             <!--  头 部  -->
             <div slot="header" class="clearfix">
-              &nbsp;<strong>投资总额：<input style="width: 60px;" v-model="bidMoney" /> </strong> ￥
-                <p align="right">—— 借款人：XX</p>
+              <p align="left">总额：{{detail.bidRequestAmount}}￥，已有{{detail.bidCount}}人,共投资：{{detail.currentSum}}元</p>
+            &nbsp;<strong>我的投资：</strong><input style="width: 60px;" v-model="detail.myAmount" />￥
+              <p align="right">—— 借款人：{{detail.name}}</p>
             </div>
             <!--  主 体  -->
             <div class="text item">
-              <span style="color:green;"><strong>安全分数：78</strong></span><br/><br/>
-              <span><strong>利息率：2.27%</strong></span><br/><br/>
-              <p align="right" style="color: red;"><strong>总利息：210 ￥</strong></p>
+              <span style="color:green;">安全分数：{{detail.score}}</span><br/><br/>
+              <span>利息率：{{detail.rate}}</span><br/><br/>
+              <span>月 数：{{detail.month}}</span><br/><br/>
+                <p align="right" style="color: red;">可赚总利息：{{allRate}}</p>
             </div>
           </el-card>
           <!--  下一步   按钮  -->
@@ -46,9 +48,9 @@
           <!--  主 体  -->
           <div class="text item">
             <el-col :span="3">&nbsp;</el-col>
-            <el-col :span="8">投资总额 : 800￥</el-col>
-            <el-col :span="6">利息率 : 2.27%</el-col>
-            <el-col :span="6">总利息 : 100￥</el-col>
+            <el-col :span="8">我的投资总额 :{{detail.myAmount}}￥</el-col>
+            <el-col :span="6">利息率 : {{detail.rate*100}}%</el-col>
+            <el-col :span="6">可获利息 : {{allRate}}￥</el-col>
           </div><br/><br/><br/><br/><br/>
         </el-card>
         <p align="left"><el-button @click="cancle" type="default">取消投标</el-button></p>
@@ -73,6 +75,26 @@
     name: "Bidding",
     data:function(){
       return {
+        bidD:null,//从投标界面传过来的值
+        detail:{
+          id:null,
+          bidbidRequestAmount:null,
+          bidCount:null,
+          currentSum:null,
+          myAmount:null,
+          name:null,
+          score:null,
+          rate:null,
+          month:null,
+        },
+        info:{
+          bidCount:null,
+          currentSum:null,
+          availableAmount:null,
+          bidRequestId:null,
+          membersId:null,
+          // bidTime:this.getTime(),
+        },
         //步骤条 默认为第一步
         stepsActive:1,
         isShowData:{//步骤条的变动
@@ -82,7 +104,58 @@
         }
       }
     },
+    computed:{
+      //在计算属性定义的时候,是可以获取到Vue实例中定义任何变量
+      allRate(){
+        return this.detail.rate*this.detail.myAmount*this.detail.month;
+      }
+    },
+    created(){
+      this.bidD = this.$store.getters.getBidDetails;
+      //给detail赋值
+      this.detail.id = this.bidD.id;
+      this.detail.bidRequestAmount = this.bidD.bid_request_amount;//借款总额
+      this.detail.currentSum = this.bidD.current_sum;//已收到的投资总额
+      this.detail.bidCount = this.bidD.bid_count;//已有多少人投资
+      this.detail.myAmount = (this.detail.bidRequestAmount - this.detail.currentSum);//我的投资总额
+      this.detail.name = this.bidD.name;
+      this.detail.score = this.bidD.certification_score;
+      this.detail.rate = this.bidD.current_rate;
+      this.detail.month = this.bidD.monthes_return;
+    },
     methods:{
+      //当前时间
+      getTime(){
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        //以下代码依次是获取当前时间的年月日时分秒
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var minute = date.getMinutes();
+        var hour = date.getHours();
+        var second = date.getSeconds();
+        //固定时间格式
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        if (hour >= 0 && hour <= 9) {
+          hour = "0" + hour;
+        }
+        if (minute >= 0 && minute <= 9) {
+          minute = "0" + minute;
+        }
+        if (second >= 0 && second <= 9) {
+          second = "0" + second;
+        }
+        var currentdate =  year + seperator1 + month + seperator1 + strDate
+          + " " + hour + seperator2 + minute + seperator2 + second;
+        return currentdate;
+      },
       //返回首页
       toRouter(){
         // 跳转路由 返回首页
@@ -93,6 +166,7 @@
       //取消投标  返回上一界面
       cancle(){
         this.$router.go(-1);//返回上一层
+
       },
       //确认投标
       toConfirm(){
@@ -106,15 +180,23 @@
         this.isShowData.confirm = false;
         this.stepsActive = 1;
       },
-      //步骤条  下一步
+      //步骤条  投标
       next(){
-        this.isShowData.confirm = false;
-        this.isShowData.carryOut = true;
-        this.stepsActive = 3;
+        //info 赋值  传递
+        this.info.bidCount = this.detail.bidCount;//投标人数
+        this.info.currentSum = this.detail.currentSum;//当前投标金额
+        this.info.availableAmount = this.detail.myAmount;//我的投标金额
+        this.info.bidRequestId = this.detail.id;//借贷表的id
+        this.info.membersId = 188;//投资人的id 我的id
+        let url = this.axios.urls.SYSTEM_BID_BIDADD;
+        this.axios.post(url,this.info).then((response)=>{
+          this.isShowData.confirm = false;
+          this.isShowData.carryOut = true;
+          this.stepsActive = 3;
+        }).catch(function(error){//carch则是异常
+          console.log("投资失败："+error);
+        });
       }
-    },
-    created() {
-      commonUtils.init(this);
     }
   }
 </script>

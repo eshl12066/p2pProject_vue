@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 window.vm = new Vue({
   el: '#app',
   router,
-  store,
+  store,//在main.js中导入store实例
   data(){
     return{
       Bus: new Vue({
