@@ -1,5 +1,4 @@
 <template>
-
   <div style="background-color: white;">
     <!--<el-row>-->
       <!--<el-col :span="24">-->
@@ -30,96 +29,79 @@
         <!--</el-col>-->
         <!--</div>-->
     <!--</el-row><br/><br/>-->
+
+
     <div align="center">
     <el-main>
-      <!--<p style="text-indent: 48px; font-size: 36px;">安 全 贷 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 贷 安 全</p><br/><br/><br/>-->
-      <!--<strong>投标状态：</strong>&nbsp;&nbsp;-->
-      <!--<el-button-group>-->
-        <!--<el-button type="danger"  :onclick="findFun(null)" round>全部</el-button>-->
-        <!--<el-button type="success" :onclick="findFun(3)">已完成</el-button>-->
-        <!--<el-button type="primary" :onclick="findFun(2)" round>招标中</el-button>-->
-      <!--</el-button-group>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+      <p style="text-indent: 48px; font-size: 36px;">安 全 贷 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 贷 安 全</p><br/><br/><br/>
+      <p align="left">
+        <strong>投标状态：</strong>&nbsp;&nbsp;
+        <el-select  v-model="ruleForm.bidRequestState" clearable placeholder="全     部" style="width: 10%;">
+        <el-option key="2" label="招 标 中" value="2"></el-option>
+        <el-option key="3" label="满 标" value="3"></el-option>
+      </el-select></p><br/><br/>
+      <!--表单搜索 搜索所有数据！！！！-->
+      <el-select  v-model="ruleForm.returnType" clearable placeholder="还款方式" style="width: 10%;">
+        <el-option key="0" label="一 次 付 清" value="0"></el-option>
+        <el-option key="1" label="等 额 本 息" value="1"></el-option>
+        <el-option key="2" label="等 额 本 金" value="2"></el-option>
+      </el-select>
+      <el-select  v-model="ruleForm.bidRequestType" clearable placeholder="贷款类型" style="width: 10%;">
+        <el-option key="0" label="信用贷" value="0"></el-option>
+        <el-option key="1" label="车  贷" value="1"></el-option>
+        <el-option key="2" label="房  贷" value="2"></el-option>
+      </el-select>
+      <el-select  v-model="ruleForm.currentRate" clearable placeholder="利率范围" style="width: 10%;">
+        <el-option key="1" label="0.09 - 0.15" value="1"></el-option>
+        <el-option key="2" label="0.15 - 0.21" value="2"></el-option>
+        <el-option key="3" label="0.21 - 0.27" value="3"></el-option>
+      </el-select>
+      <el-select  v-model="ruleForm.monthesReturn" clearable placeholder="还款月数" style="width: 10%;">
+        <el-option key="1" label="1 - 3 月" value="1"></el-option>
+        <el-option key="2" label="4 - 6 月" value="2"></el-option>
+        <el-option key="3" label="7 - 10 月" value="3"></el-option>
+      </el-select>
+      <el-select  v-model="ruleForm.totalRewardAmount" clearable placeholder="总利息范围" style="width: 10%;">
+        <el-option key="1" label="0 - 100" value="1"></el-option>
+        <el-option key="2" label="100 - 150" value="2"></el-option>
+        <el-option key="3" label="150 - 200" value="3"></el-option>
+      </el-select>
+      <el-button size="medium" icon="el-icon-search" type="primary" @click="query">搜 索</el-button><br/><br/><br/><br/><br/>
 
-      <!--&lt;!&ndash;表单搜索 搜索所有数据！！！！&ndash;&gt;-->
-      <!--<el-button-group>-->
-        <!--<el-input v-model="searchR" placeholder="利息率" type="text" size="medium"></el-input>-->
-      <!--</el-button-group>&nbsp;&nbsp;-->
-      <!--<el-button-group>-->
-        <!--<el-input v-model="searchM" placeholder="还款月数" size="medium" type="text"></el-input>-->
-      <!--</el-button-group>&nbsp;&nbsp;-->
-      <!--<el-button size="medium" icon="el-icon-search" type="primary">搜 索</el-button><br/><br/><br/><br/>-->
 
       <!--列表数据展示-->
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="name" label="借款人" width="69" align="center"></el-table-column>
         <el-table-column prop="bid_request_amount" label="投资总额" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="current_sum" label="现有投资" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="money" label="可投标额" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="current_rate" label="利息率" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="monthes_return" label="还款月数" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="total_reward_amount" label="总利息" width="99" align="center" sortable></el-table-column>
-        <el-table-column prop="disable_date" label="投标结束时" width="128" align="center" sortable ></el-table-column>
-        <el-table-column prop="plan" label="投标进度" align="center" width="268" sortable>
+        <el-table-column prop="total_reward_amount" label="总得利息" width="109" align="center" sortable></el-table-column>
+        <el-table-column prop="return_type" label="还款方式" width="109" align="center"></el-table-column>
+        <el-table-column prop="bid_request_type" label="贷款类型" width="109" align="center"></el-table-column>
+        <el-table-column prop="current_sum" label="现有投资" width="109" align="center" sortable></el-table-column>
+        <el-table-column prop="money" label="可投标额度" width="119" align="center" sortable></el-table-column>
+        <el-table-column prop="disable_date" label="投标截止时间" width="186" align="center" sortable ></el-table-column>
+        <el-table-column label="投标进度" align="center" width="198" sortable>
           <template slot-scope="scope">
-           <el-progress :percentage="plan"></el-progress>
+           <el-progress :percentage="scope.row.plan"></el-progress>
           </template>
         </el-table-column>
         <el-table-column label="操  作" align="center">
           <template slot-scope="scope">
-
-            <!--  查看详情  -->
-            <el-popover placement="right" width="666" trigger="click">
-              <el-card class="box-card" style="background-color: whitesmoke;"><br/>
-                <!--  头 部  -->
-                <div slot="header" class="clearfix">
-                  &nbsp;借款标题：XXX<br/><br/>
-                  <el-tooltip align="right" effect="light" placement="bottom-start">
-                    <div slot="content">借款描述借款描述借款描述<br/>借款描述借款描述借款描述借款描述<br/>借款描述借款描述借款描述借款描述借款描述</div>
-                    <el-button style="float: right; padding: 3px 0;color: black;" type="text">
-                      —— 借款人：XX<br/><br/>
-                      借款总额：10000 ￥
-                    </el-button>
-                  </el-tooltip>
-                </div>
-                <!--  主 体  -->
-                <div class="text item">
-                  <span style="color:green;"><strong>安全分数：78</strong></span><br/><br/>
-                  <span><strong>投资利息率：2.27%</strong></span><br/><br/>
-                  <span><strong>已投资：4000 ￥</strong></span><br/><br/>
-                  <span><strong>我的投资：<input style="width: 48px;" v-model="bidMoney" /> ￥</strong></span>
-                  <p align="right" style="color: red;"><strong>我的投资利息：210 ￥</strong></p>
-                  <!--  分割线  -->
-                  <el-divider></el-divider>
-                  <p align="left">
-                    <el-input style="width: 46%;" placeholder="发布时间" disabled="false"></el-input> -
-                    <el-input style="width: 48%;" placeholder="截止时间" disabled="false"></el-input>
-                  </p>
-                  <p align="left">
-                    <span><strong>还款方式：</strong></span><br/><br/>
-                    <span><strong>还款类型：</strong></span><br/><br/>
-                  </p>
-                  <p align="right">当前投标人数：</p>
-                </div>
-              </el-card>
-              <!--  查看详情   结束   -->
-              <el-button size="mini" slot="reference" @click="handleDetails(scope.$index,scope.row.id)">查 看 详 情</el-button>
-            </el-popover>
-            <!--  查看详情  结尾  -->
-
+            <!--查看详情-->
+            <el-button size="mini" type="default" @click="handleDetails(scope.row.id)">查 看 详 情</el-button>
             <!--投资-->
-            <el-button size="mini" type="danger" @click="handleBidding(scope.$index,scope.row.id)">投 资</el-button>
-
+            <el-button v-if="scope.row.plan != 100" size="mini" type="danger" @click="handleBidding(scope.row.id)">投 资</el-button>
           </template>
         </el-table-column>
       </el-table><br/><br/>
 
-      <!--&lt;!&ndash;分页展示数据&ndash;&gt;-->
-      <!--<div align="center" class="block">-->
-        <!--<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"-->
-                       <!--:current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100"-->
-                       <!--layout="total, sizes, prev, pager, next, jumper" :total="10000">-->
-        <!--</el-pagination>-->
-      <!--</div>-->
+      <!--分页展示数据-->
+      <div align="center" class="block">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                       :current-page="ruleForm.page" :page-sizes="[10, 20, 30, 50, 100]" :page-size="ruleForm.rows"
+                       layout="total, sizes, prev, pager, next, jumper" :total="total">
+        </el-pagination>
+      </div>
 
     </el-main>
   </div>
@@ -135,80 +117,110 @@
         return {
           // bannerH:200,//图片轮番滚动
           // bannerImgLst:['src/assets/img/7.png'],
-          // searchR: '',//搜索框的内容 年利率
-          // searchM: '',//搜索框的内容 还款月数
-          tableData: null,
-          ruleForm:{
-            id:"",
-            availableAmount:"",
-            bidRequestId:"",
-            membersId:"",
+          tableData: [{plan:null,}],
+          percentage:null,//投标完成率百分比
+          total:null,
+          ruleForm: {
+            page:1,
+            rows:10,
+            bidRequestState:null,//投标状态 2-投标中 3-满标
+            returnType:null,//还款方式
+            bidRequestType:null,//贷款类型
+            currentRate:null,//利率
+            monthesReturn:null,//还款月数
+            totalRewardAmount:null,//总利息
           }
         }
       },
-    created(){
-      let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
-      console.log("sss:"+url)
-      this.axios.post(url, {}).then((response) => {
-        console.log(response);
-        this.tableData = response.data.data;
-      }).catch((response) => {
-        //carch则是异常
-        console.log(response);
-      });
-    },
+      created(){//投标数据展示
+        let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
+
+        this.axios.post(url,this.ruleForm).then((response)=>{
+          console.log("分页查询的："+response.data.data);
+          this.tableData = response.data.data;
+          this.total = response.data.total;
+        }).catch(function(error){//carch则是异常
+          console.log(error);
+        });
+      },
       methods: {
-        //查询投标状态
-        // findFun(state){
-        //   let url = this.axios.urls.SYSTEM_BID_GETALL;
-        //   console.log("aaaaaaaaaaa:"+url)
-        //   this.axios.post(url, {state}).then((response) => {
-        //     console.log(response);
-        //     this.tableData = response.data.data;
-        //   }).catch((response) => {
-        //     //carch则是异常
-        //     console.log(response);
-        //   });
-        // },
         // setBannerH(){//图片轮番滚动
         //   this.bannerH = document.body.clientWidth / 4
         // },
         // formatter(row, column) {
         //   return row.address;
         // },
-        //查看详情按钮
-        handleDetails(id) {
+        query(){//投标数据展示  模糊查询
+          let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
+          this.axios.post(url,this.ruleForm).then((response)=>{
+            console.log("分页查询的："+response.data.data)
+            // console.log(response.data);
+            this.tableData = response.data.data;
+            this.total = response.data.total;
+          }).catch(function(error){//carch则是异常
+            console.log(error);
+          });
+        },
+        handleSizeChange(val) {//每页数据大小改变'
+          debugger
+          console.log(`每页 ${val} 条`);
+          this.ruleForm.rows = val;
+          this.ruleForm.page = 1;
+          let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
+          this.axios.post(url,this.ruleForm).then((response)=>{
+            console.log("分页查询的："+response.data.data)
+            // console.log(response.data);
+            this.tableData = response.data.data;
+            this.total = response.data.total;
+          }).catch(function(error){//carch则是异常
+            console.log(error);
+          });
+        },
+        handleCurrentChange(val) {//当前页数的改变 上/下一页
+          console.log(`当前页: ${val}`);
+          this.ruleForm.page = val;
+          let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
+          this.axios.post(url,this.ruleForm).then((response)=>{
+            console.log("分页查询的："+response.data.data)
+            // console.log(response.data);
+            this.tableData = response.data.data;
+            this.total = response.data.total;
+          }).catch(function(error){//carch则是异常
+            console.log(error);
+          });
+        },
+        handleDetails(id) {//查看某一投标详情按钮
           let url = this.axios.urls.SYSTEM_BID_SELECTONE;
-          this.axios.post(url, this.ruleForm).then((response) => {
-            console.log(response);
-            this.infodata = response.data;
-          }).catch((response) => {
-            //carch则是异常
+          this.axios.post(url, {"id":id}).then((response) => {
+            let data = response.data;
+            this.$store.commit('setBidDetails', {//设置信息
+              bidDetails:data
+            });
+            let d = this.$store.getters.getBidDetails;
+            // 跳转路由 去详情界面 BidDetails
+            this.$router.push({
+              path: '/reception/BidDetails'
+            });
+          }).catch((response) => {//carch则是异常
             console.log(response);
           });
         },
-        //直接投标按钮
-        handleBidding(id) {
-          let url = this.axios.urls.SYSTEM_BID_BIDADD;
-          this.axios.post(url, this.ruleForm).then((response) => {
-            console.log(response);
-            this.infodata = response.data;
-          }).catch((response) => {
-            //carch则是异常
+        handleBidding(id) {//直接投标按钮 先查看详情
+          let url = this.axios.urls.SYSTEM_BID_SELECTONE;
+          this.axios.post(url, {"id":id}).then((response) => {
+            let data = response.data;
+            this.$store.commit('setBidDetails', {//设置信息
+              bidDetails:data
+            });
+            let d = this.$store.getters.getBidDetails;
+            // 跳转路由 去投标界面 Bidding
+            this.$router.push({
+              path: '/reception/Bidding'
+            });
+          }).catch((response) => {//carch则是异常
             console.log(response);
           });
-          // 跳转路由 去投标界面 Bidding
-          this.$router.push({
-            path: '/reception/Bidding'
-          });
-        },
-        //分页
-        // handleSizeChange(val) {//每页的条数可改变
-        //   console.log(`每页 ${val} 条`);
-        // },
-        // handleCurrentChange(val) {//当前页数可改变
-        //   console.log(`当前页: ${val}`);
-        // }
+        }
       },
       // mounted(){
       //   this.setBannerH()

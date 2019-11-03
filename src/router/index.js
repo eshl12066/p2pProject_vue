@@ -74,6 +74,8 @@ import ReceptionHome from '@/views/reception/home/ReceptionHome'
 //3、我要投资
 //4、投资列表
 import Bid from '@/views/reception/bid/Bid'
+//4、查看投资详情
+import BidDetails from '@/views/reception/bid/BidDetails'
 //4、进行投资界面
 import Bidding from '@/views/reception/bid/Bidding'
 
@@ -277,6 +279,11 @@ export default new Router({
           name: 'Bidding',
           component: Bidding
 
+        },
+        {//查看投资详细信息载体
+          path: '/reception/BidDetails',
+          name: 'BidDetails',
+          component: BidDetails
         },
         {//借贷载体
           path: '/reception/BidRequest',

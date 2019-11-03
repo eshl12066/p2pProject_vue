@@ -29,20 +29,36 @@ export default {
 
 
 
-
   //业务模块
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
   'SYSTEM_ROLE_TREE':'/sysPermission/selectTreeNodeRoleid',//权限角色赋值所用
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
   'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
-
-  'SYSTEM_BID_BIDQUERY': '/business/bidQuery',//投资界面数据展示
-  'SYSTEM_BID_SELECTONE': '/business/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/business/bidAdd',//进行投资
-
-  //资产模块
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
 
   //会员模块
+  'MEMBER_MANAGE_GETALL':'/members/getAll',//会员管理模糊查
+  'MEMBER_MANAGE_GETCALL':'/membersMaterials/getCAll',//会员材料模糊查询
+  'MEMBER_MANAGE_GETRALL':'/membersRealname/getRAll',//会员实名模糊查
+
+  'MEMBER_CLONE':'/membersMaterials/getCLOne',//会员材料单个查询
+  'MEMBER_RLONE':'/membersRealname/getRLOne',//会员实名认证单个查询
+
+  'MEMBER_CEDITSTATE':'/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
+  'MEMBER_REDITSTATE':'/membersRealname/updateRState',//修改会员实名认证审核状态
+
+//投资模块
+
+  //投标模块
+  'SYSTEM_BID_BIDQUERY': '/bid/bidQuery',//投资界面数据展示
+  'SYSTEM_BID_SELECTONE': '/bid/selectOne',//投资界面，查询单个投资数据
+  'SYSTEM_BID_BIDADD': '/bid/bidAdd',//进行投资
+
+  //借款模块
+  'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
+
+
+
 
   //设置模块
   'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表
@@ -60,6 +76,7 @@ export default {
 
 
 
+//资产模块
 
 	'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
 		return this.SERVER + this[k];

@@ -76,65 +76,71 @@
       </el-form>
 
       <!--  2、步骤二  这是  填写 信用贷款信息 模块  -->
-      <el-form v-if="isShowData.basicInformation"  :model="dictForm" :rules="dictRules" ref="dictForm">
+      <el-form v-if="isShowData.basicInformation" >
         <p><strong>贷 款 信 息 ：</strong></p>
         <el-row>
           <el-col :span="6">
             <el-form-item label=" 借 款 人 ：" label-width="100px">
-              <el-input disabled="false" placeholder="XXX(用户名)" ></el-input>
+              <el-input readonly="readonly" v-model="creInfo.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="18">
             <el-form-item label="借 款 标 题 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入借款标题"></el-input>
+              <el-input placeholder="请输入借款标题" v-model="creInfo.title"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="借 款 金 额 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入借款金额"></el-input>
+              <el-input @change="gets" placeholder="请输入借款金额" v-model="creInfo.bidRequestAmount"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="年 利 率 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入年利率"></el-input>
+              <el-input  @change="gets" placeholder="请输入年利率" v-model="creInfo.currentRate"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="还 款 方 式 :" label-width="100px">
-              <el-radio-group v-model="radio" size="medium">
-                <el-radio border label="一 次 付 清" value="0"></el-radio>
-                <el-radio border label="等 额 本 息" value="1"></el-radio>
-                <el-radio border label="等 额 本 金" value="2"></el-radio>
+              <el-radio-group size="medium" v-model="creInfo.returnType">
+                <el-radio border :label="0" >一 次 付 清</el-radio>
+                <el-radio border :label="1" >等 额 本 息</el-radio>
+                <el-radio border :label="2" >等 额 本 金</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="还 款 月 数 :" label-width="100px">
               <!--  信用贷款 -->
-              <el-select style="width: 100%;" value="1" @focus="focus" placeholder="sdaf">
+              <el-select @change="gets"  style="width: 100%;" value="1" v-model="creInfo.monthesReturn">
                 <el-option label="一 月" value="1"></el-option>
                 <el-option label="二 月" value="2"></el-option>
                 <el-option label="三 月" value="3"></el-option>
                 <el-option label="四 月" value="4"></el-option>
                 <el-option label="五 月" value="5"></el-option>
-                <el-option label="半 年" value="6"></el-option>
+                <el-option label="六 月" value="6"></el-option>
                 <el-option label="七 月" value="7"></el-option>
                 <el-option label="八 月" value="8"></el-option>
                 <el-option label="九 月" value="9"></el-option>
                 <el-option label="十 月" value="10"></el-option>
-                <el-option label="一 年" value="12"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="总 利 息 :" label-width="100px">
-              <el-input disabled="false" placeholder="本金 X 利息 X 月数"></el-input>
+              <el-input v-model="creInfo.totalRewardAmount" readonly="readonly" placeholder="本金 X 利息 X 月数 "></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="2">&nbsp;</el-col>
+          <!--<el-col :span="10">-->
+            <!--<el-form-item label="截 止 时 间 :" label-width="100px">-->
+              <!--<div class="block">-->
+                <!--<el-date-picker v-model="creInfo.disableDate" type="datetime" placeholder="选择日期时间" ></el-date-picker>-->
+              <!--</div>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
           <el-col :span="24">
             <el-form-item label="借 款 说 明 :" label-width="100px">
-              <el-input type="textarea" :rows="4">
-              </el-input>
+              <el-input v-model="creInfo.description" type="textarea" :rows="4"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col>
@@ -142,7 +148,7 @@
             <p align="left"><el-button @click="cancle" type="default">取消贷款</el-button></p>
           </el-col>
           <el-col :span="12"><br/><br/><br/>
-            <el-button @click="next" style="float: right">下一步</el-button>
+            <el-button @click="next()" style="float: right">下一步</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -150,16 +156,24 @@
       <!--  3、步骤三  这是  确认  信用贷款  页  -->
       <el-row v-if="isShowData.confirm"><br/><br/><br/><br/>
         <p align="left">
-              贷款总额 :  <strong> 1100 ￥  &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              贷款利率 :  <strong> 2.12 %   &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              总 利 息 : <strong>  110 ￥  &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              应还本金 :  <strong> 12100 ￥ &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
+              借 款 人：   {{creInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+              贷款总额 :   {{creInfo.bidRequestAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              贷款利率 :   {{creInfo.currentRate}}%   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+              总 利 息 :   {{creInfo.totalRewardAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+              <!--应还本金 :  <strong> 12100 ￥ &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;-->
         </p><br/><br/>
         <p align="center">
+          <!--还款方式 ：{{creInfo.stype}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
           贷款方式 :   信用贷   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          还款方式 :   一次付清 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          还款月数 :   110 ￥   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </p><br/><br/><br/><br/><br/><br/>
+          还款月数 :   {{creInfo.monthesReturn}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
+        <!--<div class="block">-->
+          <!--截止时间：<el-date-picker v-model="creInfo.disableDate" type="datetime" placeholder="选择日期时间" ></el-date-picker>-->
+        <!--</div>-->
+        <br/><br/>
+        <p align="right">借款标题：{{creInfo.title}}</p>
+        <p align="right">借款描述：{{creInfo.description}}</p>
+        <br/><br/><br/><br/>
         <div style="float: right; margin: 20px;">
           <p align="right">已确认我的贷款申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color: green;font-size: 24px" class="el-icon-bottom"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
           <el-button @click="back" type="default">修改贷款信息</el-button>
@@ -182,17 +196,57 @@
 <script>
   export default {
     name: "BidRequestCreditting",
-    data:function(){
+    data(){
       return {
-        stepsActive:1,
-        isShowData:{
+        stepsActive:1,//步骤条
+        isShowData:{//步骤属性
           Information:true,
           basicInformation:false,
           confirm:false,
           carryOut:false
         },
-        radio: null,//单选框
+        creInfo:{//信用贷表单信息填写
+          name:"李某某",
+          title:null,
+          bidRequestAmount:null,
+          currentRate:null,
+          returnType:null,
+          bidRequestType:0,//信用贷
+          monthesReturn:null,
+          totalRewardAmount:null,
+          description:null,
+          // disableDate:null,//投标截止时间
+          membersId:101,//模拟用户登录
+        },
+        // stype:null,
+        // sa:null,
+        // rules: {//表单验证
+        //   title: [
+        //     { required: true, message: '请输入借款标题', trigger: 'blur' },
+        //     { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+        //   ],
+        //   bidRequestAmount:[
+        //     { required: true, message: '请输入借款金额', trigger: 'blur' },
+        //     { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+        //   ],
+        //   currentRate:[
+        //     { required: true, message: '请输入还款利息率 （0-0.35） ', trigger: 'blur' },
+        //     { min: 0, max: 0.35, message: '利息率必须大于0，小于等于0.35', trigger: 'blur' }
+        //   ],
+        //   returnType: [
+        //     { required: true, message: '请选择还款方式', trigger: 'change' }
+        //   ],
+        //   description: [
+        //     { required: true, message: '请填写借款描述', trigger: 'blur' },
+        //     { min: 12, max: 60, message: '长度在 12 到 60 个字符', trigger: 'blur' }
+        //   ]
+        // },
+        radio: null//单选框
       }
+    },
+    created() {
+      // commonUtils.init(this);
+      // this.creInfo.bidRequestAmount = this.creInfo.bidRequestAmount*this.creInfo.currentRate*this.creInfo.monthesReturn;
     },
     methods:{
       //返回首页
@@ -205,6 +259,28 @@
       //取消投标  返回上一界面
       cancle(){
         this.$router.go(-1);//返回上一层
+      },
+      gets(val){
+          //计算利息
+          if(this.creInfo.bidRequestAmount!=null&&this.creInfo.currentRate!=null&&this.creInfo.monthesReturn){
+            this.creInfo.totalRewardAmount = this.creInfo.bidRequestAmount*this.creInfo.currentRate*this.creInfo.monthesReturn;
+            // this.creInfo.sa = "本金 X 利息 X 月数 :"+this.creInfo.bidRequestAmount+" X "+this.creInfo.currentRate+" X "+this.creInfo.monthesReturn+" = "+this.creInfo.totalRewardAmount;
+          }
+          // else{
+          //   this.creInfo.sa = "本金 X 利息 X 月数 :";
+          // }
+          //还款方式
+          // if(this.creInfo.returnType){
+          //   if(this.creInfo.returnType == "0"){
+          //     this.stype = "一次付清"
+          //   }
+          //   else if(this.creInfo.returnType == "1"){
+          //     this.stype = "等额本息"
+          //   }
+          //   else if(this.creInfo.returnType == "2"){
+          //     this.stype = "等额本金"
+          //   }
+          // }
       },
       // 查看完贷款信息后 点击按钮“我要贷款” 到 步骤二
       toConfirm(){
@@ -222,10 +298,23 @@
         this.stepsActive = 1;
       },
       // 填写完贷款信息后 点击按钮“下一步” 到 步骤三
-      next(){
-        this.isShowData.basicInformation = false;
-        this.isShowData.confirm = true;
-        this.stepsActive = 3;
+      next(){//creInfo
+        // alert("信用贷表单信息填写，点击按钮，下一步");
+        // this.$refs[creInfo].validate((valid) => {
+        //   // alert("this.$refs[creInfo].validate((valid) =>");
+        //   if (valid) {
+        //     alert('submit!');
+
+            //设置步骤 去步骤三 确认投标信息是否有误
+            this.isShowData.basicInformation = false;
+            this.isShowData.confirm = true;
+            this.stepsActive = 3;
+
+        //   } else {
+        //     console.log('error submit!!');
+        //     return false;
+        //   }
+        // });
       },
       // 修改贷款信息 点击按钮“修改贷款信息” 到 步骤二
       back(){
@@ -233,17 +322,24 @@
         this.isShowData.basicInformation = true;
         this.isShowData.confirm = false;
         this.stepsActive = 2;
-
       },
       // 确认贷款信息无误后 点击按钮“申请贷款” 到 步骤四
       toCarryOut(){
-        this.isShowData.confirm = false;
-        this.isShowData.carryOut = true;
-        this.stepsActive = 4;
+        //增加贷款 信用贷
+        let url = this.axios.urls.SYSTEM_BIDREQUEST_INSERTBIDREQUEST;
+        console.log(url);
+        console.log(this.creInfo);
+        // this.creInfo.disableDate = this.creInfo.disableDate[0];
+        this.axios.post(url,this.creInfo).then((response)=>{
+          alert("信用贷贷款申请成功！");
+
+          this.isShowData.confirm = false;
+          this.isShowData.carryOut = true;
+          this.stepsActive = 4;
+        }).catch(function(error){//carch则是异常
+          console.log("投资失败："+error);
+        });
       }
-    },
-    created() {
-      commonUtils.init(this);
     }
   }
 </script>

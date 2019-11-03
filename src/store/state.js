@@ -13,5 +13,14 @@ export default{
   showName:'show',//tab页的标题
   role:'', //用来区分是否是因为左侧菜单被点击造成的路由路径发生改变；是：pass；不是：nopass
 
+  //dj
+  bidDetails:null,//投标界面，查询某一投标的详细信息
+  bidCredit:null,//用户信用贷，申请信息
+  computed: {
+    bidDetails: function() {
+      return this.$store.getters.bidDetails;
+    }
+  }
+
 
 }
