@@ -34,7 +34,7 @@
           this.collapsed = v;
         });
         let url = this.axios.urls.SYSTEM_TREE;
-        this.axios.post(url, {uid:5}).then((response) => {
+        this.axios.post(url, {uid:3}).then((response) => {
           console.log(response);
           this.menus = response.data;
         }).catch((response) => {
