@@ -113,9 +113,9 @@
                   <el-table-column label="操作"   align="center">
                     <template slot-scope="scope" >
                       <!--投资-->
-                      <el-button type="warning"  size="mini"  @click="yes3(scope.row.id)"  >审核通过</el-button>
+                      <el-button type="warning"  size="mini"  @click="yesDiag3(scope.row)"  >审核通过</el-button>
                       <!--  查看详情   结束   -->
-                      <el-button size="mini" @click="no3(scope.row.id)" slot="reference" >不通过</el-button>
+                      <el-button size="mini" @click="noDiag3(scope.row)" slot="reference" >不通过</el-button>
                       <!--投资-->
                       <!--<el-button size="mini" @click="tono0(scope.row.id)" type="danger" >不通过</el-button>-->
                     </template>
@@ -227,7 +227,7 @@
                   <el-table-column label="操作"   align="center">
                     <template slot-scope="scope" >
                       <!--投资-->
-                      <el-button type="warning"  size="mini"  @click="detail7(scope.row.id)"  >查看详情</el-button>
+                      <el-button type="warning"  size="mini"  @click="del7(scope.row.id)"  >查看详情</el-button>
                       <!--  查看详情   结束   -->
                       <!--<el-button size="mini" @click="no0(scope.row.id)" slot="reference" >不通过</el-button>-->
                       <!--投资-->
@@ -284,19 +284,19 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="yes0">通过</el-button>
+        <el-button type="primary" @click="yes0">确认</el-button>
         <el-button @click="dialogFormVisible1 = false">取 消</el-button>
       </div>
 
     </el-dialog>
 
     <!--弹出层 dialogFormVisible2-->
-     <el-dialog title="修改角色" :visible.sync="dialogFormVisible2"  append-to-body="false">
+     <el-dialog title="不同意备注" :visible.sync="dialogFormVisible2"  append-to-body="false">
        <el-form :model="form2" size="mini">
          <el-row>
 
            <el-col >
-             <el-form-item  label="角色描述" :label-width="formLabelWidth2">
+             <el-form-item  label="备注" :label-width="formLabelWidth2">
                <el-input style="width: 75%;"  v-model="form2.remark" type="textarea"
                          rows="4"
                          placeholder="请输入内容"></el-input>
@@ -309,6 +309,47 @@
          <el-button @click="dialogFormVisible2 = false">取 消</el-button>
        </div>
      </el-dialog>
+
+    <!--弹出层 dialogFormVisible3-->
+    <el-dialog title="通过备注" :visible.sync="dialogFormVisible3"  append-to-body="false">
+      <el-form :model="form3" size="mini">
+        <el-row>
+
+          <el-col >
+            <el-form-item  label="备注" :label-width="formLabelWidth3">
+              <el-input style="width: 75%;"  v-model="form3.remark" type="textarea"
+                        rows="4"
+                        placeholder="请输入内容"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="yes3">确认</el-button>
+        <el-button @click="dialogFormVisible3 = false">取 消</el-button>
+      </div>
+
+    </el-dialog>
+
+    <!--弹出层 dialogFormVisible4-->
+    <el-dialog title="不同意备注" :visible.sync="dialogFormVisible4"  append-to-body="false">
+      <el-form :model="form4" size="mini">
+        <el-row>
+
+          <el-col >
+            <el-form-item  label="备注" :label-width="formLabelWidth4">
+              <el-input style="width: 75%;"  v-model="form4.remark" type="textarea"
+                        rows="4"
+                        placeholder="请输入内容"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="no3">确定</el-button>
+        <el-button @click="dialogFormVisible4 = false">取 消</el-button>
+      </div>
+    </el-dialog>
 
     <!--弹出层 dialogFormVisible3 ,角色授权-->
     <!--<el-dialog title="角色授权" :visible.sync="dialogFormVisible3"  append-to-body="false">
@@ -373,20 +414,41 @@
         ,//弹出层1
         dialogFormVisible1: false,
         form1: {
-          remark:"",
+        remark:"",
           id:"",//借贷id
           membersId:"",//借贷人id
           auditorId:""//审核人id
-        },
-        formLabelWidth1: '120px'
+      },
+      formLabelWidth1: '120px'
         ,//弹出层2
         dialogFormVisible2: false,
         form2: {
           id:"",
           remark:"",
           auditorId:"",
+      },
+
+      formLabelWidth2: '120px'
+
+        ,//弹出层3
+        dialogFormVisible3: false,
+        form3: {
+          remark:"",
+          id:"",//借贷id
+          membersId:"",//借贷人id
+          auditorId:""//审核人id
         },
-        formLabelWidth2: '120px',
+        formLabelWidth3: '120px'
+
+        ,//弹出层4
+        dialogFormVisible4: false,
+        form4: {
+          id:"",
+          remark:"",
+          auditorId:"",
+        },
+        formLabelWidth4: '120px',
+
 
         //弹出层3
         dialogFormVisible3:false,
@@ -491,6 +553,75 @@
 
       }
      ,
+      yesdiag3(row){
+        this.dialogFormVisible3 = true;
+        this.form3.id = row.id;
+        this.form3.membersId = row.members_id;
+        this.form3.auditorId = row.auditor_id;
+
+
+      },
+      yes3(){
+        let url = this.axios.urls.SYSTEM_USERROLE_MANUPDATE3;
+        this.axios.post(url,this.form3).then((response)=>{
+          // console.log("分页查询的："+response.data.data)
+          let data = response.data
+          if(data.code==0){
+            this.dialogFormVisible3 = false;
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'success'
+            });
+          }
+          else{
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'error'
+            });
+          }
+
+        }).catch(function(error){
+          console.log(error);
+        });
+
+
+
+      },
+      noDiag3(row){
+        this.dialogFormVisible4 = true;
+        this.form4.id = row.id;
+        this.form4.auditorId = row.auditor_id;
+
+      }
+      ,
+      no3(){
+        let url = this.axios.urls.SYSTEM_USERROLE_NOMANUPDATE3;
+        this.axios.post(url,this.form4).then((response)=>{
+          // console.log("分页查询的："+response.data.data)
+          let data = response.data
+          if(data.code==0){
+            this.dialogFormVisible4 = false;
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'success'
+            });
+          }
+          else{
+            this.$message({
+              showClose: true,
+              message: data.msg,
+              type: 'error'
+            });
+          }
+
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
+      ,
       handleSizeChange0(val) {
         console.log(`每页 ${val} 条`);
         this.ruleForm0.rows = val;
