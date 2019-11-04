@@ -1,7 +1,8 @@
 <template>
   <el-row>
     <el-col :span="8">
-      <el-avatar style=" margin-left: 20px;" shape="square" :size="180" fit="fill" :src="avatarUrl">
+     <br/>
+      <el-avatar style=" margin-left: 20px;" shape="square" :size="180" fit="fill" :src="ruleForm.head_photo">
       </el-avatar>
     </el-col>
     <pre>
@@ -9,14 +10,14 @@
 
 	  </pre>
     <el-col :span="14">用户名：
-      <span>admin</span>
+      <span>ruleForm.name</span>
     </el-col>
     <pre>
 
 
 	</pre>
     <el-col :span="14">最后登录时间：
-      <span>2019-10-28</span>
+      <span>ruleForm.data</span>
     </el-col>
     <pre>
 
@@ -33,54 +34,40 @@
     <el-divider></el-divider>
     <div>
       <el-col style="margin-left: 50px;" :span="6">
+        <el-divider direction="vertical"></el-divider>
 		<span>账户总额:
-			<el-link style="font-size: 20px;" :underline="false" type="primary">
-				<a>0</a>元</el-link>
+			<el-link style="font-size: 20px;" :underline="false">
+				<a style="color: rgb(255, 69, 0);">0</a>元</el-link>
 		</span>
       </el-col>
       <el-col style="margin-left: 50px;" :span="6">
-		<span>可用总额:
-			<el-link style="font-size: 20px;" :underline="false" type="primary">
-				<a>0</a>元</el-link>
+        <el-divider direction="vertical"></el-divider>
+		<span>待收本息:
+			<el-link style="font-size: 20px;" :underline="false">
+				<a style="color: rgb(255, 69, 0);">0</a>元</el-link>
 		</span>
       </el-col>
       <el-col style="margin-left: 50px;" :span="6">
-		<span>冻结总额:
-			<el-link style="font-size: 20px;" :underline="false" type="primary">
-				<a>0</a>元</el-link>
+        <el-divider direction="vertical"></el-divider>
+		<span>累计收益:
+			<el-link style="font-size: 20px;" :underline="false">
+				<a style="color: rgb(255, 69, 0);">0</a>元</el-link>
 		</span>
       </el-col>
       <pre>
-
-
-
-      </pre>
-      <el-col style="margin-left: 50px;" :span="6">
-		<span>待收利息:
-			<el-link style="font-size: 20px;" :underline="false" type="primary">
-				<a>0</a>元</el-link>
-		</span>
-      </el-col>
-      <el-col style="margin-left: 50px;" :span="6">
-		<span>待收本金:
-			<el-link style="font-size: 20px;" :underline="false" type="primary">
-				<a>0</a>元</el-link>
-		</span>
-      </el-col>
-      <el-col style="margin-left: 50px;" :span="6">
-		<span>待还本息:
-			<el-link style="font-size: 20px;" :underline="false" type="primary">
-				<a>0</a>元</el-link>
-		</span>
-      </el-col>
-    </div>
-    <pre>
       <el-divider></el-divider>
-    </pre>
+      </pre>
+    </div>
+
+
     <el-row>
       <el-col :span="8" v-for="(o, index) in 1" :key="o" :offset="index ">
         <el-card style="width: 50%;" :body-style="{ padding: '0px' }">
-          <img class="image"  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" />
+          <el-image
+            style="width: 200px; height: 200px"
+            src="http://localhost:8080/p2pProject/image/r3.png"
+          >
+          </el-image>
           <div style="padding: 14px;">
             <div class="bottom clearfix">
               <span >实名认证</span>
@@ -93,10 +80,14 @@
       </el-col>
       <el-col :span="8" v-for="(o, index) in 1" :key="o" :offset="index ">
         <el-card style="width: 50%;" :body-style="{ padding: '0px' }">
-          <img class="image"  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" />
+          <el-image
+            style="width: 200px; height: 200px"
+            src="http://localhost:8080/p2pProject/image/r2.jpg"
+          >
+          </el-image>
           <div style="padding: 14px;">
             <div class="bottom clearfix">
-              <span >手机认证</span>
+              <span >短信验证</span>
               <el-tag type="info" style="margin-left: 10px;" effect="dark">未认证</el-tag>
               <br> <br>
               <el-button class="button" type="text">立即绑定</el-button>
@@ -106,10 +97,14 @@
       </el-col>
       <el-col :span="8" v-for="(o, index) in 1" :key="o" :offset="index ">
         <el-card style="width: 50%;" :body-style="{ padding: '0px' }">
-          <img class="image"  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" />
+          <el-image
+            style="width: 200px; height: 200px"
+            src="http://localhost:8080/p2pProject/image/r1.jpg"
+          >
+          </el-image>
           <div style="padding: 14px;">
             <div class="bottom clearfix">
-              <span >邮箱认证</span>
+              <span >材料认证</span>
               <el-tag type="info" style="margin-left: 10px;" effect="dark">未认证</el-tag>
               <br> <br>
               <el-button class="button" type="text">立即绑定</el-button>
@@ -119,7 +114,6 @@
       </el-col>
     </el-row>
 
-
   </el-row>
 </template>
 
@@ -128,8 +122,11 @@
     name: "UserAccount",
     data() {
       return {
-
-
+        ruleForm: {
+          head_photo:'',
+          name:'',
+          data:'',
+        }
       };
     }
   }

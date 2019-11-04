@@ -33,7 +33,21 @@ export default{
     }).catch(function(error){
         console.log(error);
     });
+  },
 
-  }
+  //注意：在VUEX中不能使用Vue实例
+  bidDetails: (content, payload) => {
+    let _this = payload._this;
+    let url = _this.axios.urls.SYSTEM_BID_SELECTONE;
+    console.log(url);
+    _this.axios.post(url, {"bid":bid}).then((response) => {
+      console.log('doAjax.......................');
+      console.log(response);
+    }).catch((response) => {
+      console.log(response);
+    });
+  },
+
 
 }
+

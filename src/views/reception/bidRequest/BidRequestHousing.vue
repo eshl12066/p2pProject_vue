@@ -73,32 +73,32 @@
           </el-col>
           <el-col :span="20">
             <p style="color: green;" align="right">我已熟知贷款信息&nbsp;&nbsp;<i style="font-size: 18px" class="el-icon-bottom-right"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-              <el-button type="success" round @click="toCar" style="float: right">房产抵押</el-button>
+              <el-button type="success" round @click="toHome" style="float: right">房产抵押</el-button>
             </p>
           </el-col>
         </el-row>
       </el-form>
 
       <!--  2、步骤二  这是  填写 房产抵押信息  模块  -->
-      <el-form v-if="isShowData.carBasicInformation"  :model="dictForm" :rules="dictRules" ref="dictForm">
+      <el-form v-if="isShowData.homeBasicInformation">
         <p><strong>房 产 信 息 ：</strong></p><br/><br/>
         <el-row><!--  第一行  -->
           <el-col :span="1">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="房 屋 总 价 ：" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的房屋总价"></el-input>
+              <el-input v-model="input1" placeholder="请输入您的房屋总价"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="房 屋 首 付 ：" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的房屋首付"></el-input>
+              <el-input v-model="input2" placeholder="请输入您的房屋首付"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="房 龄 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的房龄"></el-input>
+              <el-input v-model="input3" placeholder="请输入您的房龄"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="1">&nbsp;</el-col><!--  间隙  -->
@@ -138,7 +138,7 @@
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="20">
             <el-form-item label="房 屋 地 址 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的房屋地址"></el-input>
+              <el-input v-model="input4" placeholder="请输入您的房屋地址"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
@@ -147,9 +147,7 @@
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="20">
             <el-form-item label="房 屋 描 述 :" label-width="100px">
-              <el-input type="textarea" :rows="4">
-              </el-input>
-            </el-form-item>
+              <el-input v-model="hometext" readonly="readonly" type="textarea" :rows="4"></el-input></el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
         </el-row>
@@ -165,42 +163,42 @@
       </el-form>
 
       <!--  3、步骤三  这是 填写 房贷贷款信息 模块  -->
-      <el-form v-if="isShowData.basicInformation"  :model="dictForm" :rules="dictRules" ref="dictForm">
+      <el-form v-if="isShowData.basicInformation">
         <p><strong>贷 款 信 息 ：</strong></p>
         <el-row><br/>
           <el-col :span="6">
             <el-form-item label=" 借 款 人 ：" label-width="100px">
-              <el-input disabled="false" placeholder="XXX(用户名)" ></el-input>
+              <el-input readonly="readonly" v-model="homeInfo.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="18">
             <el-form-item label="借 款 标 题 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入借款标题"></el-input>
+              <el-input placeholder="请输入借款标题" v-model="homeInfo.title"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="借 款 金 额 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入借款金额"></el-input>
+              <el-input @change="gets" placeholder="请输入借款金额" v-model="homeInfo.bidRequestAmount"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="年 利 率 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入年利率"></el-input>
+              <el-input @change="gets" placeholder="请输入年利率" v-model="homeInfo.currentRate"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="还 款 方 式 :" label-width="100px">
-              <el-radio-group v-model="radio4" size="medium">
-                <el-radio border label="一 次 付 清" value="0"></el-radio>
-                <el-radio border label="等 额 本 息" value="1"></el-radio>
-                <el-radio border label="等 额 本 金" value="2"></el-radio>
+              <el-radio-group size="medium" v-model="homeInfo.returnType">
+                <el-radio border :label="0" >一 次 付 清</el-radio>
+                <el-radio border :label="1" >等 额 本 息</el-radio>
+                <el-radio border :label="2" >等 额 本 金</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="还 款 月 数 :" label-width="100px">
               <!--  房贷贷款 -->
-              <el-select style="width: 100%;" value="1" @focus="focus" placeholder="sdaf">
+              <el-select @change="gets" style="width: 100%;" value="1" v-model="homeInfo.monthesReturn">
                 <el-option label="一 月" value="1"></el-option>
                 <el-option label="二 月" value="2"></el-option>
                 <el-option label="三 月" value="3"></el-option>
@@ -212,20 +210,17 @@
                 <el-option label="九 月" value="9"></el-option>
                 <el-option label="十 月" value="10"></el-option>
                 <el-option label="一 年" value="12"></el-option>
-                <el-option label="一年半" value="18"></el-option>
-                <el-option label="两 年" value="24"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="总 利 息 :" label-width="100px">
-              <el-input disabled="false" placeholder="本金 X 利息 X 月数"></el-input>
+              <el-input readonly="readonly" placeholder="本金 X 利息 X 月数" v-model="homeInfo.totalRewardAmount"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="借 款 说 明 :" label-width="100px">
-              <el-input type="textarea" :rows="4">
-              </el-input>
+              <el-input type="textarea" :rows="4" v-model="homingtext"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
@@ -244,16 +239,17 @@
       <!--  4、步骤四  这是 确认 房贷贷款  页  -->
       <el-row v-if="isShowData.confirm"><br/><br/><br/><br/>
         <p align="left">
-              贷款总额 :  <strong> 1100 ￥  &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              贷款利率 :  <strong> 2.12 %   &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              总 利 息 : <strong>  110 ￥  &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              应还本金 :  <strong> 12100 ￥ &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
+          借 款 人：   {{homeInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+          贷款总额 :   {{homeInfo.bidRequestAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          贷款利率 :   {{homeInfo.currentRate}}%   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+          总 利 息 :   {{homeInfo.totalRewardAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
         </p><br/><br/>
         <p align="center">
+          <!--还款方式 ：{{homeInfo.stype}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
           贷款方式 :   房贷   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          还款方式 :   一次付清 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          还款月数 :   110 ￥   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </p><br/><br/><br/><br/><br/><br/>
+          还款月数 :   {{homeInfo.monthesReturn}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p><br/><br/>
+        <p align="right">借款标题：{{homeInfo.title}}</p>
         <div style="float: right; margin: 20px;">
           <p align="right">已确认我的贷款申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color: green;font-size: 24px" class="el-icon-bottom"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
           <el-button @click="last2" type="default">修改贷款信息</el-button>
@@ -278,19 +274,53 @@
     name: "BidRequestHousing",
     data:function(){
       return {
+        //步骤条
         stepsActive:1,
         isShowData:{
           Information:true,
-          carBasicInformation:false,
+          homeBasicInformation:false,
           basicInformation:false,
           confirm:false,
           carryOut:false
         },
-        radio1: null,//单选框
-        radio2: null,//单选框
-        radio3: null,//单选框
-        radio4: null,//单选框
+        //步骤二  填写房产信息 文本框
+        input1:"待填",
+        input2:"待填",
+        input3:"待填",
+        input4:"待填",
+        //步骤二  填写房产信息 单选框
+        radio1: "待填",//单选框
+        radio2: "待填",//单选框
+        radio3: "待填",//单选框
+        //步骤三：填写房贷贷款基本信息 步骤四：确认房产贷款基本信息
+        homein:null,//房产描述
+        homingtext:null,//借款说明
+        homeInfo:{//房产表单信息填写
+          name:"王某某",
+          title:null,
+          bidRequestAmount:null,
+          currentRate:null,
+          returnType:null,
+          bidRequestType:2,//房贷
+          monthesReturn:null,
+          totalRewardAmount:null,
+          description:"",
+          // disableDate:null,//投标截止时间
+          membersId:102,//模拟用户登录
+        },
       }
+    },
+    computed:{
+      //车辆信息描述  步骤二
+      hometext(){
+        var str = "房屋总价："+this.input1+";***\t\t\t房屋首付："+this.input2+";***\t\t\t房龄:"+this.input3+ ";***\n房屋地址:"+this.input4+
+          ";***\n保险情况 :"+this.radio1+";***\t\t\t损坏情况 :："+this.radio2+";***\t\t\t新旧程度："+this.radio3;
+        this.homein = str;//车辆信息描述
+        return str;
+      }
+    },
+    created() {
+      commonUtils.init(this);
     },
     methods:{
       //返回首页
@@ -304,10 +334,16 @@
       cancle(){
         this.$router.go(-1);//返回上一层
       },
+      gets(val) {
+        //计算利息
+        if (this.homeInfo.bidRequestAmount != null && this.homeInfo.currentRate != null && this.homeInfo.monthesReturn) {
+          this.homeInfo.totalRewardAmount = this.homeInfo.bidRequestAmount * this.homeInfo.currentRate * this.homeInfo.monthesReturn;
+        }
+      },
       // 查看 完房贷贷款信息后 点击按钮“房产抵押” 到 步骤二
-      toCar(){
+      toHome(){
         this.isShowData.Information = false;
-        this.isShowData.carBasicInformation = true;
+        this.isShowData.homeBasicInformation = true;
         this.isShowData.basicInformation = false;
         this.isShowData.confirm = false;
         this.stepsActive = 2;
@@ -315,7 +351,7 @@
       // 在填写贷款信息界面 点击按钮“上一步” 返回到 步骤二
       last1(){
         this.isShowData.information = false;
-        this.isShowData.carBasicInformation = true;
+        this.isShowData.homeBasicInformation = true;
         this.isShowData.basicInformation = false;
         this.isShowData.confirm = false;
         this.stepsActive = 2;
@@ -323,7 +359,7 @@
       // 在确认贷款信息界面 点击按钮“上一步” 返回到 步骤三
       last2(){
         this.isShowData.information = false;
-        this.isShowData.carBasicInformation = false;
+        this.isShowData.homeBasicInformation = false;
         this.isShowData.basicInformation = true;
         this.isShowData.confirm = false;
         this.stepsActive = 3;
@@ -331,28 +367,34 @@
       // 填写完  房产抵押信息 后 点击按钮“下一步” 到 步骤三
       next1(){
         this.isShowData.information = false;
-        this.isShowData.carBasicInformation = false;
+        this.isShowData.homeBasicInformation = false;
         this.isShowData.basicInformation = true;
         this.isShowData.confirm = false;
         this.stepsActive = 3;
       },
       // 填写完  贷款信息 后 点击按钮“下一步” 到 步骤四
       next2(){
+        this.homeInfo.description = this.homingtext + "***\t\n" + this.homein;//贷款描述
         this.isShowData.information = false;
-        this.isShowData.carBasicInformation = false;
+        this.isShowData.homeBasicInformation = false;
         this.isShowData.basicInformation = false;
         this.isShowData.confirm = true;
         this.stepsActive = 4;
       },
       // 确认贷款信息无误后 点击按钮“申请贷款” 到 步骤五
       toCarryOut(){
-        this.isShowData.confirm = false;
-        this.isShowData.carryOut = true;
-        this.stepsActive = 5;
+        //增加贷款 车贷
+        let url = this.axios.urls.SYSTEM_BIDREQUEST_INSERTBIDREQUEST;
+        alert("增加房贷贷款，点击按钮:"+url);
+        this.axios.post(url,this.homeInfo).then((response)=>{
+          alert("房贷贷款申请成功！");
+          this.isShowData.confirm = false;
+          this.isShowData.carryOut = true;
+          this.stepsActive = 5;
+        }).catch(function(error){//carch则是异常
+          console.log("投资失败："+error);
+        });
       }
-    },
-    created() {
-      commonUtils.init(this);
     }
   }
 </script>

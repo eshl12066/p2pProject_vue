@@ -1,4 +1,12 @@
 export default{
+
+  getUserManage:(state)=>{//会员登陆后的实体(ll)
+    return state.userManage;
+  },
+  getUserMembers:(state)=>{//会员登陆后的实体(ll)
+    return state.userMembers;
+  },
+
   getResturantName:(state)=>{
     return "这是通过getters方法获取到的数："+state.resturantName;
   },
@@ -21,6 +29,9 @@ export default{
   },
   getRole:(state) =>{
     return state.role;
-  }
+  },
+  getBidDetails:(state)=>{
+    return state.bidDetails;
+  },
 
 }

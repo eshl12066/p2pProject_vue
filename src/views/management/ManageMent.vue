@@ -37,6 +37,9 @@
       TopNav,LeftNav
     },
     created(){
+
+      this.$router.push({path:"/elseManage/backgroupImg"});
+
       this.$root.Bus.$on('collapsed-side',(v)=>{
         this.asideClass = v ? 'main-aside-collapsed':'main-aside';
       });

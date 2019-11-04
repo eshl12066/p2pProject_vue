@@ -26,15 +26,19 @@
       data(){
         return{
           collapsed:false,
-          menus:[]
+          menus:[],
+          userManage:null
         }
       },
       created(){
+        this.userManage = this.$store.getters.getUserManage;//后台管理员
+
+
         this.$root.Bus.$on('collapsed-side',(v)=>{
           this.collapsed = v;
         });
         let url = this.axios.urls.SYSTEM_TREE;
-        this.axios.post(url, {uid:3}).then((response) => {
+        this.axios.post(url, {uid:this.userManage.userid}).then((response) => {
           console.log(response);
           this.menus = response.data;
         }).catch((response) => {
