@@ -27,6 +27,18 @@ export default {
   'SYSTEM_USER_MANAGELOGINOUT': '/sysUser/manageLoginout',//后台管理员登出
   'SYSTEM_USER_MEMBERSLOGINOUT': '/sysUser/membersLoginout',//前台会员登出
 
+  //后台借贷（***）
+  'SYSTEM_USERROLE_BIDREQUESTSELECT': '/sysUserRole/bidRequestSelect',//后台信用贷的所有查
+  'SYSTEM_USERROLE_BIDREQUESTSELECT0': '/sysUserRole/bidRequestSelect0',//0
+  'SYSTEM_USERROLE_BIDREQUESTSELECT3': '/sysUserRole/bidRequestSelect3',//3
+  'SYSTEM_USERROLE_BIDREQUESTSELECT1': '/sysUserRole/bidRequestSelect1',//1
+  'SYSTEM_USERROLE_BIDREQUESTSELECT7': '/sysUserRole/bidRequestSelect7',//7
+  'SYSTEM_USERROLE_UPBIDREQUEST0': '/sysUserRole/upBidRequest0',//初审核通过后的修改
+  'SYSTEM_USERROLE_NOUPBIDREQUEST0': '/sysUserRole/noupBidRequest0',//初审核不通过后的修改
+
+
+
+
 
 
   //业务模块
