@@ -91,12 +91,38 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="借 款 金 额 :" label-width="100px">
-              <el-input @change="gets" placeholder="请输入借款金额" v-model="creInfo.bidRequestAmount"></el-input>
+              <!--  信用贷款  金额限制 -->
+              <el-select @change="gets"  style="width: 100%;" value="1" v-model="creInfo.bidRequestAmount">
+                <el-option label="小 额 信 用 贷" disabled></el-option>
+                <el-option label="500     ￥" value="500"></el-option>
+                <el-option label="800     ￥" value="800"></el-option>
+                <el-option label="1000    ￥" value="1000"></el-option>
+                <el-option label="1200    ￥" value="1200"></el-option>
+                <el-option label="1500    ￥" value="1500"></el-option>
+                <el-option label="1800    ￥" value="1800"></el-option>
+                <el-option label="2000    ￥" value="2000"></el-option>
+                <el-option label="高 额 信 用 贷" disabled></el-option>
+                <el-option label="1,0000  ￥" value="10000"></el-option>
+                <el-option label="1,5000  ￥" value="15000"></el-option>
+                <el-option label="2,0000  ￥" value="20000"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="年 利 率 :" label-width="100px">
-              <el-input  @change="gets" placeholder="请输入年利率" v-model="creInfo.currentRate"></el-input>
+              <el-select @change="gets"  style="width: 100%;" placeholder="利率选择需谨慎！" v-model="creInfo.currentRate">
+                <el-option label="小 额 利 率" disabled></el-option>
+                <el-option label="0.06" value="0.06"></el-option>
+                <el-option label="0.08" value="0.08"></el-option>
+                <el-option label="0.10" value="0.10"></el-option>
+                <el-option label="0.12" value="0.12"></el-option>
+                <el-option label="0.14" value="0.14"></el-option>
+                <el-option label="高 额 利 率" disabled></el-option>
+                <el-option label="0.16" value="0.16"></el-option>
+                <el-option label="0.20" value="0.20"></el-option>
+                <el-option label="0.22" value="0.22"></el-option>
+                <el-option label="0.24" value="0.24"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -113,13 +139,10 @@
               <!--  信用贷款 -->
               <el-select @change="gets"  style="width: 100%;" value="1" v-model="creInfo.monthesReturn">
                 <el-option label="一 月" value="1"></el-option>
-                <el-option label="二 月" value="2"></el-option>
                 <el-option label="三 月" value="3"></el-option>
-                <el-option label="四 月" value="4"></el-option>
                 <el-option label="五 月" value="5"></el-option>
                 <el-option label="六 月" value="6"></el-option>
                 <el-option label="七 月" value="7"></el-option>
-                <el-option label="八 月" value="8"></el-option>
                 <el-option label="九 月" value="9"></el-option>
                 <el-option label="十 月" value="10"></el-option>
               </el-select>
@@ -216,31 +239,8 @@
           totalRewardAmount:null,
           description:null,
           // disableDate:null,//投标截止时间
-          membersId:101,//模拟用户登录
+          membersId:304,//模拟用户登录
         },
-        // stype:null,
-        // sa:null,
-        // rules: {//表单验证
-        //   title: [
-        //     { required: true, message: '请输入借款标题', trigger: 'blur' },
-        //     { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
-        //   ],
-        //   bidRequestAmount:[
-        //     { required: true, message: '请输入借款金额', trigger: 'blur' },
-        //     { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
-        //   ],
-        //   currentRate:[
-        //     { required: true, message: '请输入还款利息率 （0-0.35） ', trigger: 'blur' },
-        //     { min: 0, max: 0.35, message: '利息率必须大于0，小于等于0.35', trigger: 'blur' }
-        //   ],
-        //   returnType: [
-        //     { required: true, message: '请选择还款方式', trigger: 'change' }
-        //   ],
-        //   description: [
-        //     { required: true, message: '请填写借款描述', trigger: 'blur' },
-        //     { min: 12, max: 60, message: '长度在 12 到 60 个字符', trigger: 'blur' }
-        //   ]
-        // },
         radio: null//单选框
       }
     },
@@ -264,23 +264,7 @@
           //计算利息
           if(this.creInfo.bidRequestAmount!=null&&this.creInfo.currentRate!=null&&this.creInfo.monthesReturn){
             this.creInfo.totalRewardAmount = this.creInfo.bidRequestAmount*this.creInfo.currentRate*this.creInfo.monthesReturn;
-            // this.creInfo.sa = "本金 X 利息 X 月数 :"+this.creInfo.bidRequestAmount+" X "+this.creInfo.currentRate+" X "+this.creInfo.monthesReturn+" = "+this.creInfo.totalRewardAmount;
           }
-          // else{
-          //   this.creInfo.sa = "本金 X 利息 X 月数 :";
-          // }
-          //还款方式
-          // if(this.creInfo.returnType){
-          //   if(this.creInfo.returnType == "0"){
-          //     this.stype = "一次付清"
-          //   }
-          //   else if(this.creInfo.returnType == "1"){
-          //     this.stype = "等额本息"
-          //   }
-          //   else if(this.creInfo.returnType == "2"){
-          //     this.stype = "等额本金"
-          //   }
-          // }
       },
       // 查看完贷款信息后 点击按钮“我要贷款” 到 步骤二
       toConfirm(){
@@ -327,8 +311,6 @@
       toCarryOut(){
         //增加贷款 信用贷
         let url = this.axios.urls.SYSTEM_BIDREQUEST_INSERTBIDREQUEST;
-        console.log(url);
-        console.log(this.creInfo);
         // this.creInfo.disableDate = this.creInfo.disableDate[0];
         this.axios.post(url,this.creInfo).then((response)=>{
           alert("信用贷贷款申请成功！");
@@ -337,7 +319,7 @@
           this.isShowData.carryOut = true;
           this.stepsActive = 4;
         }).catch(function(error){//carch则是异常
-          console.log("投资失败："+error);
+          console.log("信用贷贷款失败："+error);
         });
       }
     }
