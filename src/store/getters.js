@@ -29,6 +29,9 @@ export default{
   },
   getRole:(state) =>{
     return state.role;
-  }
+  },
+  getBidDetails:(state)=>{
+    return state.bidDetails;
+  },
 
 }

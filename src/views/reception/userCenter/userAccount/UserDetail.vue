@@ -13,13 +13,24 @@
         <el-form-item label="用户名" prop="name">
           <span style="margin-left: 150px;">aa</span>
         </el-form-item>
-        <el-form-item label="真实姓名" prop="realname">
-          <span style="margin-left: 150px;" >曾狗牛逼</span>
-        </el-form-item>
-        <el-form-item label="身份证号码" prop="id_number">
-          <el-col  :span="10">
-            <span style="margin-left: 150px;" v-model="ruleForm.id_number" ></span>
-          </el-col>
+        <el-form-item label="上传头像" prop="head_photo">
+        <el-upload style="margin-left:80px;"
+                   action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
+                   list-type="picture-card"
+                   :limit="1"
+                   name="picture"
+                   accept="head_photo/*"
+                   :file-list="head_photo"
+                   :multiple="isMultipls"
+                   :on-preview="handlePictureCardPreview"
+                   :on-error="errorimg"
+                   :on-success="handleAvatarSuccess"
+                   :on-remove="handleRemove"
+                   :headers="headers"
+                   :before-upload="beforeAvatarUpload"
+                   :on-exceed="exceed"
+          ><i class="el-icon-plus"></i>
+          </el-upload>
         </el-form-item>
         <el-form-item label="手机号码" prop="phone">
           <el-col  :span="10">
@@ -27,7 +38,7 @@
           </el-col>
         </el-form-item>
         <el-form-item label="个人学历" prop="myself_background">
-          <el-select style="margin-left: 80px;" @change="changeProduct(8)" v-model="ruleForm.myself_background" placeholder="请选择">
+          <el-select style="margin-left: 80px;" v-model="ruleForm.myself_background" placeholder="请选择">
             <el-option v-for="item in education1"
                        :key="item.id"
                        :label="item.title"
@@ -88,10 +99,10 @@
       return {
         ruleForm: {
           name: '',
-          realname:'',
-          id_number:'',
+          members_id:'',
+          head_photo:'',
           phone: '',
-          myself_background: '',
+          myself_background:'',
           monthly_income: '',
           marital_status: '',
           children: '',
@@ -104,30 +115,6 @@
         education4:null,
         education5:null,
 
-
-        rules: {
-          phone: [
-            { required: true, message: '请输入电话号码', trigger: 'blur' },
-            { min: 3, max: 11, message: '长度在 11 个字符', trigger: 'blur' }
-          ],
-          /*myself_background: [
-            { type: 'myself_background', required: true, message: '请选择个人学历', trigger: 'change' }
-          ],
-          monthly_income: [
-            { type: 'monthly_income', required: true, message: '请选择月收入', trigger: 'change' }
-          ],
-          marital_status: [
-            { type: 'monthly_income', required: true, message: '请选择婚姻情况', trigger: 'change' }
-          ],
-
-          children: [
-            { type: 'children', required: true, message: '请选择子女情况', trigger: 'change' }
-          ],
-          house: [
-            { type: 'house', required: true, message: '请选择住房条件', trigger: 'change' }
-          ]*/
-
-        }
       };
     },created(){
       let url = this.axios.urls.SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID;
@@ -143,21 +130,42 @@
       this.getEop();
     },
     methods: {
-      /*增加*/
-      submitForm(formName) {
-        let url = this.axios.urls.MEMBER_RADD;
-        this.axios.post(url, this.$refs[formName]).then((response) => {
 
-        }).catch((response) => {
-          //carch则是异常
-          console.log(response);
-        });
+      /*增加*/
+      submitForm(ruleForm) {
+        alert('dddd');
+        this.ruleForm.members_id =2;
+
+
+          var url =  this.axios.urls.MEMBER_DADD;
+          this.axios.post(url, this.ruleForm).then(response => {
+            alert("jjj");
+            if (response.data.code == 500) {
+              this.$message({
+                message: response.data.msg,
+                type: 'warning'
+              });
+            } else {
+              //打印成功信息
+              console.log(response.data);
+              this.$message({
+                message: '资料已提交,请耐心等待审核',
+                type: 'success'
+              });
+            }
+          }).catch(function(error) {
+            console.log(error);
+          });
+
+
       },
       /*查询下拉框的值*/
       indexs(){
+        alert('yuuyu');
         let url = this.axios.urls.SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID;
         this.axios.post(url,{}).then((response)=>{
           console.log(response);
+
           let ha8  = response.data.ha8;
           let ha9  = response.data.ha9;
           let ha10  = response.data.ha10;
@@ -169,17 +177,56 @@
           this.education3 = ha10;
           this.education4 = ha11;
           this.education5 = ha12;
-
-
           // this.ruleForm.education = response.data.data;
-
         }).catch(function(error){
           console.log(error);
         });
-
-
       },
 
+      errorimg(res){
+        this.$message({
+          message:res.msg,
+          type: 'warning'
+        });
+      },
+      //预览图片时调用
+      handlePictureCardPreview(file) {
+        console.log(file);
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      //文件上传之前调用做一些拦截限制
+      beforeAvatarUpload(file) {
+        console.log(file);
+        const isJPG = true;
+        const isLt2M = file.size / 1024 / 1024 < 5;
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过 5MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      //图片上传成功
+      handleAvatarSuccess(res, file) {
+        this.ruleForm.image = res.path;
+      },
+      //图片上传失败调用
+      imgUploadError(err, file, fileList){
+        console.log(err)
+        this.$message.error('上传图片失败!');
+      },
+
+      // 上传成功时调用
+      handleSuccess(response){
+        this.addform.foodpic= response.data[0]
+        console.log(this.addform.foodpic)
+      },
+      // 超出上传个数时调用
+      exceed(){
+        this.$message({
+          message: "目前上传图片上限为一张",
+          type: 'warning'
+        });
+      },
 
      },
     created(){

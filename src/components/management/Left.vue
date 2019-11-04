@@ -27,29 +27,24 @@
         return{
           collapsed:false,
           menus:[],
-          userMembers:null
+          userManage:null
         }
       },
       created(){
-        this.userMembers = this.$store.getters.getUserMembers;
+        this.userManage = this.$store.getters.getUserManage;//后台管理员
+
 
         this.$root.Bus.$on('collapsed-side',(v)=>{
           this.collapsed = v;
         });
-        alert("sssssssss");
-        alert("aaaaa"+this.userMembers);
         let url = this.axios.urls.SYSTEM_TREE;
-        this.axios.post(url, {uid:this.userMembers.userid}).then((response) => {
+        this.axios.post(url, {uid:this.userManage.userid}).then((response) => {
           console.log(response);
           this.menus = response.data;
         }).catch((response) => {
           //carch则是异常
           console.log(response);
         });
-
-      },
-      mounted(){
-
       },
       methods: {
         showName(name) {

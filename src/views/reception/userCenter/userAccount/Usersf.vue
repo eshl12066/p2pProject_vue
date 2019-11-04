@@ -8,25 +8,9 @@
 
 
     </pre>
-    <!--这是待审核状态-->
-    <el-card class="box-card" v-if="state == 1" style="height: 400px;">
-      <div class="clearfix" slot="header">
-        <strong style="font-size: 23px;">实名认证</strong>
-        <span style="float: right">材料已经提交</span>
-      </div>
 
-      <div style="text-align: center;margin-top: 55px;">
-        <i class="el-icon-warning" style="font-size: 38px; color: rgb(1, 170, 237); margin-top: 30px;">身份认证信息提交完成,请耐心等待后台人员审核</i>
-        <p style="color: rgb(153, 153, 153);">您的申请提交成功,申请结果将会在24小时内 短息/平台 同步,请耐心等待</p>
-        <p style="color: rgb(153, 153, 153);">如有疑问 请致电 13389165743,很高效为您服务</p>
-      </div>
-    </el-card>
-
-    <el-col :span="12" style="margin-left: 100px;">
+    <el-col :span="12" style="margin-left:100px;">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" size="mini">
-        <el-form-item label="用户名" prop="name">
-          <span style="margin-left: 150px;" v-model="ruleForm.name"></span>
-        </el-form-item>
         <el-form-item label="真实姓名" prop="realname">
           <el-col :span="10">
             <el-input style="margin-left: 80px;" v-model="ruleForm.realname"></el-input>
@@ -39,11 +23,11 @@
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-col :span="18" style="margin-left: 80px;">
-            <el-radio  v-model="ruleForm.sex" label="1">男</el-radio>
-            <el-radio v-model="ruleForm.sex" label="2">女</el-radio>
+            <el-radio  v-model="ruleForm.sex" label="男" checkd="checkd">男</el-radio>
+            <el-radio v-model="ruleForm.sex" label="女">女</el-radio>
           </el-col>
         </el-form-item>
-        <el-form-item label="出生日期" prop="born_date" required>
+        <el-form-item label="出生日期" prop="born_date">
           <el-col :span="14">
               <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.born_date" style="margin-left: 80px;width: 100%;" ></el-date-picker>
           </el-col>
@@ -66,7 +50,7 @@
                        :multiple="isMultipls1"
                        :on-preview="handlePictureCardPreview"
                        :on-error="errorimg"
-                       :on-success="handleAvatarSuccess"
+                       :on-success="handleAvatarSuccess1"
                        :on-remove="handleRemove"
                        :headers="headers"
                        :before-upload="beforeAvatarUpload"
@@ -90,7 +74,7 @@
                        :multiple="isMultipls2"
                        :on-preview="handlePictureCardPreview"
                        :on-error="errorimg"
-                       :on-success="handleAvatarSuccess"
+                       :on-success="handleAvatarSuccess2"
                        :on-remove="handleRemove"
                        :headers="headers"
                        :before-upload="beforeAvatarUpload"
@@ -132,14 +116,17 @@
 
        /* upimg:'http://localhost:8080/p2pProject/image',*/
         ruleForm: {
-          name: '',
-          realname: 'fsd',
-          sex:'1',
+          realname: '',
+          sex:'男',
           id_number: '',
           born_date: '',
           address: '',
+          apply_time:'',
+          members_id:'',
+          image1:'',
+          image2:''
         },
-        rules: {
+        /*rules: {
           realname: [
             {required: true, message: '请输入真实姓名', trigger: 'blur'},
             {min: 2, max:6, message: '姓名长度在 2 到 6 个字符', trigger: 'blur'}
@@ -155,16 +142,19 @@
             {required: true, message: '请输入地址', trigger: 'blur'}
           ],
           type: [],
-        }
+        }*/
       };
     },
     //在上传图片前获取token，前提是已经存到sessionStorage中
-    computed:{
-      headers(){
-        return {
-          'token':sessionStorage.getItem('token')
-        }
-      }
+    created(){
+
+      let url = this.axios.urls.MEMBER_QUERY_RNULL;
+      this.axios.post(url, {id:7}).then((response) => {
+
+      }).catch((response) => {
+        //carch则是异常
+        console.log(response);
+      });
     },
     methods: {
       getTime(){//系统时间
@@ -202,10 +192,8 @@
         this.ruleForm.members_id =2;
         this.ruleForm.apply_time=this.getTime();
         this.$refs[ruleForm].validate((valid) => {
-
             var url =  this.axios.urls.MEMBER_RADD;
             this.axios.post(url, this.ruleForm).then(response => {
-              alert(this.ruleForm.apply_time);
               //如果是操作失败
               if (response.data.code == 500) {
                 this.$message({
@@ -214,6 +202,7 @@
                 });
               } else {
                 //打印成功信息
+                console.log(response.data);
                 this.$message({
                   message: '材料已提交,请耐心等待审核',
                   type: 'success'
@@ -222,6 +211,7 @@
             }).catch(function(error) {
               console.log(error);
             });
+
         });
       },
 
@@ -252,10 +242,11 @@
         return isJPG && isLt2M;
       },
       //图片上传成功
-      handleAvatarSuccess(res, file) {
-        console.log(res);
-        console.log(file);
-        this.imageUrl = URL.createObjectURL(file.raw);
+      handleAvatarSuccess1(res, file) {
+        this.ruleForm.image1 = res.path;
+      },
+      handleAvatarSuccess2(res, file) {
+        this.ruleForm.image2 = res.path;
       },
       //图片上传失败调用
       imgUploadError(err, file, fileList){

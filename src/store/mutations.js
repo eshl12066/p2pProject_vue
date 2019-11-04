@@ -44,6 +44,13 @@ setUserManage:(state, payload)=>{//后台登陆后的实体(ll)
   },
   set_role(state, role) {
     this.state.role = role;
-  }
+  },
+
+  //dj
+  // type(事件类型)： 其值为setResturantName
+  // payload：官方给它还取了一个高大上的名字：载荷，其实就是一个保存要传递参数的容器
+  setBidDetails:(state, payload)=>{
+    state.bidDetails = payload.bidDetails;
+  },
 
 }

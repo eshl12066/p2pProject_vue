@@ -1,103 +1,195 @@
 <template>
-  <div id="accident">
-    <div class="wrapper">
-      <i class="icon-pic"></i>相关照片
-      <button type="button" @click="change_input()">上传照片</button>
-      <form id="addTextForm" @change="setImg($event)">
-      </form>
-    </div>
-    <div id="img-wrapper" @click="deleteImg($event)"></div>
-    <P class="btn-wrapper">
-      <mt-button type="primary" @click="submit()">提交</mt-button>
-    </P>
-  </div>
+  <el-row>
+    <el-col style="background-color: rgb(188, 195, 201); height: 60px;" :span="18">
+      <span style="margin-left: 50px;">证件上传</span>
+    </el-col>
+    <pre>
+
+
+
+    </pre>
+
+    <el-col :span="12" style="margin-left:100px;">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" size="mini">
+        <el-form-item label="用户名编号" prop="members_id">
+          <span style="margin-left: 150px;">ruleForm.members_id</span>
+        </el-form-item>
+        <el-form-item label="资料图片" prop="image" >
+          <el-col :span="12">
+            <el-upload style="margin-left:80px;"
+                       action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
+                       list-type="picture-card"
+                       :limit="1"
+                       name="picture"
+                       accept="image/*"
+                       :file-list="image"
+                       :multiple="isMultipls"
+                       :on-preview="handlePictureCardPreview"
+                       :on-error="errorimg"
+                       :on-success="handleAvatarSuccess"
+                       :on-remove="handleRemove"
+                       :headers="headers"
+                       :before-upload="beforeAvatarUpload"
+                       :on-exceed="exceed"
+            ><i class="el-icon-plus"></i>
+            </el-upload>
+            <!--放大弹出框-->
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl">
+            </el-dialog>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button style="margin-left: 120px;" type="primary" @click="submitForm('ruleForm')">上传资料</el-button>
+        </el-form-item>
+      </el-form>
+    </el-col>
+  </el-row>
+
 </template>
+
 <script>
-  /**
-   * 从 file 域获取 本地图片 url
-   */
-  function getFileUrl(obj) {
-    let url;
-    url = window.URL.createObjectURL(obj.files.item(0));
-    return url;
-  }
-
   export default {
-    name: 'accident',
-    // 定义数据
-    data () {
+    name: "Usersf",
+    data() {
       return {
-        imgNum:4, //上传的照片数量，可根据实际情况自定义
-      }
-    },//定义事件
-    methods:{
-      //根据点击上传按钮触发input
-      change_input(){
-        let inputArr=$('#addTextForm input');
-        let add_inputId=''; //需要被触发的input
-        for(let i=0;i<inputArr.length;i++){
-          // 根据input的value值判断是否已经选择文件
-          if(!inputArr[i].value){ //如果没有选择,获得这个input的ID
-            add_inputId=inputArr[i].id;
-            break;
-          }
-        }
-        if(add_inputId){ //如果需要被触发的input ID存在,将对应的input触发
-          return $("#"+add_inputId).click();
-        }else{
-          alert("最多选择"+this.imgNum+"张图片")
-        }
-      },
-      //当input选择了图片的时候触发,将获得的src赋值到相对应的img
-      setImg(e){
-        let target=e.target;
-        $('#img_'+target.id).attr('src',getFileUrl(e.srcElement));
-      },
-      //点击图片删除该图片并清除相对的input
-      deleteImg(e){
-        let target=e.target;
-        let inputID=''; //需要清除value的input
-        if(target.nodeName=='IMG'){
-          target.src='';
-          inputID=target.id.replace('img_',''); //获得需要清除value的input
-          $('input#'+inputID).val("");
-        }
-      },
-      //提交信息到后台
-      submit(){
-        $("#addTextForm").ajaxSubmit({
-          url: this.$root.api+"/Index/staff_accident/add",
-          type: "post",
-          data: {
-            'total_price':this.price,
-            'descript':this.descript,
-          },
-          success: (data) => {
-            if(data.code==0){
-              console.log('提交成功');
-            }else{
-              alert('提交失败');
-            }
-          }
-        });
-      }
-    },
-    //页面加载后执行
-    mounted(){
-      for(let i=0;i<this.imgNum;i++){
-        //生成input框，默认为1
-        let my_input = $('<input type="file" name="image" />'); //创建一个input
-        my_input.attr('id',i); //为创建的input添加id
-        $('#addTextForm').append(my_input); //将生成的input追加到指定的form
-        //生成img，默认为1
-        let my_img = $('<img src="">');
-        my_img.attr('id', 'img_'+i);
-        my_img.css({"max-width":"50%","max-height":"200px"});
 
-        //添加样式，由于<a href="/tags/1.html" target="_blank" class="infotextkey">vue</a>的执行机制，页面加载的时候img标签还没有生成，直接写在style样式会不生效
-        $('#img-wrapper').append(my_img);
-      }
+        isMultipls:true,
+        dialogImageUrl:'',
+        dialogVisible:false,
+        image:[],
+
+        fileList: [0,0], //缓存区文件
+        uploadFile:[[],[]] ,//  上传用文件
+
+        /* upimg:'http://localhost:8080/p2pProject/image',*/
+        ruleForm: {
+          members_id:'',
+          apply_time:'',
+          image:''
+        },
+      };
     },
+    //在上传图片前获取token，前提是已经存到sessionStorage中
+    created(){
+
+      let url = this.axios.urls.MEMBER_QUERY_RNULL;
+      this.axios.post(url, {id:7}).then((response) => {
+
+      }).catch((response) => {
+        //carch则是异常
+        console.log(response);
+      });
+    },
+    methods: {
+      getTime(){//系统时间
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        //以下代码依次是获取当前时间的年月日时分秒
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var minute = date.getMinutes();
+        var hour = date.getHours();
+        var second = date.getSeconds();
+        //固定时间格式
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        if (hour >= 0 && hour <= 9) {
+          hour = "0" + hour;
+        }
+        if (minute >= 0 && minute <= 9) {
+          minute = "0" + minute;
+        }
+        if (second >= 0 && second <= 9) {
+          second = "0" + second;
+        }
+        var currentdate =  year + seperator1 + month + seperator1 + strDate
+          + " " + hour + seperator2 + minute + seperator2 + second;
+        return currentdate;
+      },
+      submitForm(ruleForm) {
+        this.ruleForm.members_id =2;
+        this.ruleForm.apply_time=this.getTime();
+        this.$refs[ruleForm].validate((valid) => {
+          var url =  this.axios.urls.MEMBER_MADD;
+          this.axios.post(url, this.ruleForm).then(response => {
+            //如果是操作失败
+            if (response.data.code == 500) {
+              this.$message({
+                message: response.data.msg,
+                type: 'warning'
+              });
+            } else {
+              //打印成功信息
+              console.log(response.data);
+              this.$message({
+                message: '材料已提交,请耐心等待审核',
+                type: 'success'
+              });
+            }
+          }).catch(function(error) {
+            console.log(error);
+          });
+
+        });
+      },
+
+
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      errorimg(res){
+        this.$message({
+          message:res.msg,
+          type: 'warning'
+        });
+      },
+      //预览图片时调用
+      handlePictureCardPreview(file) {
+        console.log(file);
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      //文件上传之前调用做一些拦截限制
+      beforeAvatarUpload(file) {
+        console.log(file);
+        const isJPG = true;
+        const isLt2M = file.size / 1024 / 1024 < 5;
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过 5MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      //图片上传成功
+      handleAvatarSuccess(res, file) {
+        this.ruleForm.image = res.path;
+      },
+      //图片上传失败调用
+      imgUploadError(err, file, fileList){
+        console.log(err)
+        this.$message.error('上传图片失败!');
+      },
+
+      // 上传成功时调用
+      handleSuccess(response){
+        this.addform.foodpic= response.data[0]
+        console.log(this.addform.foodpic)
+      },
+      // 超出上传个数时调用
+      exceed(){
+        this.$message({
+          message: "目前上传图片上限为一张",
+          type: 'warning'
+        });
+      },
+    }
   }
 </script>
 

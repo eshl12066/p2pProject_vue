@@ -22,7 +22,10 @@ export default {
   'SYSTEM_ROLE_ROLEDEL': '/sysRole/roleDel',//删除角色
   'SYSTEM_PERMISSION_DELROLEPERMISSION': '/sysPermission/delRolePermission',//清空角色
   'SYSTEM_PERMISSION_ADDROLEPERMISSION': '/sysPermission/addRolePermission',//为角色授权
-  'SYSTEM_USER_MEMBERLOGIN': '/sysUser/memberLogin',//前台登陆
+  'SYSTEM_USER_MEMBERLOGIN': '/sysUser/memberLogin',//前台用户登陆addMembers
+  'SYSTEM_USER_ADDMEMBERS': '/sysUser/addMembers',//前台用户注册
+  'SYSTEM_USER_MANAGELOGINOUT': '/sysUser/manageLoginout',//后台管理员登出
+  'SYSTEM_USER_MEMBERSLOGINOUT': '/sysUser/membersLoginout',//前台会员登出
 
 
 
@@ -30,6 +33,7 @@ export default {
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
   'SYSTEM_ROLE_TREE':'/sysPermission/selectTreeNodeRoleid',//权限角色赋值所用
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
   'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
 
   //会员模块
@@ -53,9 +57,13 @@ export default {
 
 //投资模块
 
-  'SYSTEM_BID_BIDQUERY': '/business/bidQuery',//投资界面数据展示
-  'SYSTEM_BID_SELECTONE': '/business/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/business/bidAdd',//进行投资
+  //投标模块
+  'SYSTEM_BID_BIDQUERY': '/bid/bidQuery',//投资界面数据展示
+  'SYSTEM_BID_SELECTONE': '/bid/selectOne',//投资界面，查询单个投资数据
+  'SYSTEM_BID_BIDADD': '/bid/bidAdd',//进行投资
+
+  //借款模块
+  'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
 
 
 
@@ -81,5 +89,4 @@ export default {
 	'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
 		return this.SERVER + this[k];
 	}
-
 }

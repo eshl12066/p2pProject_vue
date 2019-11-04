@@ -80,25 +80,25 @@
       </el-form>
 
       <!--  2、步骤二  这是  填写 车辆抵押信息  模块  -->
-      <el-form v-if="isShowData.carBasicInformation"  :model="dictForm" :rules="dictRules" ref="dictForm">
+      <el-form v-if="isShowData.carBasicInformation">
         <p><strong>车 辆 信 息 ：</strong></p>
         <el-row><!--  第一行  -->
           <el-col :span="1">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="车 辆 品 牌 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的车辆品牌"></el-input>
+              <el-input v-model="input1" placeholder="请输入您的车辆品牌"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="车 辆 型 号 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的车辆型号"></el-input>
+              <el-input v-model="input2" placeholder="请输入您的车辆型号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="发 动 机 型 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的车辆发动机型号"></el-input>
+              <el-input v-model="input3" placeholder="请输入您的车辆发动机型号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="1">&nbsp;</el-col><!--  间隙  -->
@@ -107,19 +107,19 @@
           <el-col :span="1">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="裸 车 价 格 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入您的裸车价格"></el-input>
+              <el-input v-model="input4" placeholder="请输入您的裸车价格"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="牌 照 价 格 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入车辆牌照价格"></el-input>
+              <el-input v-model="input5" placeholder="请输入车辆牌照价格"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="6">
             <el-form-item label="购 买 时 间 :" label-width="100px">
-              <el-date-picker v-model="time" type="datetime" placeholder="选择购买车辆的日期时间"></el-date-picker>
+              <el-date-picker v-model="time6" value-format="yyyy-MM-dd" type="datetime" placeholder="选择购买车辆的日期时间"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="1">&nbsp;</el-col><!--  间隙  -->
@@ -129,8 +129,8 @@
           <el-col :span="7">
             <el-form-item label="牌 照 情 况 :" label-width="100px">
               <el-radio-group v-model="radio1" size="medium">
-                <el-radio border label="本 地 牌 照" value="0"></el-radio>
-                <el-radio border label="外 地 牌 照" value="1"></el-radio>
+                <el-radio border label="本 地 牌 照" value="本 地 牌 照"></el-radio>
+                <el-radio border label="外 地 牌 照" value="外 地 牌 照"></el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -138,8 +138,8 @@
           <el-col :span="7">
             <el-form-item label="出 现 情 况 :" label-width="100px">
               <el-radio-group v-model="radio2" size="medium">
-                <el-radio border label="未 出 现" value="0"></el-radio>
-                <el-radio border label="已 出 现" value="1"></el-radio>
+                <el-radio border label="未 出 现" value="未 出 现"></el-radio>
+                <el-radio border label="已 出 现" value="已 出 现"></el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -147,8 +147,8 @@
           <el-col :span="7">
             <el-form-item label="进 口 情 况 :" label-width="100px">
               <el-radio-group v-model="radio3" size="medium">
-                <el-radio border label="进   口" value="0"></el-radio>
-                <el-radio border label="非 进 口" value="1"></el-radio>
+                <el-radio border label="进   口" value="进   口"></el-radio>
+                <el-radio border label="非 进 口" value="非 进 口"></el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -158,8 +158,8 @@
           <el-col :span="7">
             <el-form-item label="保 险 情 况 :" label-width="100px">
               <el-radio-group v-model="radio4" size="medium">
-                <el-radio border label="有 保 险" value="0"></el-radio>
-                <el-radio border label="无 保 险" value="1"></el-radio>
+                <el-radio border label="有 保 险" value="有 保 险"></el-radio>
+                <el-radio border label="无 保 险" value="无 保 险"></el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -167,8 +167,8 @@
           <el-col :span="7">
             <el-form-item label="损 坏 情 况 :" label-width="100px">
               <el-radio-group v-model="radio5" size="medium">
-                <el-radio border label="有 损 坏" value="0"></el-radio>
-                <el-radio border label="无 损 坏" value="1"></el-radio>
+                <el-radio border label="有 损 坏" value="有 损 坏"></el-radio>
+                <el-radio border label="无 损 坏" value="无 损 坏"></el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -176,10 +176,10 @@
           <el-col :span="7">
             <el-form-item label="新 旧 程 度 :" label-width="100px">
               <el-radio-group v-model="radio6" size="medium">
-                <el-radio-button label="很新" name="type"></el-radio-button>
-                <el-radio-button label="新" name="type"></el-radio-button>
-                <el-radio-button label="较旧" name="type"></el-radio-button>
-                <el-radio-button label="旧" name="type"></el-radio-button>
+                <el-radio-button value="很新" label="很新" name="type"></el-radio-button>
+                <el-radio-button value="新"  label="新" name="type"></el-radio-button>
+                <el-radio-button value="较旧" label="较旧" name="type"></el-radio-button>
+                <el-radio-button value="旧" label="旧" name="type"></el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -187,8 +187,8 @@
         <el-row><!--  第五行  -->
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
           <el-col :span="20">
-            <el-form-item label="车 辆 描 述 :" label-width="100px">
-              <el-input type="textarea" :rows="4">
+            <el-form-item label="车 辆 描 述 :" label-width="100px"  >
+              <el-input type="textarea" v-model="cartext" readonly="readonly" :rows="4">
               </el-input>
             </el-form-item>
           </el-col>
@@ -206,42 +206,42 @@
       </el-form>
 
       <!--  3、步骤三  这是 填写 车贷贷款信息 模块  -->
-      <el-form v-if="isShowData.basicInformation"  :model="dictForm" :rules="dictRules" ref="dictForm">
+      <el-form v-if="isShowData.basicInformation">
         <p><strong>贷 款 信 息 ：</strong></p>
         <el-row><br/>
           <el-col :span="6">
             <el-form-item label=" 借 款 人 ：" label-width="100px">
-              <el-input disabled="false" placeholder="XXX(用户名)" ></el-input>
+              <el-input readonly="readonly" v-model="carInfo.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="18">
             <el-form-item label="借 款 标 题 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入借款标题"></el-input>
+              <el-input placeholder="请输入借款标题" v-model="carInfo.title"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="借 款 金 额 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入借款金额"></el-input>
+            <el-form-item @change="gets" label="借 款 金 额 :" label-width="100px">
+              <el-input @change="gets" placeholder="请输入借款金额" v-model="carInfo.bidRequestAmount"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="年 利 率 :" label-width="100px">
-              <el-input v-model="input" placeholder="请输入年利率"></el-input>
+            <el-form-item @change="gets" label="年 利 率 :" label-width="100px">
+              <el-input @change="gets" placeholder="请输入年利率" v-model="carInfo.currentRate"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="还 款 方 式 :" label-width="100px">
-              <el-radio-group v-model="radio7" size="medium">
-                <el-radio border label="一 次 付 清" value="0"></el-radio>
-                <el-radio border label="等 额 本 息" value="1"></el-radio>
-                <el-radio border label="等 额 本 金" value="2"></el-radio>
+              <el-radio-group size="medium" v-model="carInfo.returnType">
+                <el-radio border :label="0" >一 次 付 清</el-radio>
+                <el-radio border :label="1" >等 额 本 息</el-radio>
+                <el-radio border :label="2" >等 额 本 金</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="还 款 月 数 :" label-width="100px">
+            <el-form-item @change="gets" label="还 款 月 数 :" label-width="100px">
               <!--  车贷贷款 -->
-              <el-select style="width: 100%;" value="1" @focus="focus" placeholder="sdaf">
+              <el-select @change="gets" style="width: 100%;" value="1" v-model="carInfo.monthesReturn">
                 <el-option label="一 月" value="1"></el-option>
                 <el-option label="二 月" value="2"></el-option>
                 <el-option label="三 月" value="3"></el-option>
@@ -252,21 +252,17 @@
                 <el-option label="八 月" value="8"></el-option>
                 <el-option label="九 月" value="9"></el-option>
                 <el-option label="十 月" value="10"></el-option>
-                <el-option label="一 年" value="12"></el-option>
-                <el-option label="一年半" value="18"></el-option>
-                <el-option label="两 年" value="24"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="总 利 息 :" label-width="100px">
-              <el-input disabled="false" placeholder="本金 X 利息 X 月数"></el-input>
+              <el-input readonly="readonly" placeholder="本金 X 利息 X 月数" v-model="carInfo.totalRewardAmount"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="借 款 说 明 :" label-width="100px">
-              <el-input type="textarea" :rows="4">
-              </el-input>
+              <el-input type="textarea" :rows="4" v-model="carringtext"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="2">&nbsp;</el-col><!--  间隙  -->
@@ -285,16 +281,17 @@
       <!--  4、步骤四  这是 确认 车贷贷款  页  -->
       <el-row v-if="isShowData.confirm"><br/><br/><br/><br/>
         <p align="left">
-              贷款总额 :  <strong> 1100 ￥  &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              贷款利率 :  <strong> 2.12 %   &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              总 利 息 : <strong>  110 ￥  &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
-              应还本金 :  <strong> 12100 ￥ &nbsp;&nbsp;&nbsp;&nbsp;</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
+          借 款 人：   {{carInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+          贷款总额 :   {{carInfo.bidRequestAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          贷款利率 :   {{carInfo.currentRate}}%   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+          总 利 息 :   {{carInfo.totalRewardAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
         </p><br/><br/>
         <p align="center">
+          <!--还款方式 ：{{carInfo.stype}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
           贷款方式 :   车贷   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          还款方式 :   一次付清 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          还款月数 :   110 ￥   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </p><br/><br/><br/><br/><br/><br/>
+          还款月数 :   {{carInfo.monthesReturn}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p><br/><br/>
+        <p align="right">借款标题：{{carInfo.title}}</p>
         <div style="float: right; margin: 20px;">
           <p align="right">已确认我的贷款申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color: green;font-size: 24px" class="el-icon-bottom"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
           <el-button @click="last2" type="default">修改贷款信息</el-button>
@@ -319,6 +316,7 @@
     name: "BidRequestCarring",
     data:function(){
       return {
+        //步骤条
         stepsActive:1,
         isShowData:{
           Information:true,
@@ -327,15 +325,53 @@
           confirm:false,
           carryOut:false
         },
-        radio1: null,//单选框
-        radio2: null,//单选框
-        radio3: null,//单选框
-        radio4: null,//单选框
-        radio5: null,//单选框
-        radio6: null,//单选框
-        radio7: null,//单选框
-        time:"",//购买车辆的时间
+        //步骤二  填写车辆信息 文本框
+        input1:"待填",
+        input2:"待填",
+        input3:"待填",
+        input4:"待填",
+        input5:"待填",
+        time6:null,
+        //步骤二  填写车辆信息 单选框
+        radio1: "待填",//单选框
+        radio2: "待填",//单选框
+        radio3: "待填",//单选框
+        radio4: "待填",//单选框
+        radio5: "待填",//单选框
+        radio6: "待填",//单选框
+        //步骤三：填写车贷贷款基本信息 步骤四：确认车贷贷款基本信息
+        carin:null,//车辆描述
+        carringtext:null,//借款说明
+
+        carInfo:{//车贷表单信息填写
+
+          name:"张某某",
+          title:null,
+          bidRequestAmount:null,
+          currentRate:null,
+          returnType:null,
+          bidRequestType:1,//车贷
+          monthesReturn:null,
+          totalRewardAmount:null,
+          description:"",
+          // disableDate:null,//投标截止时间
+          membersId:102,//模拟用户登录
+        },
       }
+    },
+    computed:{
+      //车辆信息描述  步骤二
+      cartext(){
+        var str = "车辆品牌："+this.input1+";***\t\t\t车辆型号："+this.input2+";***\t\t\t发动机型："+this.input3+
+          ";***\n裸车价格："+this.input4+""+ ";***\t\t\t牌照时间:"+this.input5+";***\t\t\t购买时间:"+this.time6+
+          ";***\n牌照情况："+this.radio1+";***\t\t\t出现情况："+this.radio2+";***\t\t\t进口情况："+this.radio3+
+          "***\n保险情况："+this.radio4+";***\t\t\t损坏情况："+this.radio5+";***\t\t\t新旧程度:"+this.radio6+";***";
+        this.carin = str;//车辆信息描述
+        return str;
+      }
+    },
+    created() {
+      commonUtils.init(this);
     },
     methods:{
       //返回首页
@@ -348,6 +384,13 @@
       //取消投标  返回上一界面
       cancle(){
         this.$router.go(-1);//返回上一层
+      },
+      gets(val) {
+        //计算利息
+        if (this.carInfo.bidRequestAmount != null && this.carInfo.currentRate != null && this.carInfo.monthesReturn) {
+          this.carInfo.totalRewardAmount = this.carInfo.bidRequestAmount * this.carInfo.currentRate * this.carInfo.monthesReturn;
+          // this.carInfo.sa = "本金 X 利息 X 月数 :"+this.carInfo.bidRequestAmount+" X "+this.carInfo.currentRate+" X "+this.carInfo.monthesReturn+" = "+this.carInfo.totalRewardAmount;
+        }
       },
       // 查看 完车贷贷款信息后 点击按钮“车辆抵押” 到 步骤二
       toCar(){
@@ -383,6 +426,7 @@
       },
       // 填写完  贷款信息 后 点击按钮“下一步” 到 步骤四
       next2(){
+        this.carInfo.description = this.carringtext + "***\t\n" + this.carin;//贷款描述
         this.isShowData.information = false;
         this.isShowData.carBasicInformation = false;
         this.isShowData.basicInformation = false;
@@ -391,13 +435,18 @@
       },
       // 确认贷款信息无误后 点击按钮“申请贷款” 到 步骤五
       toCarryOut(){
-        this.isShowData.confirm = false;
-        this.isShowData.carryOut = true;
-        this.stepsActive = 5;
+        //增加贷款 车贷
+        let url = this.axios.urls.SYSTEM_BIDREQUEST_INSERTBIDREQUEST;
+        alert("增加车贷贷款，点击按钮:"+url);
+        this.axios.post(url,this.carInfo).then((response)=>{
+          alert("车贷贷款申请成功！");
+          this.isShowData.confirm = false;
+          this.isShowData.carryOut = true;
+          this.stepsActive = 5;
+        }).catch(function(error){//carch则是异常
+          console.log("投资失败："+error);
+        });
       }
-    },
-    created() {
-      commonUtils.init(this);
     }
   }
 </script>
