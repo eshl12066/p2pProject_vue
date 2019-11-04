@@ -1,12 +1,14 @@
 <template>
   <el-main>
   <!--  投标信息展示模块  -->
-    <el-row>
+    <h4>投标基本信息：</h4>
+    <el-row><br/>
       <el-card class="box-card" style="background-color: whitesmoke;">
         <!--  头 部  -->
         <div slot="header" class="clearfix">
-          <p align="left">总额：{{detail.bidRequestAmount}}￥，已有{{detail.bidCount}}人,共投资：{{detail.currentSum}}元</p>
-          &nbsp;还可投资：{{detail.myAmount}}￥
+          <p align="left">总 额：{{detail.bidRequestAmount}} ￥ ， 已 有 {{detail.bidCount}} 人 进 行 投 资 , 共 投 资 ：{{detail.currentSum}} 元</p><br/>
+          <span style="color:green;" v-if="detail.bidRequestAmount == detail.currentSum ">&nbsp;已 满 标 ！</span>
+          <span v-if="detail.bidRequestAmount != detail.currentSum ">&nbsp;还可投资：{{detail.myAmount}}￥</span>
           <p align="right">—— 借款人：{{detail.name}}</p>
         </div>
         <!--  主 体  -->
@@ -18,8 +20,9 @@
       </el-card>
       <!--  下一步   按钮  -->
       <el-col :span="24">
-        <p align="left"><el-button @click="cancle" type="default">返回</el-button></p>
-        <p align="right"><el-button size="mini" type="danger" @click="handleBidding(detail.id)">投 资</el-button></p>
+        <p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<el-button @click="cancle" type="default">返回</el-button></p>
+        <p align="right">
+          <el-button v-if="detail.bidRequestAmount != detail.currentSum" size="medium" type="success" @click="handleBidding(detail.id)" round>进 行 投 资</el-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
       </el-col>
     </el-row>
   </el-main>
@@ -33,7 +36,7 @@
         bidD:null,//从投标界面传过来的值
         detail:{
           id:null,
-          bidbidRequestAmount:null,
+          bidRequestAmount:null,
           bidCount:null,
           currentSum:null,
           myAmount:null,

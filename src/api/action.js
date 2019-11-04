@@ -45,6 +45,7 @@ export default {
 
 
 
+
   //业务模块
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
   'SYSTEM_ROLE_TREE':'/sysPermission/selectTreeNodeRoleid',//权限角色赋值所用
@@ -90,18 +91,18 @@ export default {
   'MEMBER_CEDITSTATE':'/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
   'MEMBER_REDITSTATE':'/membersRealname/updateRState',//修改会员实名认证审核状态
 
-//投资模块
-
   //投标模块
   'SYSTEM_BID_BIDQUERY': '/bid/bidQuery',//投资界面数据展示
   'SYSTEM_BID_SELECTONE': '/bid/selectOne',//投资界面，查询单个投资数据
   'SYSTEM_BID_BIDADD': '/bid/bidAdd',//进行投资
 
+  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
+
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
+
   //借款模块
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
-
-
-
 
   //设置模块
   'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表

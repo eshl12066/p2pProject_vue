@@ -221,12 +221,36 @@
           </el-col>
           <el-col :span="12">
             <el-form-item @change="gets" label="借 款 金 额 :" label-width="100px">
-              <el-input @change="gets" placeholder="请输入借款金额" v-model="carInfo.bidRequestAmount"></el-input>
+              <!--  车贷贷款  金额限制 -->
+              <el-select @change="gets"  style="width: 100%;" value="1" v-model="carInfo.bidRequestAmount">
+                <el-option label="小 额 车 贷" disabled></el-option>
+                <el-option label="1,0000    ￥" value="10000"></el-option>
+                <el-option label="3,0000    ￥" value="30000"></el-option>
+                <el-option label="6,0000    ￥" value="60000"></el-option>
+                <el-option label="8,0000    ￥" value="80000"></el-option>
+                <el-option label="12,0000   ￥" value="120000"></el-option>
+                <el-option label="高 额 车 贷" disabled></el-option>
+                <el-option label="15,0000   ￥" value="150000"></el-option>
+                <el-option label="18,0000   ￥" value="180000"></el-option>
+                <el-option label="20,0000   ￥" value="200000"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item @change="gets" label="年 利 率 :" label-width="100px">
-              <el-input @change="gets" placeholder="请输入年利率" v-model="carInfo.currentRate"></el-input>
+              <el-select @change="gets"  style="width: 100%;" placeholder="利率选择需谨慎！" v-model="carInfo.currentRate">
+                <el-option label="小 额 利 率" disabled></el-option>
+                <el-option label="0.06" value="0.06"></el-option>
+                <el-option label="0.08" value="0.08"></el-option>
+                <el-option label="0.10" value="0.10"></el-option>
+                <el-option label="0.12" value="0.12"></el-option>
+                <el-option label="0.14" value="0.14"></el-option>
+                <el-option label="高 额 利 率" disabled></el-option>
+                <el-option label="0.16" value="0.16"></el-option>
+                <el-option label="0.20" value="0.20"></el-option>
+                <el-option label="0.22" value="0.22"></el-option>
+                <el-option label="0.24" value="0.24"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -243,13 +267,10 @@
               <!--  车贷贷款 -->
               <el-select @change="gets" style="width: 100%;" value="1" v-model="carInfo.monthesReturn">
                 <el-option label="一 月" value="1"></el-option>
-                <el-option label="二 月" value="2"></el-option>
                 <el-option label="三 月" value="3"></el-option>
-                <el-option label="四 月" value="4"></el-option>
                 <el-option label="五 月" value="5"></el-option>
-                <el-option label="半 年" value="6"></el-option>
+                <el-option label="六 月" value="6"></el-option>
                 <el-option label="七 月" value="7"></el-option>
-                <el-option label="八 月" value="8"></el-option>
                 <el-option label="九 月" value="9"></el-option>
                 <el-option label="十 月" value="10"></el-option>
               </el-select>
@@ -281,17 +302,17 @@
       <!--  4、步骤四  这是 确认 车贷贷款  页  -->
       <el-row v-if="isShowData.confirm"><br/><br/><br/><br/>
         <p align="left">
-          借 款 人：   {{carInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+          借 款 人 ：   {{carInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
           贷款总额 :   {{carInfo.bidRequestAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           贷款利率 :   {{carInfo.currentRate}}%   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
           总 利 息 :   {{carInfo.totalRewardAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
         </p><br/><br/>
         <p align="center">
           <!--还款方式 ：{{carInfo.stype}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-          贷款方式 :   车贷   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          贷款方式 :   车 贷 贷 款   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           还款月数 :   {{carInfo.monthesReturn}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </p><br/><br/>
-        <p align="right">借款标题：{{carInfo.title}}</p>
+        <p align="right">借 款 标 题：{{carInfo.title}}</p>
         <div style="float: right; margin: 20px;">
           <p align="right">已确认我的贷款申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color: green;font-size: 24px" class="el-icon-bottom"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
           <el-button @click="last2" type="default">修改贷款信息</el-button>
@@ -344,7 +365,6 @@
         carringtext:null,//借款说明
 
         carInfo:{//车贷表单信息填写
-
           name:"张某某",
           title:null,
           bidRequestAmount:null,
@@ -355,7 +375,7 @@
           totalRewardAmount:null,
           description:"",
           // disableDate:null,//投标截止时间
-          membersId:102,//模拟用户登录
+          membersId:305,//模拟用户登录
         },
       }
     },
@@ -437,14 +457,13 @@
       toCarryOut(){
         //增加贷款 车贷
         let url = this.axios.urls.SYSTEM_BIDREQUEST_INSERTBIDREQUEST;
-        alert("增加车贷贷款，点击按钮:"+url);
         this.axios.post(url,this.carInfo).then((response)=>{
           alert("车贷贷款申请成功！");
           this.isShowData.confirm = false;
           this.isShowData.carryOut = true;
           this.stepsActive = 5;
         }).catch(function(error){//carch则是异常
-          console.log("投资失败："+error);
+          console.log("车贷贷款失败："+error);
         });
       }
     }

@@ -1,32 +1,21 @@
 <template>
     <el-main>
       <strong>我 的 投 资</strong><br/><br/><br/>
-      <strong>投 资 状 态 ：</strong>&nbsp;&nbsp;
-      <el-select  v-model="ruleForm.bidRequestState" clearable placeholder="全     部" style="width: 10%;">
-        <el-option key="4" label="收益中" value="4"></el-option>
-        <el-option key="7" label="已完成" value="7"></el-option>
-      </el-select><br/><br/>
 
       <!--列表数据展示-->
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="bid_request_amount" label="投资总额" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="current_rate" label="利息率" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="monthes_return" label="还款月数" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="total_reward_amount" label="总得利息" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="return_type" label="还款方式" width="89" align="center"></el-table-column>
-        <el-table-column prop="bid_request_type" label="贷款类型" width="89" align="center"></el-table-column>
-        <el-table-column prop="current_sum" label="现有投资" width="109" align="center" sortable></el-table-column>
-        <el-table-column prop="money" label="可投标额度" width="119" align="center" sortable></el-table-column>
-        <el-table-column prop="disable_date" label="投标截止时间" width="166" align="center" sortable ></el-table-column>
-        <el-table-column label="投标进度" align="center" width="198" sortable>
+        <el-table-column prop="bid_time" label="投 标 时 间" width="268" align="center" sortable></el-table-column>
+        <el-table-column prop="available_amount" label="投 资 总 额" width="169" align="center" sortable></el-table-column>
+        <el-table-column label="操    作" align="center">
+          <!--查看详情-->
           <template slot-scope="scope">
-            <el-progress :percentage="scope.row.plan"></el-progress>
-          </template>
-        </el-table-column>
-        <el-table-column label="操  作" align="center">
-          <template slot-scope="scope">
-            <!--查看详情-->
-            <el-button size="mini" type="test" @click="handleDetails(scope.row.id)">查 看 详 情</el-button>
+            <el-tooltip placement="top" effect="light"  >
+              <div slot="content">投 标 详 情<br/><br/>该 投 标 总 额：{{detail.bidRequestAmount}}￥， 已 有 {{detail.bidCount}}人 进 行 投 资 ,
+                共 投 资 ：{{detail.currentSum}}元 ！<br/><br/>
+                安全分数：{{detail.score}}利息率：{{detail.rate}}月 数：{{detail.month}}
+              </div>
+              <el-button @click="checkDetails(scope.row.bid_request_id)">查 看 详 情</el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table><br/><br/>
@@ -40,23 +29,21 @@
     name: "UserBid",
     data() {
       return {
-        tableData: [{plan:null,}],
-        percentage:null,//投标完成率百分比
-        ruleForm: {
-          bidRequestState: null,//投标状态 2-投标中 3-满标
-          returnType: null,//还款方式
-          bidRequestType: null,//贷款类型
-          currentRate: null,//利率
-          monthesReturn: null,//还款月数
-          totalRewardAmount: null,//总利息
-        }
+        tableData: [],
+        detail:{
+          bidRequestAmount:null,
+          bidCount:null,
+          currentSum:null,
+          score:null,
+          rate:null,
+          month:null,
+        },
       }
     },
-    created(){//投标数据展示
-      let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
-      this.axios.post(url,this.ruleForm).then((response)=>{
-        console.log("UserBid查询的："+response.data.data);
-        this.tableData = response.data.data;
+    created(){//用户的投标 数据展示
+      let url = this.axios.urls.SYSTEM_BID_SELECTUSERBID;
+      this.axios.post(url,{"id":1}).then((response)=>{
+        this.tableData = response.data;
       }).catch(function(error){//carch则是异常
         console.log(error);
       });
@@ -64,10 +51,20 @@
     methods: {
       //查看详情按钮
       checkDetails(id) {
-        // 跳转路由 去我的 某一个 投资详情 界面 UserBidDetails
-        this.$router.push({
-          path: '/reception/userCenter/UserBidDetails'
+        //  投资详情信息
+        let url = this.axios.urls.SYSTEM_BID_SELECTUSERBIDDETAILS;
+        this.axios.post(url,{"id":id}).then((response)=>{
+          let data = response.data;
+          this.detail.bidRequestAmount = data.bid_request_amount;//借款总额
+          this.detail.bidCount = data.bid_count;//已有多少人投资
+          this.detail.currentSum = data.current_sum;//已收到的投资总额
+          this.detail.score = data.certification_score;
+          this.detail.rate = data.current_rate;
+          this.detail.month = data.monthes_return;
+        }).catch(function(error){//carch则是异常
+          console.log(error);
         });
+
       },
     }
   }

@@ -16,15 +16,15 @@
           <el-card class="box-card" style="background-color: whitesmoke;">
             <!--  头 部  -->
             <div slot="header" class="clearfix">
-              <p align="left">总额：{{detail.bidRequestAmount}}￥，已有{{detail.bidCount}}人,共投资：{{detail.currentSum}}元</p>
-            &nbsp;<strong>我的投资：</strong><input style="width: 60px;" v-model="detail.myAmount" />￥
+              <p align="left">总 额 ：{{detail.bidRequestAmount}}￥ ， 已 有 {{detail.bidCount}} 人 进 行 投 标 ,  共 投 资 ： {{detail.currentSum}} 元</p><br/>
+            &nbsp;我 的 投 资：<input style="width: 66px;" v-model="detail.myAmount" />￥
               <p align="right">—— 借款人：{{detail.name}}</p>
             </div>
             <!--  主 体  -->
             <div class="text item">
-              <span style="color:green;">安全分数：{{detail.score}}</span><br/><br/>
-              <span>利息率：{{detail.rate}}</span><br/><br/>
-              <span>月 数：{{detail.month}}</span><br/><br/>
+              <span style="color:green;">安全分数 ：{{detail.score}}</span><br/><br/>
+              <span>利 息 率 ：{{detail.rate}}</span><br/><br/>
+              <span>月   数 ：{{detail.month}}</span><br/><br/>
                 <p align="right" style="color: red;">可赚总利息：{{allRate}}</p>
             </div>
           </el-card>
@@ -48,9 +48,9 @@
           <!--  主 体  -->
           <div class="text item">
             <el-col :span="3">&nbsp;</el-col>
-            <el-col :span="8">我的投资总额 :{{detail.myAmount}}￥</el-col>
-            <el-col :span="6">利息率 : {{detail.rate*100}}%</el-col>
-            <el-col :span="6">可获利息 : {{allRate}}￥</el-col>
+            <el-col :span="8">我 的 投 资 总 额 :{{detail.myAmount}} ￥</el-col>
+            <el-col :span="6">利 息 率 : {{detail.rate*100}} %</el-col>
+            <el-col :span="6">可 获 利 息 : {{allRate}} ￥</el-col>
           </div><br/><br/><br/><br/><br/>
         </el-card>
         <p align="left"><el-button @click="cancle" type="default">取消投标</el-button></p>
@@ -88,12 +88,15 @@
           month:null,
         },
         info:{
-          bidCount:null,
-          currentSum:null,
-          availableAmount:null,
+          //增加  投标表
+          availableAmount:null,//我投标的额度
           bidRequestId:null,
           membersId:null,
-          // bidTime:this.getTime(),
+          //修改  借贷表
+          bidCount:null,//投资人数
+          bidRequestAmount:null,//借款总额
+          currentSum:null,//当前投标额度
+          id:null,
         },
         //步骤条 默认为第一步
         stepsActive:1,
@@ -124,38 +127,6 @@
       this.detail.month = this.bidD.monthes_return;
     },
     methods:{
-      //当前时间
-      getTime(){
-        var date = new Date();
-        var seperator1 = "-";
-        var seperator2 = ":";
-        //以下代码依次是获取当前时间的年月日时分秒
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        var minute = date.getMinutes();
-        var hour = date.getHours();
-        var second = date.getSeconds();
-        //固定时间格式
-        if (month >= 1 && month <= 9) {
-          month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-          strDate = "0" + strDate;
-        }
-        if (hour >= 0 && hour <= 9) {
-          hour = "0" + hour;
-        }
-        if (minute >= 0 && minute <= 9) {
-          minute = "0" + minute;
-        }
-        if (second >= 0 && second <= 9) {
-          second = "0" + second;
-        }
-        var currentdate =  year + seperator1 + month + seperator1 + strDate
-          + " " + hour + seperator2 + minute + seperator2 + second;
-        return currentdate;
-      },
       //返回首页
       toRouter(){
         // 跳转路由 返回首页
@@ -182,14 +153,18 @@
       },
       //步骤条  投标
       next(){
-        //info 赋值  传递
-        this.info.bidCount = this.detail.bidCount;//投标人数
-        this.info.currentSum = this.detail.currentSum;//当前投标金额
+        //增加  投标表
         this.info.availableAmount = this.detail.myAmount;//我的投标金额
-        this.info.bidRequestId = this.detail.id;//借贷表的id
-        this.info.membersId = 188;//投资人的id 我的id
+        this.info.bidRequestId = this.detail.id;//投标表的bidRequestId
+        this.info.membersId = 37;//模拟登录 投资人的id 我的id
+        ////////////////////////
+        //修改  借贷表
+        this.info.bidCount = this.detail.bidCount;//投标人数
+        this.info.bidRequestAmount = this.detail.bidRequestAmount;// 总 投标金额
+        this.info.currentSum = this.detail.currentSum;//当前投标金额
         let url = this.axios.urls.SYSTEM_BID_BIDADD;
         this.axios.post(url,this.info).then((response)=>{
+          alert("投标成功！")
           this.isShowData.confirm = false;
           this.isShowData.carryOut = true;
           this.stepsActive = 3;
