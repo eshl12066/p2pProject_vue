@@ -28,7 +28,9 @@
       <!--表单                          -->
       <el-divider></el-divider>
       <el-table
+        border
         :data="rechargedata"
+        :default-sort = "{prop: 'trade_time', order: 'descending'}"
         style="width: 100%">
         <el-table-column
           prop="id"
@@ -39,22 +41,23 @@
         <el-table-column
           prop="name"
           label="姓名"
-          width="150">
+          width="200">
         </el-table-column>
         <el-table-column
           prop="trade_code"
           label="支付宝账号"
-          width="200">
+          width="220">
         </el-table-column>
         <el-table-column
           prop="amount"
           label="充值金额"
-          width="150">
+          width="200">
         </el-table-column>
         <el-table-column
           prop="trade_time"
           label="日期"
-          width="180">
+          sortable
+          width="300">
         </el-table-column>
 
       </el-table>
@@ -71,7 +74,7 @@
     </el-tab-pane>
     <el-tab-pane label="提现记录" name="withdraw">
       <!--查询               -->
-      <el-form size="mini" :inline="true" :model="formInline2" class="demo-form-inline">
+      <el-form   :inline="true" :model="formInline2" class="demo-form-inline">
         <el-form-item label="用户名">
           <el-input v-model="formInline2.name" placeholder="用户名"></el-input>
         </el-form-item>
@@ -89,15 +92,20 @@
         </el-form-item>
       </el-form>
       <!--表单                          -->
-      <el-divider></el-divider>
-      <el-table :data="tableData2" style="width: 100%">
-        <el-table-column prop="id" label="ID" width="50"></el-table-column>
-        <el-table-column prop="name" label="申请人"width="70"> </el-table-column>
-        <el-table-column prop="apply_time" width="170" label="申请时间"> </el-table-column>
-        <el-table-column prop="amount" label="提现金额"> </el-table-column>
+      <el-table border :default-sort = "{prop: 'audit_time', order: 'descending'}" :data="tableData2" style="width: 100%">
+        <el-table-column prop="id" label="ID" width="80"></el-table-column>
+        <el-table-column prop="name" label="申请人"width="120"> </el-table-column>
+        <el-table-column prop="apply_time" sortable width="170" label="申请时间"> </el-table-column>
+        <el-table-column prop="amount" label="提现金额" width="100"> </el-table-column>
         <el-table-column prop="fee" label="手续费"> </el-table-column>
-        <el-table-column prop="state" label="状态" width="180"></el-table-column>
-        <el-table-column prop="trade_code" label="说明"width="250"> </el-table-column>
+        <el-table-column label="状态" width="120">
+          <template slot-scope="scope">
+            <el-button v-if="scope.row.state == 2"  type="info" round >待审核</el-button>
+            <el-button v-if="scope.row.state == 1"  type="danger" round >失败</el-button>
+            <el-button v-if="scope.row.state == 0" round  >成功</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column prop="trade_code" label="说明"width="310"> </el-table-column>
       </el-table>
 
 
@@ -157,7 +165,8 @@
     onSubmit() {
       console.log(this.formInline);
       this.search();
-    },
+    }
+    ,
     onSubmit2() {
       console.log('submit2!');
       this.search2();
@@ -201,7 +210,7 @@
       if(this.value4!=null){
         formData.stop =  this.value4
       };
-      let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTALL;
+      let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTUSER;
       this.axios.post(url, formData).then((response) => {
         console.log(response);
         this.tableData2 = response.data.data;

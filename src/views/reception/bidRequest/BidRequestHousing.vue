@@ -178,12 +178,35 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="借 款 金 额 :" label-width="100px">
-              <el-input @change="gets" placeholder="请输入借款金额" v-model="homeInfo.bidRequestAmount"></el-input>
+              <!--  房贷贷款  金额限制 -->
+              <el-select @change="gets"  style="width: 100%;" value="1" v-model="homeInfo.bidRequestAmount">
+                <el-option label="小 额 房 贷" disabled></el-option>
+                <el-option label="20,0000    ￥" value="200000"></el-option>
+                <el-option label="30,0000    ￥" value="300000"></el-option>
+                <el-option label="60,0000    ￥" value="600000"></el-option>
+                <el-option label="80,0000    ￥" value="800000"></el-option>
+                <el-option label="高 额 房 贷" disabled></el-option>
+                <el-option label="100,0000   ￥" value="1000000"></el-option>
+                <el-option label="120,0000   ￥" value="1200000"></el-option>
+                <el-option label="150,0000   ￥" value="1500000"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="年 利 率 :" label-width="100px">
-              <el-input @change="gets" placeholder="请输入年利率" v-model="homeInfo.currentRate"></el-input>
+              <el-select @change="gets"  style="width: 100%;" placeholder="利率选择需谨慎！" v-model="homeInfo.currentRate">
+                <el-option label="小 额 利 率" disabled></el-option>
+                <el-option label="0.06" value="0.06"></el-option>
+                <el-option label="0.08" value="0.08"></el-option>
+                <el-option label="0.10" value="0.10"></el-option>
+                <el-option label="0.12" value="0.12"></el-option>
+                <el-option label="0.14" value="0.14"></el-option>
+                <el-option label="高 额 利 率" disabled></el-option>
+                <el-option label="0.16" value="0.16"></el-option>
+                <el-option label="0.20" value="0.20"></el-option>
+                <el-option label="0.22" value="0.22"></el-option>
+                <el-option label="0.24" value="0.24"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -200,16 +223,12 @@
               <!--  房贷贷款 -->
               <el-select @change="gets" style="width: 100%;" value="1" v-model="homeInfo.monthesReturn">
                 <el-option label="一 月" value="1"></el-option>
-                <el-option label="二 月" value="2"></el-option>
                 <el-option label="三 月" value="3"></el-option>
-                <el-option label="四 月" value="4"></el-option>
                 <el-option label="五 月" value="5"></el-option>
-                <el-option label="半 年" value="6"></el-option>
+                <el-option label="六 月" value="6"></el-option>
                 <el-option label="七 月" value="7"></el-option>
-                <el-option label="八 月" value="8"></el-option>
                 <el-option label="九 月" value="9"></el-option>
                 <el-option label="十 月" value="10"></el-option>
-                <el-option label="一 年" value="12"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -239,17 +258,17 @@
       <!--  4、步骤四  这是 确认 房贷贷款  页  -->
       <el-row v-if="isShowData.confirm"><br/><br/><br/><br/>
         <p align="left">
-          借 款 人：   {{homeInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
+          借 款 人 ：   {{homeInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;
           贷款总额 :   {{homeInfo.bidRequestAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           贷款利率 :   {{homeInfo.currentRate}}%   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
           总 利 息 :   {{homeInfo.totalRewardAmount}} ￥  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
         </p><br/><br/>
         <p align="center">
           <!--还款方式 ：{{homeInfo.stype}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-          贷款方式 :   房贷   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          贷款方式 :   房 贷 贷 款   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           还款月数 :   {{homeInfo.monthesReturn}}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </p><br/><br/>
-        <p align="right">借款标题：{{homeInfo.title}}</p>
+        <p align="right">借 款 标 题 ：{{homeInfo.title}}</p>
         <div style="float: right; margin: 20px;">
           <p align="right">已确认我的贷款申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="color: green;font-size: 24px" class="el-icon-bottom"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
           <el-button @click="last2" type="default">修改贷款信息</el-button>
@@ -296,7 +315,7 @@
         homein:null,//房产描述
         homingtext:null,//借款说明
         homeInfo:{//房产表单信息填写
-          name:"王某某",
+          name:"蛋蛋",
           title:null,
           bidRequestAmount:null,
           currentRate:null,
@@ -306,7 +325,7 @@
           totalRewardAmount:null,
           description:"",
           // disableDate:null,//投标截止时间
-          membersId:102,//模拟用户登录
+          membersId:308,//模拟用户登录
         },
       }
     },
@@ -385,14 +404,13 @@
       toCarryOut(){
         //增加贷款 车贷
         let url = this.axios.urls.SYSTEM_BIDREQUEST_INSERTBIDREQUEST;
-        alert("增加房贷贷款，点击按钮:"+url);
         this.axios.post(url,this.homeInfo).then((response)=>{
           alert("房贷贷款申请成功！");
           this.isShowData.confirm = false;
           this.isShowData.carryOut = true;
           this.stepsActive = 5;
         }).catch(function(error){//carch则是异常
-          console.log("投资失败："+error);
+          console.log("房贷贷款失败："+error);
         });
       }
     }

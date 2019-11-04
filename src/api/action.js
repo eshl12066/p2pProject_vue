@@ -27,6 +27,19 @@ export default {
   'SYSTEM_USER_MANAGELOGINOUT': '/sysUser/manageLoginout',//后台管理员登出
   'SYSTEM_USER_MEMBERSLOGINOUT': '/sysUser/membersLoginout',//前台会员登出
 
+  //后台借贷（***）
+  'SYSTEM_USERROLE_BIDREQUESTSELECT': '/sysUserRole/bidRequestSelect',//后台信用贷的所有查
+  'SYSTEM_USERROLE_BIDREQUESTSELECT0': '/sysUserRole/bidRequestSelect0',//0
+  'SYSTEM_USERROLE_BIDREQUESTSELECT3': '/sysUserRole/bidRequestSelect3',//3
+  'SYSTEM_USERROLE_BIDREQUESTSELECT1': '/sysUserRole/bidRequestSelect1',//1
+  'SYSTEM_USERROLE_BIDREQUESTSELECT7': '/sysUserRole/bidRequestSelect7',//7
+  'SYSTEM_USERROLE_UPBIDREQUEST0': '/sysUserRole/upBidRequest0',//初审核通过后的修改
+  'SYSTEM_USERROLE_NOUPBIDREQUEST0': '/sysUserRole/noupBidRequest0',//初审核不通过后的修改
+
+
+
+
+
 
 
   //业务模块
@@ -35,6 +48,33 @@ export default {
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
   'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
   'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
+
+  //业务模块
+
+  'ZFBTIAOZHUAN':'/alipay.trade.page.pay.jsp',//支付宝跳转
+  'ALIPAY_PAY':'/alipay/alipayIumpSum',//沙箱支付宝
+
+  'SYSTEM_BID_SELECTALL': '/bid/selectAllPager',//投标表查所有
+  'SYSTEM_BID_SELECTMEMBERS': '/bid/selectMembers',//根据ID查找会员
+  'SYSTEM_BID_SELECTREQUEST': '/bid/selectRequest',//根据ID查找借贷表
+
+
+  'SYSTEM_BID_BIDQUERY': '/business/bidQuery',//投资界面数据展示
+  'SYSTEM_BID_SELECTONE': '/business/selectOne',//投资界面，查询单个投资数据
+  'SYSTEM_BID_BIDADD': '/business/bidAdd',//进行投资
+
+  //资产模块
+  'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
+  'SYSTEM_ASSET_RECHARGE_ADD': '/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
+  'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
+  'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/moneyRecharge/updateJE',  //根据ID修改资产
+
+
+  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
+  'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用
+  'SYSTEM_ASSET_WITHDRAW_DEL': '/moneyWithdraw/moneyWithdrawDel',  //根据ID删除提现表
+  'SYSTEM_ASSET_WITHDRAW_ADD': '/moneyWithdraw/moneyWithdrawAdd',  //增加提现表
+  'SYSTEM_ASSET_WITHDRAW_EDIT': '/moneyWithdraw/moneyWithdrawUpdate',  //根据ID修改单个提现表
 
   //会员模块
   'MEMBER_MANAGE_GETALL':'/members/getAll',//会员管理模糊查
@@ -62,11 +102,13 @@ export default {
   'SYSTEM_BID_SELECTONE': '/bid/selectOne',//投资界面，查询单个投资数据
   'SYSTEM_BID_BIDADD': '/bid/bidAdd',//进行投资
 
+  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
+
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
+
   //借款模块
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
-
-
-
 
   //设置模块
   'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表
@@ -83,6 +125,16 @@ export default {
   'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/sysdictitem/sysdictitemUpdate',  //修改
 
 
+  'SYSTEM_SETTING_SETTING_SELECTALL': '/sysSetting/sysSettingQuery',  //查询所有
+  'SYSTEM_SETTING_SETTING_EDIT': '/sysSetting/sysSettingUpdate',  //修改单个
+  'SYSTEM_SETTING_SETTING_SELECTONE': '/sysSetting/selectOne',  //查询单个
+
+
+  'SYSTEM_MESSAGE_SELECTONE': '/message/selectOne', //查找单个
+  'SYSTEM_MESSAGE_SELECTALL': '/message/selectAll', //查找全部
+  'SYSTEM_MESSAGE_DELECTBYID': '/message/messageDel', //删除单个
+  'SYSTEM_MESSAGE_INSERT': '/message/messageAdd', //增加
+  'SYSTEM_MESSAGE_EDIT': '/message/messageEdit', //修改
 
 //资产模块
 

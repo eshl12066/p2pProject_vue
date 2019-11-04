@@ -30,16 +30,15 @@
         <!--</div>-->
     <!--</el-row><br/><br/>-->
 
-
     <div align="center">
     <el-main>
       <p style="text-indent: 48px; font-size: 36px;">安 全 贷 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 贷 安 全</p><br/><br/><br/>
       <p align="left">
         <strong>投标状态：</strong>&nbsp;&nbsp;
         <el-select  v-model="ruleForm.bidRequestState" clearable placeholder="全     部" style="width: 10%;">
-        <el-option key="2" label="招 标 中" value="2"></el-option>
-        <el-option key="3" label="满 标" value="3"></el-option>
-      </el-select></p><br/><br/>
+          <el-option key="2" label="招 标 中" value="2"></el-option>
+          <el-option key="3" label="满 标" value="3"></el-option>
+        </el-select></p><br/><br/>
       <!--表单搜索 搜索所有数据！！！！-->
       <el-select  v-model="ruleForm.returnType" clearable placeholder="还款方式" style="width: 10%;">
         <el-option key="0" label="一 次 付 清" value="0"></el-option>
@@ -52,22 +51,23 @@
         <el-option key="2" label="房  贷" value="2"></el-option>
       </el-select>
       <el-select  v-model="ruleForm.currentRate" clearable placeholder="利率范围" style="width: 10%;">
-        <el-option key="1" label="0.09 - 0.15" value="1"></el-option>
-        <el-option key="2" label="0.15 - 0.21" value="2"></el-option>
-        <el-option key="3" label="0.21 - 0.27" value="3"></el-option>
+        <el-option key="1" label="0.06 - 0.09" value="1"></el-option>
+        <el-option key="2" label="0.09 - 0.12" value="2"></el-option>
+        <el-option key="3" label="0.12 - 0.16" value="3"></el-option>
+        <el-option key="4" label="0.16  以上 " value="4"></el-option>
       </el-select>
       <el-select  v-model="ruleForm.monthesReturn" clearable placeholder="还款月数" style="width: 10%;">
-        <el-option key="1" label="1 - 3 月" value="1"></el-option>
-        <el-option key="2" label="4 - 6 月" value="2"></el-option>
+        <el-option key="1" label="1 - 3  月" value="1"></el-option>
+        <el-option key="2" label="4 - 6  月" value="2"></el-option>
         <el-option key="3" label="7 - 10 月" value="3"></el-option>
       </el-select>
       <el-select  v-model="ruleForm.totalRewardAmount" clearable placeholder="总利息范围" style="width: 10%;">
-        <el-option key="1" label="0 - 100" value="1"></el-option>
+        <el-option key="1" label="0   - 100" value="1"></el-option>
         <el-option key="2" label="100 - 150" value="2"></el-option>
         <el-option key="3" label="150 - 200" value="3"></el-option>
+        <el-option key="4" label="200  以上" value="4"></el-option>
       </el-select>
       <el-button size="medium" icon="el-icon-search" type="primary" @click="query">搜 索</el-button><br/><br/><br/><br/><br/>
-
 
       <!--列表数据展示-->
       <el-table :data="tableData" border style="width: 100%">
@@ -80,7 +80,7 @@
         <el-table-column prop="current_sum" label="现有投资" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="money" label="可投标额度" width="119" align="center" sortable></el-table-column>
         <el-table-column prop="disable_date" label="投标截止时间" width="186" align="center" sortable ></el-table-column>
-        <el-table-column label="投标进度" align="center" width="198" sortable>
+        <el-table-column label="投标进度" align="center" width="198">
           <template slot-scope="scope">
            <el-progress :percentage="scope.row.plan"></el-progress>
           </template>
@@ -134,7 +134,6 @@
       },
       created(){//投标数据展示
         let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
-
         this.axios.post(url,this.ruleForm).then((response)=>{
           console.log("分页查询的："+response.data.data);
           this.tableData = response.data.data;
@@ -150,7 +149,7 @@
         // formatter(row, column) {
         //   return row.address;
         // },
-        query(){//投标数据展示  模糊查询
+        query(){//投标数据展示  包含多条件的模糊查询
           let url = this.axios.urls.SYSTEM_BID_BIDQUERY;
           this.axios.post(url,this.ruleForm).then((response)=>{
             console.log("分页查询的："+response.data.data)
