@@ -179,6 +179,7 @@
     export default {
       data() {
         return {
+          userManage:null,
           activeName: 'bid',
           formInline: {
             user: '',

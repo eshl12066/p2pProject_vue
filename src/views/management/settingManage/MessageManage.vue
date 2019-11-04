@@ -22,7 +22,7 @@
     </el-form>
 
     <el-table border :data="tableData" :show-header="true" :fit="true" style="width: 100%" highlight-current-row>
-      <el-table-column prop="id" label="ID" width="70"></el-table-column>
+      <el-table-column prop="id" sortable label="ID" width="70"></el-table-column>
       <el-table-column prop="username" label="操作人"width="100"> </el-table-column>
       <el-table-column prop="name" width="100" label="接受人"> </el-table-column>
       <el-table-column prop="message_context" label="内容"width="250"> </el-table-column>
@@ -34,11 +34,11 @@
             <el-button v-if="scope.row.message_state == 0" round  >已读</el-button>
             </template>
           </el-table-column>
-        <el-table-column  label="操作"width="140">
+        <!--<el-table-column  label="操作"width="140">
           <template slot-scope="scope">
           <el-button type="danger" @click="delinfo(scope.$index,scope.row.id)"  icon="el-icon-delete" circle></el-button>
           </template>
-        </el-table-column>
+        </el-table-column>-->
 
 
 
@@ -65,6 +65,7 @@
           tableData:[],
           delnum:'',
           Visibledel:false,
+          userManage:null,
           formInline:{
             message_state:'',
             from_message:'',
@@ -75,6 +76,8 @@
       },
       created(){
        this.seach();
+        this.userManage = this.$store.getters.getUserManage;//后台管理员
+
       },
       methods:{
         seach(){

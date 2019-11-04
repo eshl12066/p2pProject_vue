@@ -166,6 +166,7 @@
     export default {
       data() {
         return {
+          userManage:null,
           value1:'',
           value2:'',
           value3:'',
@@ -370,6 +371,7 @@
         },
       },
       created(){
+        this.userManage = this.$store.getters.getUserManage;//后台管理员
         let url = this.axios.urls.SYSTEM_SETTING_SYSDICT_LISTALL;
         this.axios.post(url, {}).then((response) => {
           console.log(response);

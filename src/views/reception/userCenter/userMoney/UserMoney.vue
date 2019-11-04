@@ -96,6 +96,7 @@
             date1:"",
             date2:"",
           },
+          userManage:null,
           activeName: 'recharge',
           rechargedata: [],
           withdrawdata: []
@@ -119,7 +120,7 @@
         },
         rechargeSeach(){
           var  rechargea = {
-            id:1,                       //***********************************************id
+            id:this.userManage,                       //***********************************************id
             start:'',
             stop: ''
           };
@@ -139,7 +140,7 @@
         },
         withdrawSeach(){
           var  withdrawa = {
-            id:1,                       //***********************************************id
+            id:this.userManage,                       //***********************************************id
             start:'',
             stop: ''
           };
@@ -161,6 +162,8 @@
       created(){
         this.rechargeSeach();
         this.withdrawSeach();
+        this.userManage = this.$store.getters.getUserMembers;//会员
+
       }
     }
 </script>

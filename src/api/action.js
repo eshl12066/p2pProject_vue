@@ -36,6 +36,10 @@ export default {
   'SYSTEM_USERROLE_UPBIDREQUEST0': '/sysUserRole/upBidRequest0',//初审核通过后的修改
   'SYSTEM_USERROLE_NOUPBIDREQUEST0': '/sysUserRole/noupBidRequest0',//初审核不通过后的修改
 
+  'SYSTEM_USERROLE_MANUPDATE3': '/sysUserRole/manUpdate3',//满标审核通过后的修改
+  'SYSTEM_USERROLE_NOMANUPDATE3': '/sysUserRole/nomanUpdate3',//满标审核不通过后的修改
+
+
 
 
 

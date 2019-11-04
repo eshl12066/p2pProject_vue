@@ -553,7 +553,7 @@
 
       }
      ,
-      yesdiag3(row){
+      yesDiag3(row){
         this.dialogFormVisible3 = true;
         this.form3.id = row.id;
         this.form3.membersId = row.members_id;

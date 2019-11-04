@@ -136,6 +136,7 @@
           start:"",
           stop:""
         },
+        userManage:null,
         //提现查询属性
         formInline2: {
           name: '',
@@ -223,6 +224,7 @@
     created(){
       this.search();
       this.search2();
+      this.userManage = this.$store.getters.getUserManage;//后台管理员
     }
   };
 </script>

@@ -43,6 +43,7 @@
           a:"",
           tableData: [],
           editid:'',
+          userManage:null,
           dialogVisible:false,
           editform:{
             id:'',
@@ -98,6 +99,8 @@
     },
       created(){
         this.search();
+        this.userManage = this.$store.getters.getUserManage;//后台管理员
+
       },
 
     }

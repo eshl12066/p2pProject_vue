@@ -48,6 +48,7 @@
   export default {
     data() {
       return {
+        userManage:null,
         value2:"",
         zlVisibledel:false,
         formInline: {
@@ -86,7 +87,7 @@
 
         // 自动增加信息
         var cc ={
-          fromMessageId:1,        //发送人ID   ********************************ID*****************************
+          fromMessageId:this.userManage,        //发送人ID   ********************************ID*****************************
           toMessageId:id ,        //接收人ID
           messageContext:'',        //内容
           messageTitle:'!!!!!!!!提现审核通知!!!!!!!!!!',        //标题
@@ -112,7 +113,7 @@
           id : row.id,
           state:0,
           audit_time:this.getTime(),
-          auditor_id:1                    //********************************ID*****************************
+          auditor_id:this.userManage                    //********************************ID*****************************
         }
         this.axios.post(url, infofrom).then((response) => {
           console.log(response);
@@ -136,7 +137,7 @@
           id : row.id,
           state:1,
           audit_time:this.getTime(),
-          auditor_id:1                    //********************************ID*****************************
+          auditor_id:this.userManage                    //********************************ID*****************************
         }
         this.axios.post(url, infofrom).then((response) => {
           this.autoAddMessage(2,row.members_id,infofrom.audit_time);
@@ -196,6 +197,8 @@
     },
     created(){
         this.recah();
+      this.userManage = this.$store.getters.getUserManage;//后台管理员
+
     }
 
   };
