@@ -15,12 +15,12 @@
         </el-col>
       </el-row>
       <el-row style="margin-left: 700px;" v-if="userMembers != null">
-        <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
+        <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="4">
           <a href="/#/reception/UserCenter">
             <i class="el-icon-user" style="color: rgb(92, 86, 86);">{{userMembers.name}}用户中心</i>
           </a>
         </el-col>
-        <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="3">
+        <el-col style="color: rgb(52, 45, 45); margin-left: 500px;" :span="4">
           <a >
             <i @click="toexit" class="el-icon-remove" style="color: rgb(92, 86, 86);">退出</i>
           </a>

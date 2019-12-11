@@ -114,7 +114,7 @@
       created() {
 
         var url2 = this.axios.urls.SYSTEM_ASSET_RECHARGE_SELECTZFB;
-        var  id = this.$store.getters.getUserMembers;//会员                               /////id******************************************
+        var  id = this.$store.getters.getUserMembers.id;//会员                               /////id******************************************
         this.form.membersId = id;
         this.axios.post(url2, {members_id:id}).then((response) => {
           this.form.tradeCode = response.data.trade_code;

@@ -57,7 +57,7 @@
                 width="100"  >
                 <template slot-scope="scope"><!--toolbar按钮-->
                   <!--弹出框按钮-->
-                  <el-button v-if="scope.row.state == 1 "   @click="dd(scope.$index,scope.row)" icon="el-icon-search" circle></el-button>
+                  <el-button v-if="scope.row.state == 1 "   @click="dd(scope.$index,scope.row)" icon="el-icon-edit" circle></el-button>
                   <el-button v-if="scope.row.state == 0 ||scope.row.state== 2 " type="primary" icon="el-icon-view" @click="see(scope.$index,scope.row)"circle></el-button>
                    <!--弹出框-->
                   <!--待审核编辑-->

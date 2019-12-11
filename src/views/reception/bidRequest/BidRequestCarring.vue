@@ -363,9 +363,9 @@
         //步骤三：填写车贷贷款基本信息 步骤四：确认车贷贷款基本信息
         carin:null,//车辆描述
         carringtext:null,//借款说明
-
+        userMembers:null,
         carInfo:{//车贷表单信息填写
-          name:"张某某",
+          name:null,
           title:null,
           bidRequestAmount:null,
           currentRate:null,
@@ -375,7 +375,8 @@
           totalRewardAmount:null,
           description:"",
           // disableDate:null,//投标截止时间
-          membersId:305,//模拟用户登录
+          membersId:null,//模拟用户登录
+
         },
       }
     },
@@ -391,6 +392,10 @@
       }
     },
     created() {
+      this.userMembers = this.$store.getters.getUserMembers;//用户的
+      this.carInfo.name=this.userMembers.name;
+      this.carInfo.membersId = this.userMembers.id;
+
       commonUtils.init(this);
     },
     methods:{

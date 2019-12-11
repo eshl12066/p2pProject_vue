@@ -293,6 +293,7 @@
     name: "BidRequestHousing",
     data:function(){
       return {
+        userMembers:null,
         //步骤条
         stepsActive:1,
         isShowData:{
@@ -315,7 +316,7 @@
         homein:null,//房产描述
         homingtext:null,//借款说明
         homeInfo:{//房产表单信息填写
-          name:"蛋蛋",
+          name:null,
           title:null,
           bidRequestAmount:null,
           currentRate:null,
@@ -325,7 +326,7 @@
           totalRewardAmount:null,
           description:"",
           // disableDate:null,//投标截止时间
-          membersId:308,//模拟用户登录
+          membersId:null,//模拟用户登录
         },
       }
     },
@@ -339,6 +340,9 @@
       }
     },
     created() {
+      this.userMembers = this.$store.getters.getUserMembers;//用户的
+      this.homeInfo.name=this.userMembers.name;
+      this.homeInfo.membersId = this.userMembers.id;
       commonUtils.init(this);
     },
     methods:{

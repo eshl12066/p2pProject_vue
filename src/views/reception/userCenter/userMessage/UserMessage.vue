@@ -58,6 +58,7 @@
     export default {
       data() {
         return {
+          userMembers:null,
           tableData:[],
           formInline:{
             message_state:'',
@@ -98,6 +99,7 @@
         },
       },
       created(){
+        this.userMembers = this.$store.getters.getUserMembers;//用户的
         let url = this.axios.urls.SYSTEM_MESSAGE_SELECTALL;
         let id = 1;                                      //id*******************************
         this.formInline.to_message_id = id;

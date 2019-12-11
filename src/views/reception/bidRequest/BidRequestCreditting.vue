@@ -221,6 +221,7 @@
     name: "BidRequestCreditting",
     data(){
       return {
+        userMembers:null,
         stepsActive:1,//步骤条
         isShowData:{//步骤属性
           Information:true,
@@ -229,7 +230,7 @@
           carryOut:false
         },
         creInfo:{//信用贷表单信息填写
-          name:"李某某",
+          name:null,
           title:null,
           bidRequestAmount:null,
           currentRate:null,
@@ -239,12 +240,15 @@
           totalRewardAmount:null,
           description:null,
           // disableDate:null,//投标截止时间
-          membersId:304,//模拟用户登录
+          membersId:null,//模拟用户登录
         },
         radio: null//单选框
       }
     },
     created() {
+      this.userMembers = this.$store.getters.getUserMembers;//用户的
+      this.creInfo.name=this.userMembers.name;
+      this.creInfo.membersId = this.userMembers.id;
       // commonUtils.init(this);
       // this.creInfo.bidRequestAmount = this.creInfo.bidRequestAmount*this.creInfo.currentRate*this.creInfo.monthesReturn;
     },

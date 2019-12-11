@@ -10,22 +10,20 @@
 
 	  </pre>
     <el-col :span="14">用户名：
-      <span>ruleForm.name</span>
+      <span>{{this.userMembers.name}}</span>
     </el-col>
     <pre>
 
 
 	</pre>
-    <el-col :span="14">最后登录时间：
-      <span>ruleForm.data</span>
-    </el-col>
+
     <pre>
 
 
     </pre>
     <el-col style="margin-left: 50px;" :span="6">
-      <el-button type="primary">账户充值</el-button>
-      <el-button type="danger">账户提现</el-button>
+      <el-button type="primary" @click="this.$router.push({path:'/reception/userCenter/UserRecharge.vue'})">账户充值</el-button>
+      <el-button type="danger"  @click="this.$router.push({path:'/reception/userCenter/UserWithdraw'})">账户提现</el-button>
     </el-col>
     <pre>
 
@@ -37,21 +35,21 @@
         <el-divider direction="vertical"></el-divider>
 		<span>账户总额:
 			<el-link style="font-size: 20px;" :underline="false">
-				<a style="color: rgb(255, 69, 0);">0</a>元</el-link>
+				<a style="color: rgb(255, 69, 0);">8003</a>元</el-link>
 		</span>
       </el-col>
       <el-col style="margin-left: 50px;" :span="6">
         <el-divider direction="vertical"></el-divider>
 		<span>待收本息:
 			<el-link style="font-size: 20px;" :underline="false">
-				<a style="color: rgb(255, 69, 0);">0</a>元</el-link>
+				<a style="color: rgb(255, 69, 0);">889</a>元</el-link>
 		</span>
       </el-col>
       <el-col style="margin-left: 50px;" :span="6">
         <el-divider direction="vertical"></el-divider>
 		<span>累计收益:
 			<el-link style="font-size: 20px;" :underline="false">
-				<a style="color: rgb(255, 69, 0);">0</a>元</el-link>
+				<a style="color: rgb(255, 69, 0);">6701</a>元</el-link>
 		</span>
       </el-col>
       <pre>
@@ -122,12 +120,16 @@
     name: "UserAccount",
     data() {
       return {
+        userMembers:null,
         ruleForm: {
           head_photo:'',
           name:'',
           data:'',
         }
       };
+    },
+    created(){
+      this.userMembers = this.$store.getters.getUserMembers;//用户的
     }
   }
 </script>

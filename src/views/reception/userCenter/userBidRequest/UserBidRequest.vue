@@ -29,11 +29,14 @@
     data() {
       return {
         tableData: [],
+        userMembers:null
       }
     },
     created(){//用户的贷款 数据展示
+      this.userMembers = this.$store.getters.getUserMembers;//用户的
+
       let url = this.axios.urls.SYSTEM_BID_SELECTUSERBIDREQUEST;
-      this.axios.post(url,{"id":19}).then((response)=>{
+      this.axios.post(url,{"id":this.userMembers.id}).then((response)=>{
         this.tableData = response.data;
       }).catch(function(error){//carch则是异常
         console.log(error);

@@ -75,6 +75,7 @@
     name: "Bidding",
     data:function(){
       return {
+        userMembers:null,
         bidD:null,//从投标界面传过来的值
         detail:{
           id:null,
@@ -114,6 +115,7 @@
       }
     },
     created(){
+      this.userMembers = this.$store.getters.getUserMembers;//用户的
       this.bidD = this.$store.getters.getBidDetails;
       //给detail赋值
       this.detail.id = this.bidD.id;
@@ -156,7 +158,7 @@
         //增加  投标表
         this.info.availableAmount = this.detail.myAmount;//我的投标金额
         this.info.bidRequestId = this.detail.id;//投标表的bidRequestId
-        this.info.membersId = 37;//模拟登录 投资人的id 我的id
+        this.info.membersId = this.userMembers.id;//模拟登录 投资人的id 我的id
         ////////////////////////
         //修改  借贷表
         this.info.bidCount = this.detail.bidCount;//投标人数

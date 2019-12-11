@@ -100,6 +100,23 @@ export default {
   'MEMBER_CEDITSTATE':'/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
   'MEMBER_REDITSTATE':'/membersRealname/updateRState',//修改会员实名认证审核状态
 
+  'MEMBER_DADD':'/membersDetail/membersDetailAdd',//增加会员详细资料实名表
+  'MEMBER_RADD':'/membersRealname/membersRealnameAdd',//增加会员身份实名表
+  'MEMBER_MADD':'/membersMaterials/membersMaterialsAdd',//增加会员身材料表
+
+  'MEMBER_QUERY_RNULL':'/membersRealname/queryRnull',//返回实名表是否进行认证
+  'MEMBER_QUERY_DNULL':'/membersDetail/queryDnull',//返回资料表是否进行认证
+  'MEMBER_QUERY_MNULL':'/membersMaterials/queryMnull',//返回材料表是否进行认证
+
+//投资模块
+
+  //投标模块
+
+
+  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
+
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
 
   //借款模块
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
