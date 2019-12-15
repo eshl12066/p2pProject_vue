@@ -208,7 +208,7 @@ export default new Router({
         }
         ,
         {//权限管理
-          path: '/sysManage/UserManage',//用户管理
+          path: '/sysManage/UserManage',//用户管理f
           name: 'UserManage',
           component: UserManage
         }
