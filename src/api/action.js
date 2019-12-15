@@ -49,13 +49,27 @@ export default {
   //业务模块
   'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
   'SYSTEM_ROLE_TREE':'/sysPermission/selectTreeNodeRoleid',//权限角色赋值所用
-  'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
-  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/selectAll',  //分页模糊查找充值表
+
 
   //业务模块
 
-  'ZFBTIAOZHUAN':'/alipay.trade.page.pay.jsp',//支付宝跳转
-  'ALIPAY_PAY':'/alipay/alipayIumpSum',//沙箱支付宝
+  'ZFBTIAOZHUAN':'/asset/alipay.trade.page.pay.jsp',//支付宝跳转
+  'ALIPAY_PAY':'/asset/alipay/alipayIumpSum',//沙箱支付宝
+
+
+  'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/selectAll',  //分页模糊查找充值表
+  //资产模块
+  'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
+  'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/asset/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
+  'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/asset/moneyRecharge/updateJE',  //根据ID修改资产
+
+
+  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/asset/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
+  'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/asset/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用
+  'SYSTEM_ASSET_WITHDRAW_DEL': '/asset/moneyWithdraw/moneyWithdrawDel',  //根据ID删除提现表
+  'SYSTEM_ASSET_WITHDRAW_ADD': '/asset/moneyWithdraw/moneyWithdrawAdd',  //增加提现表
+  'SYSTEM_ASSET_WITHDRAW_EDIT': '/asset/moneyWithdraw/moneyWithdrawUpdate',  //根据ID修改单个提现表
 
   'SYSTEM_BID_SELECTALL': '/bid/selectAllPager',//投标表查所有
   'SYSTEM_BID_SELECTMEMBERS': '/bid/selectMembers',//根据ID查找会员
@@ -71,17 +85,7 @@ export default {
 
 
 
-  //资产模块
-  'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
-  'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
-  'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/moneyRecharge/updateJE',  //根据ID修改资产
 
-
-  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/asset/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
-  'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用
-  'SYSTEM_ASSET_WITHDRAW_DEL': '/moneyWithdraw/moneyWithdrawDel',  //根据ID删除提现表
-  'SYSTEM_ASSET_WITHDRAW_ADD': '/moneyWithdraw/moneyWithdrawAdd',  //增加提现表
-  'SYSTEM_ASSET_WITHDRAW_EDIT': '/moneyWithdraw/moneyWithdrawUpdate',  //根据ID修改单个提现表
 
   //会员模块
   'MEMBER_MANAGE_GETALL':'/members/getAll',//会员管理模糊查
