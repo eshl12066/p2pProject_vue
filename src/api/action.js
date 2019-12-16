@@ -4,7 +4,7 @@
  */
 export default {
   //权限模块
-  'SERVER': 'http://localhost:8080/p2pProject', //服务器
+  'SERVER': 'http://localhost:3001/gg', //服务器
   'SYSTEM_USER_VERIFICATION':'/sysUser/verificationCode',//验证码验证
   'SYSTEM_USER_DOLOGIN': '/sysUser/login', //用户登陆
   'SYSTEM_USER_SELECTONE': '/sysUser/selectOne',//查询单个员工
@@ -66,14 +66,14 @@ export default {
 
 
   //投标模块
-  'SYSTEM_BID_BIDQUERY': '/bid/bidQuery',//投资界面数据展示
-  'SYSTEM_BID_SELECTONE': '/bid/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/bid/bidAdd',//进行投资
+  'SYSTEM_BID_BIDQUERY': '/business/bid/bidQuery',//投资界面数据展示
+  'SYSTEM_BID_SELECTONE': '/business/bid/selectOne',//投资界面，查询单个投资数据
+  'SYSTEM_BID_BIDADD': '/business/bid/bidAdd',//进行投资
 
-  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
-  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
+  'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
 
-  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/business/bidRequest/selectUserBidRequest',//用户的贷款界面
 
 
   //资产模块
@@ -113,13 +113,13 @@ export default {
   //投标模块
 
 
-  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
-  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
+  'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
 
-  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/business/bidRequest/selectUserBidRequest',//用户的贷款界面
 
   //借款模块
-  'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
+  'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/business/bidRequest/insertBidRequest',//进行借款
 
   //设置模块
   'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表

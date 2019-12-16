@@ -158,7 +158,7 @@
         //增加  投标表
         this.info.availableAmount = this.detail.myAmount;//我的投标金额
         this.info.bidRequestId = this.detail.id;//投标表的bidRequestId
-        this.info.membersId = this.userMembers.id;//模拟登录 投资人的id 我的id
+       this.info.membersId = this.userMembers.id;//模拟登录 投资人的id 我的id
         ////////////////////////
         //修改  借贷表
         this.info.bidCount = this.detail.bidCount;//投标人数
