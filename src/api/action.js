@@ -4,7 +4,7 @@
  */
 export default {
   //权限模块
-  'SERVER': 'http://localhost:8080/p2pProject', //服务器
+  'SERVER': 'http://localhost:3001/gg', //服务器
   'SYSTEM_USER_VERIFICATION':'/sysUser/verificationCode',//验证码验证
   'SYSTEM_USER_DOLOGIN': '/sysUser/login', //用户登陆
   'SYSTEM_USER_SELECTONE': '/sysUser/selectOne',//查询单个员工
@@ -90,23 +90,23 @@ export default {
   'SYSTEM_ASSET_WITHDRAW_EDIT': '/moneyWithdraw/moneyWithdrawUpdate',  //根据ID修改单个提现表
 
   //会员模块
-  'MEMBER_MANAGE_GETALL':'/members/getAll',//会员管理模糊查
-  'MEMBER_MANAGE_GETCALL':'/membersMaterials/getCAll',//会员材料模糊查询
-  'MEMBER_MANAGE_GETRALL':'/membersRealname/getRAll',//会员实名模糊查
+  'MEMBER_MANAGE_GETALL':'/member/members/getAll',//会员管理模糊查
+  'MEMBER_MANAGE_GETCALL':'/member/membersMaterials/getCAll',//会员材料模糊查询
+  'MEMBER_MANAGE_GETRALL':'/member/membersRealname/getRAll',//会员实名模糊查
 
-  'MEMBER_CLONE':'/membersMaterials/getCLOne',//会员材料单个查询
-  'MEMBER_RLONE':'/membersRealname/getRLOne',//会员实名认证单个查询
+  'MEMBER_CLONE':'/member/membersMaterials/getCLOne',//会员材料单个查询
+  'MEMBER_RLONE':'/member/membersRealname/getRLOne',//会员实名认证单个查询
 
-  'MEMBER_CEDITSTATE':'/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
-  'MEMBER_REDITSTATE':'/membersRealname/updateRState',//修改会员实名认证审核状态
+  'MEMBER_CEDITSTATE':'/member/membersMaterials/updateState',//修改会员材料状态已经增加备注*/
+  'MEMBER_REDITSTATE':'/member/membersRealname/updateRState',//修改会员实名认证审核状态
 
-  'MEMBER_DADD':'/membersDetail/membersDetailAdd',//增加会员详细资料实名表
-  'MEMBER_RADD':'/membersRealname/membersRealnameAdd',//增加会员身份实名表
-  'MEMBER_MADD':'/membersMaterials/membersMaterialsAdd',//增加会员身材料表
+  'MEMBER_DADD':'/member/membersDetail/membersDetailAdd',//增加会员详细资料实名表
+  'MEMBER_RADD':'/member/membersRealname/membersRealnameAdd',//增加会员身份实名表
+  'MEMBER_MADD':'/member/membersMaterials/membersMaterialsAdd',//增加会员身材料表
 
-  'MEMBER_QUERY_RNULL':'/membersRealname/queryRnull',//返回实名表是否进行认证
-  'MEMBER_QUERY_DNULL':'/membersDetail/queryDnull',//返回资料表是否进行认证
-  'MEMBER_QUERY_MNULL':'/membersMaterials/queryMnull',//返回材料表是否进行认证
+  'MEMBER_QUERY_RNULL':'/member/membersRealname/queryRnull',//返回实名表是否进行认证
+  'MEMBER_QUERY_DNULL':'/member/membersDetail/queryDnull',//返回资料表是否进行认证
+  'MEMBER_QUERY_MNULL':'/member/membersMaterials/queryMnull',//返回材料表是否进行认证
 
 //投资模块
 
