@@ -58,7 +58,7 @@ export default {
 
 
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
-  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/selectAll',  //分页模糊查找充值表
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/selectAll',  //分页模糊查找提现表
   //资产模块
   'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
   'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/asset/moneyRecharge/selectZFB',  //根据ID获取支付宝账号

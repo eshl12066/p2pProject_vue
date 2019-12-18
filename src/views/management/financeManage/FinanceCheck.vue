@@ -28,6 +28,17 @@
         </template>
     </el-table-column>
   </el-table>
+  <div align="center">
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="formInline.page"
+      :page-sizes="[5, 10, 100, 200]"
+      :page-size="formInline.rows"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+  </div>
   <!--弹出框-->
   <el-dialog title="充值" :visible.sync="zlVisibledel" width="35%" >
     <span>处理成功！！！</span>
@@ -51,14 +62,21 @@
         userManage:null,
         value2:"",
         zlVisibledel:false,
+          total:0,
         formInline: {
           moneys:'',
-          moneym:''
+          moneym:'',
+            page: 1,
+            rows: 10,
+            total:0,
         },
         tableData: []
       }
     },
     methods: {
+        search() {
+            this.onSubmit();
+        },
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
@@ -66,11 +84,23 @@
           })
           .catch(_ => {});
       },
+        //这是当一页展示数据数量变化的时候的回掉函数
+        handleSizeChange: function(rwos) {
+            this.formInline.page = 1;
+            this.formInline.rows = rwos;
+            this.search();
+        },
+        //当当前页该改变的时候调用
+        handleCurrentChange: function(page) {
+            this.formInline.page = page;
+            this.search();
+        },
       onSubmit() {                            //查询提交
-        let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTALL;
+        let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTUSER;
         this.axios.post(url, this.formInline).then((response) => {
           console.log(response);
           this.tableData = response.data.data;
+          this.total=response.data.total
         }).catch((response) => {
           //carch则是异常
           console.log(response);
@@ -196,8 +226,9 @@
       }
     },
     created(){
-        this.recah();
-      this.userManage = this.$store.getters.getUserManage;//后台管理员
+          this.recah();
+          this.search();
+          this.userManage = this.$store.getters.getUserManage;//后台管理员
 
     }
 
