@@ -4,9 +4,6 @@
       <span style="margin-left: 50px;">实名认证</span>
     </el-col>
     <pre>
-
-
-
     </pre>
 
     <el-col :span="12" style="margin-left:100px;">
@@ -41,7 +38,7 @@
           <el-col :span="12">
             <a style="margin-left:110px;color: dodgerblue" prop="image1">身份证正面</a>
             <el-upload style="margin-left:80px;"
-                       action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
+                       action="http://localhost:3001/gg/member/membersRealname/imgUpload"
                        list-type="picture-card"
                        :limit="1"
                        name="picture"
@@ -65,7 +62,7 @@
           <el-col :span="12">
             <a style="margin-left:110px;color: dodgerblue" prop="image2">身份证反面</a>
             <el-upload style="margin-left:80px;"
-                       action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
+                       action="http://localhost:3001/gg/member/membersRealname/imgUpload"
                        list-type="picture-card"
                        :limit="1"
                        name="picture"

@@ -311,7 +311,7 @@
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
-        this.tableData.page = val;
+        this.ruleForm.page = val;
 
         let url = this.axios.urls.MEMBER_MANAGE_GETALL;
         this.axios.post(url,this.ruleForm).then((response)=>{
