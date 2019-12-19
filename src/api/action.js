@@ -58,12 +58,13 @@ export default {
 
 
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
-  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/selectAll',  //分页模糊查找提现表
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/moneyWithdrawQuery',  //分页模糊查找提现表
   //资产模块
   'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
   'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/asset/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
   'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/asset/moneyRecharge/updateJE',  //根据ID修改资产
 
+  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER0':'/asset/moneyWithdraw/selectOne',
 
   'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/asset/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
   'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/asset/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用

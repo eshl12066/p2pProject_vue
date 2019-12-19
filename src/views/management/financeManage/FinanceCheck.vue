@@ -156,10 +156,14 @@
             message: '已将该审核通过',
             type: 'success'
           });
+            this.recah(),
+             this.search();
         }).catch((response) => {
           //carch则是异常
           console.log(response);
         });
+          this.recah();
+          this.search();
       },
       losinfo(index,row){                         //不通过按钮
         let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_EDIT;
@@ -176,12 +180,15 @@
           this.$notify({
             title: '',
             message: '已将该审核PASS',
-            type: 'warning'
+            type: 'warning',
           });
+            this.recah(),
+             this.search();
         }).catch((response) => {
           //carch则是异常
           console.log(response);
         });
+
       },
       recah(){
         let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTUSER;

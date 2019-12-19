@@ -85,7 +85,7 @@
     </el-tab-pane>
     <el-tab-pane label="提现记录" name="withdraw">
       <!--查询               -->
-      <el-form :inline="true" :model="formInline2" class="demo-form-inline">
+      <el-form :inline="true" :model="formInline2" class="demo-form-inline" size="mini">
         <el-form-item label="用户名">
           <el-input v-model="formInline2.name" placeholder="用户名"></el-input>
         </el-form-item>
@@ -120,7 +120,17 @@
         </el-table-column>
         <el-table-column prop="trade_code" label="说明" width="310"></el-table-column>
       </el-table>
-
+      <div align="center">
+        <el-pagination
+          @size-change="handleSizeChange2"
+          @current-change="handleCurrentChange2"
+          :current-page="formInline2.page"
+          :page-sizes="[5, 10, 100, 200]"
+          :page-size="formInline2.rows"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totala">
+        </el-pagination>
+      </div>
 
     </el-tab-pane>
   </el-tabs>
@@ -138,7 +148,9 @@
                 //分页
                 rows: 10,
                 tableList: null,
+                tableList2:null,
                 total: 0,
+                totala:0,
                 value1: '',
                 value2: '',
                 value3: '',
@@ -148,22 +160,17 @@
                     name: '',
                     start: "",
                     stop: "",
-                    rno: '',
                     page: 1,
                     rows: 10,
-                },
-                ruleForm: {
-                    rolestate: null,
-                    rolename: "",
-                    page: 1,
-                    rows: 10
                 },
                 userManage: null,
                 //提现查询属性
                 formInline2: {
                     name: '',
-                    date1: "",
-                    date2: "",
+                    start: "",
+                    stop: "",
+                    page: 1,
+                    rows: 10,
                 },
                 //默认显示的tab页
                 activeName: 'recharge',
@@ -188,7 +195,7 @@
             },
             onSubmit() {
                 let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
-                this.axios.post(url, this.ruleForm).then((response) => {
+                this.axios.post(url, this.formInline).then((response) => {
                     console.log("分页查询的：" + response.data.data)
                     // console.log(response.data);
                     this.tableList = response.data.data;
@@ -199,12 +206,12 @@
             }
             ,
             onSubmit2() {
-                let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
-                this.axios.post(url, this.ruleForm).then((response) => {
+                let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTUSER;
+                this.axios.post(url, this.formInline2).then((response) => {
                     console.log("分页查询的：" + response.data.data)
                     // console.log(response.data);
-                    this.tableList = response.data.data;
-                    this.total = response.data.total;
+                    this.tableList2 = response.data.data;
+                    this.totala = response.data.total;
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -220,11 +227,25 @@
                 this.formInline.page = val;
                 this.search();
             },
+            handleSizeChange2(val){
+                console.log(`每页 ${val} 条`);
+                this.formInline2.page = 1;
+                this.formInline2.rows = val;
+                this.search2();
+            },
+            handleCurrentChange2(val){
+                console.log(`当前页: ${val}`);
+                this.formInline2.page = val;
+                this.search2();
+            },
             search() {
+                this.onSubmit()
                 var formData = {
                     name: this.formInline.name,
                     start: '',
-                    stop: ''
+                    stop: '',
+                    page: this.formInline.page,
+                    rows: this.formInline.rows,
                 };
                 if (this.value1 != null) {
                     formData.start = this.value1
@@ -244,10 +265,13 @@
                 });
             },
             search2() {
+                this.onSubmit2()
                 var formData = {
                     name: this.formInline2.name,
                     start: '',
-                    stop: ''
+                    stop: '',
+                    page: this.formInline2.page,
+                    rows: this.formInline2.rows,
                 };
                 if (this.value3 != null) {
                     formData.start = this.value3
