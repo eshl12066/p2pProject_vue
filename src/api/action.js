@@ -47,47 +47,49 @@ export default {
 
 
   //业务模块
-  'SYSTEM_TREE': '/sysPermission/selectTreeNode', //树菜单
-  'SYSTEM_ROLE_TREE':'/sysPermission/selectTreeNodeRoleid',//权限角色赋值所用
-  'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
-  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
-  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/moneyWithdraw/selectAll',  //分页模糊查找充值表
+  'SYSTEM_TREE': '/sys/sysPermission/selectTreeNode', //树菜单
+  'SYSTEM_ROLE_TREE':'/sys/sysPermission/selectTreeNodeRoleid',//权限角色赋值所用
+
 
   //业务模块
 
-  'ZFBTIAOZHUAN':'/alipay.trade.page.pay.jsp',//支付宝跳转
-  'ALIPAY_PAY':'/alipay/alipayIumpSum',//沙箱支付宝
+  'ZFBTIAOZHUAN':'/asset/alipay.trade.page.pay.jsp',//支付宝跳转
+  'ALIPAY_PAY':'/asset/alipay/alipayIumpSum',//沙箱支付宝
 
-  'SYSTEM_BID_SELECTALL': '/bid/selectAllPager',//投标表查所有
-  'SYSTEM_BID_SELECTMEMBERS': '/bid/selectMembers',//根据ID查找会员
-  'SYSTEM_BID_SELECTREQUEST': '/bid/selectRequest',//根据ID查找借贷表
+
+  'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/moneyWithdrawQuery',  //分页模糊查找提现表
+  //资产模块
+  'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
+  'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/asset/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
+  'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/asset/moneyRecharge/updateJE',  //根据ID修改资产
+
+  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER0':'/asset/moneyWithdraw/selectOne',
+
+  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/asset/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
+  'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/asset/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用
+  'SYSTEM_ASSET_WITHDRAW_DEL': '/asset/moneyWithdraw/moneyWithdrawDel',  //根据ID删除提现表
+  'SYSTEM_ASSET_WITHDRAW_ADD': '/asset/moneyWithdraw/moneyWithdrawAdd',  //增加提现表
+  'SYSTEM_ASSET_WITHDRAW_EDIT': '/asset/moneyWithdraw/moneyWithdrawUpdate',  //根据ID修改单个提现表
+
+  'SYSTEM_BID_SELECTALL': '/business/bid/selectAllPager',//投标表查所有
+  'SYSTEM_BID_SELECTMEMBERS': '/business/bid/selectMembers',//根据ID查找会员
+  'SYSTEM_BID_SELECTREQUEST': '/business/bid/selectRequest',//根据ID查找借贷表
 
 
 
 
   //投标模块
-  'SYSTEM_BID_BIDQUERY': '/bid/bidQuery',//投资界面数据展示
-  'SYSTEM_BID_SELECTONE': '/bid/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/bid/bidAdd',//进行投资
+  'SYSTEM_BID_BIDQUERY': '/business/bid/bidQuery',//投资界面数据展示
+  'SYSTEM_BID_SELECTONE': '/business/bid/selectOne',//投资界面，查询单个投资数据
+  'SYSTEM_BID_BIDADD': '/business/bid/bidAdd',//进行投资
 
-  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
-  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
-
-  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
-
-
-  //资产模块
-  'SYSTEM_ASSET_RECHARGE_LISTALL': '/moneyRecharge/selectAll',  //分页模糊查找充值表
-  'SYSTEM_ASSET_RECHARGE_ADD': '/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
-  'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
-  'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/moneyRecharge/updateJE',  //根据ID修改资产
+  'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/business/bidRequest/selectUserBidRequest',//用户的贷款界面
 
 
-  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
-  'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用
-  'SYSTEM_ASSET_WITHDRAW_DEL': '/moneyWithdraw/moneyWithdrawDel',  //根据ID删除提现表
-  'SYSTEM_ASSET_WITHDRAW_ADD': '/moneyWithdraw/moneyWithdrawAdd',  //增加提现表
-  'SYSTEM_ASSET_WITHDRAW_EDIT': '/moneyWithdraw/moneyWithdrawUpdate',  //根据ID修改单个提现表
+
 
   //会员模块
   'MEMBER_MANAGE_GETALL':'/member/members/getAll',//会员管理模糊查
@@ -113,13 +115,13 @@ export default {
   //投标模块
 
 
-  'SYSTEM_BID_SELECTUSERBID': '/bid/selectUserBid',//用户的投资界面
-  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/bid/selectUserBidDetails',//用户的投资详情
+  'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
 
-  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/bidRequest/selectUserBidRequest',//用户的贷款界面
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/business/bidRequest/selectUserBidRequest',//用户的贷款界面
 
   //借款模块
-  'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/bidRequest/insertBidRequest',//进行借款
+  'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/business/bidRequest/insertBidRequest',//进行借款
 
   //设置模块
   'SYSTEM_SETTING_SYSDICT_LISTALL': '/setting/setDict/selectAll',  //分页模糊查找字典表
