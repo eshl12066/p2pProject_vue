@@ -63,15 +63,15 @@
         <el-card style="width: 50%;" :body-style="{ padding: '0px' }">
           <el-image
             style="width: 200px; height: 200px"
-            src="http://localhost:8080/p2pProject/image/r3.png"
+            src="http://localhost:1008/apply.png"
           >
           </el-image>
           <div style="padding: 14px;">
             <div class="bottom clearfix">
               <span >实名认证</span>
-              <el-tag type="success" style="margin-left: 10px;" effect="dark">已认证√</el-tag>
+              <el-tag type="info" style="margin-left: 10px;" effect="dark">未认证</el-tag>
               <br> <br>
-              <el-button class="button" type="text">查看</el-button>
+              <el-button class="button" type="text" >立即绑定</el-button>
             </div>
           </div>
         </el-card>
@@ -80,7 +80,7 @@
         <el-card style="width: 50%;" :body-style="{ padding: '0px' }">
           <el-image
             style="width: 200px; height: 200px"
-            src="http://localhost:8080/p2pProject/image/r2.jpg"
+            src="http://localhost:1008/finally.png"
           >
           </el-image>
           <div style="padding: 14px;">
@@ -97,7 +97,7 @@
         <el-card style="width: 50%;" :body-style="{ padding: '0px' }">
           <el-image
             style="width: 200px; height: 200px"
-            src="http://localhost:8080/p2pProject/image/r1.jpg"
+            src="http://localhost:1008/audit.png"
           >
           </el-image>
           <div style="padding: 14px;">

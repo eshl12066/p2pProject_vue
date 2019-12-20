@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item label="上传头像" prop="head_photo">
         <el-upload style="margin-left:80px;"
-                   action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
+                   action="http://localhost:3001/gg/member/membersRealname/imgUpload"
                    list-type="picture-card"
                    :limit="1"
                    name="picture"
