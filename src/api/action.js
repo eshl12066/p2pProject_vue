@@ -1,7 +1,7 @@
 /**
  * 对后台请求的地址的封装，URL格式如下：
  * 模块名_实体名_操作
- */
+*/
 export default {
   //权限模块
   'SERVER': 'http://localhost:3001/gg', //服务器
@@ -124,30 +124,30 @@ export default {
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/business/bidRequest/insertBidRequest',//进行借款
 
   //设置模块
-  'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表
-  'SYSTEM_SETTING_SYSDICT_ADD': '/sysdict/sysdictAdd',  //增加dict
-  'SYSTEM_SETTING_SYSDICT_DEL': '/sysdict/sysdictDel',  //删除dict
-  'SYSTEM_SETTING_SYSDICT_EDIT': '/sysdict/sysdictUpdate',  //修改dict
-  'SYSTEM_SETTING_SYSDICT_SELECTONE': '/sysdict/selectOne',  //查单个dict
+  'SYSTEM_SETTING_SYSDICT_LISTALL': '/setting/setDict/selectAll',  //分页模糊查找字典表
+  'SYSTEM_SETTING_SYSDICT_ADD': '/setting/setDict/setdictAdd',  //增加dict
+  'SYSTEM_SETTING_SYSDICT_DEL': '/setting/setDict/setdictDel',  //删除dict
+  'SYSTEM_SETTING_SYSDICT_EDIT': '/setting/setDict/setdictUpdate',  //修改dict
+  'SYSTEM_SETTING_SYSDICT_SELECTONE': '/setting/setDict/selectOne',  //查单个dict
 
-  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID': '/sysdictitem/selectByDictId',  //根据dictID查看dictitem详情
-  'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/sysdictitem/sysdictitemDelByParentId',  //根据父ID删除所有子
-  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYID': '/sysdictitem/selectOne',  //根据ID查找单个
-  'SYSTEM_SETTING_SYSDICTITEM_ADD': '/sysdictitem/sysdictitemAdd',  //增加
-  'SYSTEM_SETTING_SYSDICTITEM_DEL': '/sysdictitem/sysdictitemDel',  //删除
-  'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/sysdictitem/sysdictitemUpdate',  //修改
-
-
-  'SYSTEM_SETTING_SETTING_SELECTALL': '/sysSetting/sysSettingQuery',  //查询所有
-  'SYSTEM_SETTING_SETTING_EDIT': '/sysSetting/sysSettingUpdate',  //修改单个
-  'SYSTEM_SETTING_SETTING_SELECTONE': '/sysSetting/selectOne',  //查询单个
+  'YSTEM_SETTING_SYSDICTITEM_SELECTBYDICTIDS': '/setting/setDictitem/selectByDictId',  //根据dictID查看dictitem详情
+  'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/setting/setDictitem/setdictitemDelByParentId',  //根据父ID删除所有子
+  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYID': '/setting/setDictitem/selectOne',  //根据ID查找单个
+  'SYSTEM_SETTING_SYSDICTITEM_ADD': '/setting/setDictitem/setdictitemAdd',  //增加
+  'SYSTEM_SETTING_SYSDICTITEM_DEL': '/setting/setDictitem/setdictitemDel',  //删除
+  'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/setting/setDictitem/setdictitemUpdate',  //修改
 
 
-  'SYSTEM_MESSAGE_SELECTONE': '/message/selectOne', //查找单个
-  'SYSTEM_MESSAGE_SELECTALL': '/message/selectAll', //查找全部
-  'SYSTEM_MESSAGE_DELECTBYID': '/message/messageDel', //删除单个
-  'SYSTEM_MESSAGE_INSERT': '/message/messageAdd', //增加
-  'SYSTEM_MESSAGE_EDIT': '/message/messageEdit', //修改
+  'SYSTEM_SETTING_SETTING_SELECTALL': '/setting/setSetting/sysSettingQuery',  //查询所有
+  'SYSTEM_SETTING_SETTING_EDIT': '/setting/setSetting/sysSettingUpdate',  //修改单个
+  'SYSTEM_SETTING_SETTING_SELECTONE': '/setting/setSetting/selectOne',  //查询单个
+
+
+  'SYSTEM_MESSAGE_SELECTONE': '/setting/setMessage/selectOne', //查找单个
+  'SYSTEM_MESSAGE_SELECTALL': '/setting/setMessage/selectAll', //查找全部
+  'SYSTEM_MESSAGE_DELECTBYID': '/setting/setMessage/messageDel', //删除单个
+  'SYSTEM_MESSAGE_INSERT': '/setting/setMessage/messageAdd', //增加
+  'SYSTEM_MESSAGE_EDIT': '/setting/setMessage/messageEdit', //修改
 
 //资产模块
 
