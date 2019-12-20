@@ -1,7 +1,7 @@
 /**
  * 对后台请求的地址的封装，URL格式如下：
  * 模块名_实体名_操作
-*/
+ */
 export default {
   //权限模块
   'SERVER': 'http://localhost:3001/gg', //服务器
@@ -137,11 +137,9 @@ export default {
   'SYSTEM_SETTING_SYSDICTITEM_DEL': '/setting/setDictitem/setdictitemDel',  //删除
   'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/setting/setDictitem/setdictitemUpdate',  //修改
 
-
   'SYSTEM_SETTING_SETTING_SELECTALL': '/setting/setSetting/sysSettingQuery',  //查询所有
   'SYSTEM_SETTING_SETTING_EDIT': '/setting/setSetting/sysSettingUpdate',  //修改单个
   'SYSTEM_SETTING_SETTING_SELECTONE': '/setting/setSetting/selectOne',  //查询单个
-
 
   'SYSTEM_MESSAGE_SELECTONE': '/setting/setMessage/selectOne', //查找单个
   'SYSTEM_MESSAGE_SELECTALL': '/setting/setMessage/selectAll', //查找全部
