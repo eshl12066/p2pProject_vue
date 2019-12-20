@@ -53,8 +53,8 @@ export default {
 
   //业务模块
 
-  'ZFBTIAOZHUAN':'/asset/alipay.trade.page.pay.jsp',//支付宝跳转
-  'ALIPAY_PAY':'/asset/alipay/alipayIumpSum',//沙箱支付宝
+  'ZFBTIAOZHUAN':'/asset/alipay/alipay.trade.page.pay.jsp',//支付宝跳转
+  'ALIPAY_PAY':'/asset/goAlipay',//沙箱支付宝
 
 
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表

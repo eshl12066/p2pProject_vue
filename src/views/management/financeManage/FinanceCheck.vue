@@ -147,7 +147,6 @@
         }
         this.axios.post(url, infofrom).then((response) => {
           console.log(response);
-          this.autoAddMessage(1,row.members_id,infofrom.audit_time);
           this.editJE(row.members_id,row.amount-row.fee);
           this.recah();
 
