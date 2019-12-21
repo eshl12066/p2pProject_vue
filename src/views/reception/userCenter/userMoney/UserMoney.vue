@@ -20,7 +20,7 @@
       <!--表单                          -->
 
       <el-table border :data="rechargedata" :default-sort = "{prop: 'trade_time', order: 'descending'}"
-        style="width: 100%">
+                style="width: 100%">
         <el-table-column prop="trade_code" label="支付宝账号" width="365"></el-table-column>
         <el-table-column prop="amount" label="充值金额" width="208"></el-table-column>
         <el-table-column prop="trade_time" label="日期" sortable width="365"></el-table-column>
@@ -33,7 +33,7 @@
         :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="40">
+        :total="total">
       </el-pagination>
 
     </el-tab-pane>
@@ -69,7 +69,17 @@
         <el-table-column prop="trade_code" label="说明"width="310"> </el-table-column>
       </el-table>
 
-
+      <div align="center">
+        <el-pagination
+          @size-change="handleSizeChange2"
+          @current-change="handleCurrentChange2"
+          :current-page="formInline2.page"
+          :page-sizes="[5, 10, 100, 200]"
+          :page-size="formInline2.rows"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totala">
+        </el-pagination>
+      </div>
 
     </el-tab-pane>
   </el-tabs>
@@ -77,94 +87,125 @@
 
 <script>
     export default {
-      name: "UserMoney",
-      data() {
-        return {
-          activeName:'recharge',
-          currentPage4:4,
-          value1:'',
-          value2:'',
-          value3:'',
-          value4:'',
-          formInline: {
-            user: '',
-            date1:"",
-            date2:"",
-          },
-          formInline2: {
-            user: '',
-            date1:"",
-            date2:"",
-          },
-          userManage:null,
-          activeName: 'recharge',
-          rechargedata: [],
-          withdrawdata: []
-        }
-      },
-      methods: {
-        handleClick(tab, event) {
-          console.log(tab, event);
+        name: "UserMoney",
+        data() {
+            return {
+                activeName:'recharge',
+                currentPage4:4,
+                value1:'',
+                value2:'',
+                value3:'',
+                value4:'',
+                total:0,
+                totala:0,
+                rows:10,
+                formInline: {
+                    user: '',
+                    date1:"",
+                    date2:"",
+                    page: 1,
+                    rows: 10,
+                },
+                formInline2: {
+                    user: '',
+                    date1:"",
+                    date2:"",
+                    page: 1,
+                    rows: 10,
+                },
+                userManage:null,
+                activeName: 'recharge',
+                rechargedata: [],
+                withdrawdata: []
+            }
         },
-        onSubmit() {
-          this.rechargeSeach();
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
+            onSubmit() {
+                this.rechargeSeach();
+            },
+            onSubmit2() {
+                this.withdrawSeach();
+            },
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.formInline.page = 1;
+                this.formInline.rows = val;
+                this.rechargeSeach();
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.formInline.page = val;
+                this.rechargeSeach();
+            },
+            handleSizeChange2(val) {
+                console.log(`每页 ${val} 条`);
+                this.formInline2.page = 1;
+                this.formInline2.rows = val;
+                this.withdrawSeach();
+            },
+            handleCurrentChange2(val) {
+                console.log(`当前页: ${val}`);
+                this.formInline2.page = val;
+                this.withdrawSeach();
+            },
+            rechargeSeach(){
+                var  rechargea = {
+                    id:this.userManage,                       //***********************************************id
+                    start:'',
+                    stop: '',
+                    name: this.formInline.name,
+                    page: this.formInline.page,
+                    rows: this.formInline.rows,
+                };
+                if(this.value1!=null){
+                    rechargea.start =  this.value1
+                };
+                if(this.value2!=null){
+                    rechargea.stop =  this.value2
+                };
+                let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
+                this.axios.post(url, rechargea).then((response) => {
+                    this.rechargedata = response.data.data;
+                    this.total = response.data.total;
+                }).catch((response) => {
+                    //carch则是异常
+                    console.log(response);
+                });
+            },
+            withdrawSeach(){
+                var  withdrawa = {
+                    id:this.userManage,                       //***********************************************id
+                    start:'',
+                    stop: '',
+                    name: this.formInline2.name,
+                    page: this.formInline2.page,
+                    rows: this.formInline2.rows,
+                };
+                if(this.value3!=null){
+                    withdrawa.start =  this.value3
+                };
+                if(this.value4!=null){
+                    withdrawa.stop =  this.value4
+                };
+                let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTMEMBER;
+                this.axios.post(url, withdrawa).then((response) => {  //***********************************************id
+                    this.withdrawdata = response.data.data;
+                    this.totala = response.data.total;
+                }).catch((response) => {
+                    //carch则是异常
+                    console.log(response);
+                });
+            }
         },
-        onSubmit2() {
-          this.withdrawSeach();
-        },
-        handleSizeChange(val) {
-          console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-          console.log(`当前页: ${val}`);
-        },
-        rechargeSeach(){
-          var  rechargea = {
-            id:this.userManage,                       //***********************************************id
-            start:'',
-            stop: ''
-          };
-          if(this.value1!=null){
-            rechargea.start =  this.value1
-          };
-          if(this.value2!=null){
-            rechargea.stop =  this.value2
-          };
-          let url = this.axios.urls.SYSTEM_ASSET_RECHARGE_LISTALL;
-          this.axios.post(url, rechargea).then((response) => {
-            this.rechargedata = response.data.data;
-          }).catch((response) => {
-            //carch则是异常
-            console.log(response);
-          });
-        },
-        withdrawSeach(){
-          var  withdrawa = {
-            id:this.userManage,                       //***********************************************id
-            start:'',
-            stop: ''
-          };
-          if(this.value3!=null){
-            withdrawa.start =  this.value3
-          };
-          if(this.value4!=null){
-            withdrawa.stop =  this.value4
-          };
-          let url = this.axios.urls.SYSTEM_ASSET_WITHDRAW_LISTMEMBER;
-          this.axios.post(url, withdrawa).then((response) => {  //***********************************************id
-            this.withdrawdata = response.data.data;
-          }).catch((response) => {
-            //carch则是异常
-            console.log(response);
-          });
-        }
-      },
-      created(){
-        this.rechargeSeach();
-        this.withdrawSeach();
-        this.userManage = this.$store.getters.getUserMembers;//会员
+        created(){
+            this.rechargeSeach();
+            this.withdrawSeach();
+            this.userManage = this.$store.getters.getUserMembers;//会员
 
-      }
+        }
     }
 </script>
 
