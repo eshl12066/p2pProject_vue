@@ -37,6 +37,11 @@
             <el-input style="margin-left: 80px;" v-model="ruleForm.phone"></el-input>
           </el-col>
         </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-col  :span="10">
+            <el-input style="margin-left: 80px;" v-model="ruleForm.sex"></el-input>
+          </el-col>
+        </el-form-item>
         <el-form-item label="个人学历" prop="myself_background">
           <el-select style="margin-left: 80px;" v-model="ruleForm.myself_background" placeholder="请选择">
             <el-option v-for="item in education1"
@@ -103,6 +108,7 @@
           members_id:'',
           head_photo:'',
           phone: '',
+            sex:'',
           myself_background:'',
           monthly_income: '',
           marital_status: '',
@@ -136,13 +142,10 @@
 
       /*增加*/
       submitForm(ruleForm) {
-
         this.ruleForm.members_id =this.userMembers.id;
-
-
+          // this.ruleForm.auditorId= this.userMembers.id;
           var url =  this.axios.urls.MEMBER_DADD;
           this.axios.post(url, this.ruleForm).then(response => {
-            alert("jjj");
             if (response.data.code == 500) {
               this.$message({
                 message: response.data.msg,
@@ -210,7 +213,7 @@
       },
       //图片上传成功
       handleAvatarSuccess(res, file) {
-        this.ruleForm.image = res.path;
+        this.ruleForm.head_photo = res.path;
       },
       //图片上传失败调用
       imgUploadError(err, file, fileList){

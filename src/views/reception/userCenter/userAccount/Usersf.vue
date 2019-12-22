@@ -121,7 +121,8 @@
           apply_time:'',
           members_id:'',
           image1:'',
-          image2:''
+          image2:'',
+            state:1
         },
         /*rules: {
           realname: [
@@ -188,6 +189,7 @@
       submitForm(ruleForm) {
         this.ruleForm.members_id =this.userMembers.id;
         this.ruleForm.apply_time=this.getTime();
+        // this.ruleForm.auditorId= this.userMembers.id;
         this.$refs[ruleForm].validate((valid) => {
             var url =  this.axios.urls.MEMBER_RADD;
             this.axios.post(url, this.ruleForm).then(response => {

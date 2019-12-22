@@ -37,7 +37,9 @@
             </el-dialog>
           </el-col>
         </el-form-item>
-
+        <el-form-item label="材料简介" prop="file" >
+          <el-input type="textarea" v-model="ruleForm.file"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button style="margin-left: 120px;" type="primary" @click="submitForm('ruleForm')">上传资料</el-button>
         </el-form-item>
@@ -57,15 +59,16 @@
         dialogImageUrl:'',
         dialogVisible:false,
         image:[],
-
         fileList: [0,0], //缓存区文件
         uploadFile:[[],[]] ,//  上传用文件
-
+        file:'',
         /* upimg:'http://localhost:8080/p2pProject/image',*/
         ruleForm: {
           members_id:'',
           apply_time:'',
-          image:''
+          image:'',
+          state: 1,
+          file:'',
         },
       };
     },

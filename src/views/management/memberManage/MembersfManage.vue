@@ -41,11 +41,13 @@
         <div style="width: 72%;">
           <el-col style="width: 128%;" :span="24">
             <el-table  style="left: 45px;" :data="tableData" :fit="true" :show-header="true" highlight-current-row>
-              <el-table-column prop="name" style="width: 0%;"  label="用户名" width="0px" resizable="true" sortable>
+              <el-table-column prop="id" style="width: 0%;"  label="id" width="0px" resizable="true" sortable>
               </el-table-column>
               <el-table-column prop="realname" style="width: 0%; max-height: 0px;"  label="真实姓名" resizable="true" sortable filter-multiple="true" :type="selection">
               </el-table-column>
               <el-table-column  prop="sex"  label="性别" sortable resizable="true">
+              </el-table-column>
+              <el-table-column prop="certification_score" label="分数" resizable="true" sortable>
               </el-table-column>
               <el-table-column prop="id_number" label="身份证号码" resizable="true" sortable>
               </el-table-column>
@@ -63,7 +65,7 @@
                 width="100">
                 <template slot-scope="scope"><!--toolbar按钮-->
                   <!--弹出框按钮-->
-                  <el-button v-if="scope.row.state == 1 "  @click="dd(scope.$index,scope.row)" icon="el-icon-edit" circle></el-button>
+                  <el-button v-if="scope.row.state == 1 "  @click="dd(scope.$index,scope.row)" type="info" icon="el-icon-edit" circle></el-button>
                   <el-button v-if="scope.row.state == 0 ||scope.row.state== 2 " type="primary" icon="el-icon-view" @click="see(scope.$index,scope.row)"circle></el-button>
                   <!--弹出框-->
                   <!--待审核编辑-->
@@ -222,6 +224,7 @@
         /*行数*/
         tableData:null,
         total:null,
+
         /*展示表格*/
         ruleForm: {
           start:'',
@@ -235,6 +238,7 @@
         dialogFormVisible: false,
         /*弹框表格*/
         form: {
+          userMembers:null,
           audit_time:'',
           id:'',
           name:'',
@@ -245,8 +249,11 @@
           address:'',
           image1:'',
           image2:'',
-          state:null,
-          remark:''
+          state:'',
+          remark:'',
+          auditorId:'',
+          certification_score:'',
+            members_id:'',
         },
         /*预览大图展示*/
         srcList1:[],
@@ -263,7 +270,9 @@
           image1:'',
           image2:'',
           state:null,
-          remark:''
+          remark:'',
+            auditorId:'',
+            certification_score:''
         },
 
         /*弹框宽度*/
@@ -349,12 +358,13 @@
           return '未通过！'
         }
       },
+
       /*单个查返回数据 第一个*/
       dd(index,row){
 
         let url = this.axios.urls.MEMBER_RLONE;
         this.axios.post(url, {id:row.id}).then((response) => {
-          this.form.id = response.data.id;
+          this.form.id = row.id;
           this.form.name = response.data.name;
           this.form.realname = response.data.realname;
           this.form.id_number = response.data.id_number;
@@ -368,8 +378,11 @@
           this.srcList2=[];
           this.srcList2.push(response.data.image2);
           this.form.remark = response.data.remark;
+          this.form.certification_score = row.certification_score;
+            this.form.members_id = response.data.members_id;
           this.dialogFormVisible = true;
         });
+
       },
       see(index,row){
         let url = this.axios.urls.MEMBER_RLONE;
@@ -394,15 +407,21 @@
       },
       /*修改状态*/
       update(state){
+        this.form.auditorId = this.$store.getters.getUserManage.userid;//用户的
         this.form.state = state;
         this.form.audit_time = this.getTime();
         let url = this.axios.urls.MEMBER_REDITSTATE;
         this.axios.post(url,this.form).then((response)=>{
           let data = response.data;
           if(data.code==0){
-            this.commitup();
-            this.dialogFormVisible = false;
-            this.$message({
+
+              let url2= this.axios.urls.MEMBER_UPDATASCORE;
+              this.axios.post(url2,this.form).then((response)=>{
+
+              });
+              this.commitup();
+              this.dialogFormVisible = false;
+              this.$message({
               message: '操作成功！！',
               type: 'success'
             });

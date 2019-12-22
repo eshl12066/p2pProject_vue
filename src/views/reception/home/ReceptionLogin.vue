@@ -91,6 +91,8 @@
             this.$store.commit('setUserMembers',{
               userMembers:user
             })
+              console.log("是否成功");
+
 
             //用户跳转
             this.$router.push({path:'/'})

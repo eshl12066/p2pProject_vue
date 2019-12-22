@@ -17,90 +17,178 @@
 			</span>
         </el-col>
 
-          <div align="center">
-            <el-col :span="20">状态：
-              <el-select  v-model="ruleForm.state" placeholder="请选择" clearable>
-                <el-option key="0" label="审核通过" value="0"></el-option>
-                <el-option key="2" label="审核失败" value="2"></el-option>
-              </el-select>
-              <el-input
-                placeholder="输入用户名"
-                v-model="ruleForm.name"
-                style="width: 230px"
-                clearable>
-                <a> </a>
-              </el-input>申请时间：
-              <el-date-picker v-model="ruleForm.value2" type="daterange" >
-              </el-date-picker>
-              <el-button type="primary"  @click="commitup" icon="el-icon-search">搜索</el-button>
-            </el-col>
-          </div>
+        <div align="center">
+          <el-col :span="20">会员状态：
+            <el-select  v-model="ruleForm.state" placeholder="请选择" clearable>
+              <el-option key="0" label="审核全通过" value="0"></el-option>
+              <el-option key="1" label="待审核" value="1"></el-option>
+              <el-option key="2" label="审核未通过" value="2"></el-option>
+            </el-select>
+            信用分数：
+            <el-select  v-model="ruleForm.certification_score" placeholder="请选择" clearable>
+              <el-option key="0" label="50分以下" value="00"></el-option>
+              <el-option key="1" label="51分-65分" value="11"></el-option>
+              <el-option key="2" label="66分-85分" value="22"></el-option>
+              <el-option key="3" label="86分-90分" value="33"></el-option>
+              <el-option key="4" label="91分以上" value="44"></el-option>
+            </el-select>
+            <el-input
+              placeholder="输入用户名"
+              v-model="ruleForm.name"
+              style="width: 230px"
+              clearable>
+              <a> </a>
+            </el-input>
+            <!--申请时间：<el-date-picker v-model="ruleForm.value2" type="daterange" >
+            </el-date-picker>-->
+            <el-button type="primary"  @click="commitup" icon="el-icon-search">搜索</el-button>
+          </el-col>
+        </div>
         <br>
       </el-row>
       <el-row>
         <div style="width: 72%;">
           <el-col style="width: 128%;" :span="24">
+
             <el-table style="left: 45px;" :data="tableData" :fit="true" :show-header="true" highlight-current-row>
+
               <el-table-column style="width: 0%;" prop="name" label="用户名" width="0px"  sortable>
               </el-table-column>
-              <el-table-column prop="realname" style="width: 0%; max-height: 0px;" label="真实姓名"  sortable filter-multiple="true" :type="selection">
+              <el-table-column   style="width: 0%; max-height: 0px;" label="真实姓名"  >
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.realname==null">待提交资料</el-tag>
+                  <span v-if="scope.row.realname !=null" >
+                      {{scope.row.realname}}
+                      </span>
+                </template>
               </el-table-column>
-              <el-table-column prop="sex" label="性别" sortable >
+
+              <el-table-column prop="sex" label="性别" empty-text sortable >
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.sex==null">待提交资料</el-tag>
+                  <span v-if="scope.row.sex !=null" >
+                      {{scope.row.sex}}
+                      </span>
+                </template>
               </el-table-column>
-              <el-table-column prop="id_number" label="证籍号码"  sortable>
+              <el-table-column prop="phone"  label="电话号码"  sortable>
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.phone==null">待提交资料</el-tag>
+                  <span v-if="scope.row.phone !=null" >
+                      {{scope.row.phone}}
+                      </span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="id_number"  label="证件号码"  sortable>
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.id_number==null">待提交资料</el-tag>
+                  <span v-if="scope.row.id_number !=null" >
+                      {{scope.row.id_number}}
+                      </span>
+                </template>
               </el-table-column>
               <el-table-column prop="address" label="证籍地址"  sortable>
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.address==null">待提交资料</el-tag>
+                  <span v-if="scope.row.address !=null" >
+                      {{scope.row.address}}
+                      </span>
+                </template>
               </el-table-column>
-              <el-table-column prop="audit_time" label="审核时间"  sortable>
+              <el-table-column prop="certification_score" label="信用分数"  sortable>
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.certification_score==null">待提交资料</el-tag>
+                  <span v-if="scope.row.certification_score !=null" >
+                      {{scope.row.certification_score}}
+                      </span>
+                </template>
               </el-table-column>
-              <el-table-column prop="auditor_id" label="审核人"  sortable>
+              <el-table-column prop="borrow_limit" label="可借贷额度"  sortable>
+                <template slot-scope="scope">
+                  <el-tag type="warning" v-if="scope.row.borrow_limit==null">待提交资料</el-tag>
+                  <span v-if="scope.row.borrow_limit !=null" >
+                      {{scope.row.borrow_limit}}
+                      </span>
+                </template>
               </el-table-column>
-              <el-table-column prop="state" label="状态" resizable="true" :formatter="clstate" sortable>
-              </el-table-column>
+
               <el-table-column
                 fixed="right"
                 label="操作"
-                width="100">
+                width="120">
                 <template slot-scope="scope"><!--toolbar按钮-->
                   <!--弹出框按钮-->
-                  <el-button type="primary" icon="el-icon-view" @click="see(scope.$index,scope.row)" circle></el-button>
+                  <el-button type="primary" icon="el-icon-view" @click="see(scope.row.id)" circle></el-button>
+                  <el-button type="success" icon="el-icon-user" @click="seesf(scope.row.id)" circle></el-button>
                   <!--弹出框-->
 
-                  <!--仅查看-->
-                  <el-dialog title="身份认证审核" :visible.sync="dialogFormVisible2" append-to-body="false" >
+                  <!--会员个人资料-->
+                  <el-dialog title="个人资料" :visible.sync="dialogFormVisible1" append-to-body="false" width="30%" center>
+                    <el-form :model="form1" size="mini">
+                      <el-row>
+                        <el-col :span="24">
+                          <div class="demo-image__preview">
+                            <el-form-item label="会员头像" :label-width="formLabelWidth">
+                              <el-image
+                                style="width: 100px; height: 100px"
+                                :src="form1.head_photo"
+                                :preview-src-list="srcList">
+                              </el-image>
+                            </el-form-item>
+                          </div>
+                        </el-col>
+
+                        <el-col :span="24">
+                          <el-form-item label="个人学历" :label-width="formLabelWidth" >
+                            <el-input style="width: 70%;" readonly="true" v-model="form1.myself_background" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="24">
+                          <el-form-item label="月收入" :label-width="formLabelWidth">
+                            <el-input style="width: 70%;" readonly="true" v-model="form1.monthly_income" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="24">
+                          <el-form-item label="婚姻情况" :label-width="formLabelWidth">
+                            <el-input style="width: 70%;" readonly="true" v-model="form1.marital_status" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="24">
+                          <el-form-item label="子女情况" :label-width="formLabelWidth">
+                            <el-input style="width: 70%;" readonly="true" v-model="form1.children" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="24">
+                          <el-form-item label="住房情况" :label-width="formLabelWidth">
+                            <el-input style="width: 70%;" readonly="true" v-model="form1.house" autocomplete="off"></el-input>
+                          </el-form-item>
+                        </el-col>
+
+                      </el-row>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                      <el-button @click="dialogFormVisible1 = false">取 消</el-button>
+                    </div>
+                  </el-dialog>
+                  <!--会员个人资料 ^^^^-->
+
+                  <!--仅身份详细信息查看-->
+                  <el-dialog title="身份详细信息" :visible.sync="dialogFormVisible2" append-to-body="false" width="40%" center>
                     <el-form :model="form2" size="mini">
                       <el-row>
                         <el-col :span="12">
-                          <el-form-item label="用户名" :label-width="formLabelWidth">
-                            <el-input style="width: 90%;" readonly="true" v-model="form2.name" autocomplete="off"></el-input>
-                          </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
                           <el-form-item  label="真实姓名" :label-width="formLabelWidth">
-                            <el-input style="width: 90%;" readonly="true" v-model="form2.realname" autocomplete="off"></el-input>
+                            <el-input style="width: 100%;" readonly="true" v-model="form2.realname" autocomplete="off"></el-input>
                           </el-form-item>
                         </el-col>
                         <el-col :span="12">
                           <el-form-item label="身份证号" :label-width="formLabelWidth">
-                            <el-input style="width: 90%;" readonly="true" v-model="form2.id_number" autocomplete="off"></el-input>
+                            <el-input style="width: 100%;" readonly="true" v-model="form2.id_number" autocomplete="off"></el-input>
                           </el-form-item>
                         </el-col>
-                        <el-col :span="12">
-                          <el-form-item label="性别" :label-width="formLabelWidth">
-                            <el-input style="width: 90%;" readonly="true" v-model="form2.sex" autocomplete="off"></el-input>
-                          </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                          <el-form-item label="生日" :label-width="formLabelWidth">
-                            <el-input style="width: 50%;" readonly="true" v-model="form2.born_date" autocomplete="off"></el-input>
-                          </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                          <el-form-item label="身份证地址" :label-width="formLabelWidth">
-                            <el-input style="width: 90%;" readonly="true" v-model="form2.address" autocomplete="off"></el-input>
-                          </el-form-item>
-                        </el-col>
-                        <div class="demo-image__preview"align="center" >
+
+                        <el-col :span="24">
+                          <div class="demo-image__preview"align="center" >
                           <span class="demonstration" align="left">身份证正面
                             <el-image
                               style="width: 100px; height: 100px"
@@ -109,24 +197,22 @@
                             </el-image>
                           </span>
 
-                          <span class="demonstration" align="right">身份证反面
+                            <span class="demonstration" align="right">身份证反面
                             <el-image
                               style="width: 100px; height: 100px"
                               :src="form2.image2"
                               :preview-src-list="srcList2">
                             </el-image>
                             </span>
-                        </div>
-                        <el-form-item label="审核备注" :label-width="formLabelWidth">
-                          <el-input type="textarea" readonly="true"  v-model="form2.remark" autocomplete="off"></el-input>
-                        </el-form-item>
+                          </div>
+                        </el-col>
                       </el-row>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                       <el-button @click="dialogFormVisible2 = false">取 消</el-button>
                     </div>
                   </el-dialog>
-                  <!--仅查看弹框-->
+                  <!--仅身份详细信息查看弹框 ^^^^-->
                 </template>
               </el-table-column>
             </el-table>
@@ -141,7 +227,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="ruleForm.page"
-          :page-sizes="[5, 10, 100, 200]"
+          :page-sizes="[6, 12, 100, 200]"
           :page-size="ruleForm.rows"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total">
@@ -153,187 +239,161 @@
 </template>
 
 <script>
-  export default {
-    name: "MembersfManage",
-    data() {
-      return {
-        /*行数*/
-        tableData:null,
-        total:null,
+    export default {
+        name: "MembersfManage",
+        data() {
+            return {
+                /*行数*/
+                tableData:null,
+                total:null,
 
-        /*展示表格*/
-        ruleForm: {
-          name:'',
-          start:'',
-          stop: '',
-          state: null,
-          value2:null,
-          page:1,
-          rows:5
-        },
-        /*弹框1 有修改功能*/
-        dialogFormVisible: false,
-        /*弹框表格*/
-        form: {
-          id:'',
-          name:'',
-          realname:'',
-          id_number:'',
-          sex:'',
-          born_date:'',
-          address:'',
-          image1:'',
-          image2:'',
-          state:null,
-          remark:''
-        },
-        /*预览大图展示*/
-        srcList1:[],
-        srcList2:[],
-        /*弹框2 仅查看*/
-        dialogFormVisible2: false,
-        form2: {
-          name:'',
-          realname:'',
-          id_number:'',
-          sex:'',
-          born_date:'',
-          address:'',
-          image1:'',
-          image2:'',
-          state:null,
-          remark:''
-        },
+                /*展示表格*/
+                ruleForm: {
+                    name:'',
+                    state: null,//状态
+                    certification_score:null,//分数
+                    page:1,
+                    rows:6
+                },
 
-        /*弹框宽度*/
-        formLabelWidth: '100px',
+                /*预览大图展示*/
+                srcList:[],//用户头像
+                srcList1:[],//身份证正面
+                srcList2:[],//身份证反面
 
-      }
+                /*弹框1 个人资料*/
+                dialogFormVisible1: false,
+                /*弹框表格*/
+                form1: {
+                    id:'',
+                    name:'',
+                    head_photo:'',
+                    myself_background:'',
+                    monthly_income:'',
+                    marital_status:'',
+                    children:'',
+                    house:'',
+                },
 
-    },created(){
+                /*弹框2 仅身份详细查看*/
+                dialogFormVisible2: false,
+                form2: {
+                    name:'',
+                    realname:'',
+                    id_number:'',
+                    sex:'',
+                    born_date:'',
+                    address:'',
+                    image1:'',
+                    image2:'',
+                    remark:''
+                },
 
-      let url = this.axios.urls.MEMBER_MANAGE_GETALL;
-      this.axios.post(url, { page:1,
-        rows:5}).then((response) => {
-        console.log("分页查询的："+response.data.data)
-        this.tableData = response.data.data;
-        this.total = response.data.total;
-      }).catch((response) => {
-        //carch则是异常
-        console.log(response);
-      });
-    },
-    /*方法*/
-    methods:{
-      /*时间*/
-      commitup(){
-        if (this.ruleForm.value2 != null){
-          this.ruleForm.start =  this.ruleForm.value2[0];
-          this.ruleForm.stop =  this.ruleForm.value2[1];
-        }
-        else{
-          this.ruleForm.start =  "";
-          this.ruleForm.stop =  "";
-        }
-        let url = this.axios.urls.MEMBER_MANAGE_GETALL;
-        this.axios.post(url, this.ruleForm).then((response) => {
-          console.log("分页查询的："+response.data.data)
-          this.tableData = response.data.data;
-          this.total = response.data.total;
-        }).catch((response) => {
-          console.log(response);
-        });
-      },
-      /*状态*/
-      clstate(row,column){
-        if(row.state === 0){
-          return '已通过！'
-        }
-        else if (row.state ==2){
-          return '未通过！'
-        }
-      },
-      /*单个查返回数据*/
-      see(index,row){
-        let url = this.axios.urls.MEMBER_RLONE;
-        console.log(row.id);
-        this.axios.post(url, {id:row.id}).then((response) => {
-          console.log(response);
-          this.form2.name = response.data.name;
-          this.form2.realname = response.data.realname;
-          this.form2.id_number = response.data.id_number;
-          this.form2.sex = response.data.sex;
-          this.form2.born_date = response.data.born_date;
-          this.form2.address = response.data.address;
-          this.form2.image1 = response.data.image1;
-          this.form2.image2 = response.data.image2;
-          this.srcList1=[];
-          this.srcList1.push(response.data.image1);
-          this.srcList2=[];
-          this.srcList2.push(response.data.image2);
-          this.form2.remark = response.data.remark;
-          this.dialogFormVisible2 = true;
-        });
-      },
-      /*修改状态*/
-      update(state){
-        this.form.state = state;
-        let url = this.axios.urls.MEMBER_REDITSTATE;
-        this.axios.post(url,this.form).then((response)=>{
-          let data = response.data;
-          if(data.code==0){
-            this.commitup();
-            this.dialogFormVisible = false;
-            this.$message({
-              message: '操作成功！！',
-              type: 'success'
+                /*弹框文本标签长度*/
+                formLabelWidth: '35%',
+
+            }
+
+        },created(){
+
+            let url = this.axios.urls.MEMBER_MANAGE_GETALL;
+            this.axios.post(url, { page:1,
+                rows:6}).then((response) => {
+                console.log("分页查询的："+response.data.data)
+                this.tableData = response.data.data;
+                this.total = response.data.total;
+            }).catch((response) => {
+                //carch则是异常
+                console.log(response);
             });
-          }else{
-            this.commitup();
-            this.$message.error('操作失败！！');
-          }
-        })
-      },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-        this.ruleForm.rows = val;
-        this.ruleForm.page = 1;
-        let url = this.axios.urls.MEMBER_MANAGE_GETALL;
-        this.axios.post(url,this.ruleForm).then((response)=>{
-          console.log("分页查询的："+response.data.data)
-          // console.log(response.data);
-          this.tableData = response.data.data;
-          this.total = response.data.total;
-        }).catch(function(error){
-          console.log(error);
-        });
+        },
+        /*方法*/
+        methods:{
+            commitup(){
+                let url = this.axios.urls.MEMBER_MANAGE_GETALL;
+                this.axios.post(url, this.ruleForm).then((response) => {
+                    console.log("分页查询的："+response.data.data);
+                    this.tableData = response.data.data;
+                    this.total = response.data.total;
+                }).catch((response) => {
+                    console.log(response);
+                });
+            },
 
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-        this.ruleForm.page = val;
+            /*会员个人资料*/
+            see(id){
 
-        let url = this.axios.urls.MEMBER_MANAGE_GETALL;
-        this.axios.post(url,this.ruleForm).then((response)=>{
-          console.log("分页查询的："+response.data.data)
-          // console.log(response.data);
-          this.tableData = response.data.data;
-          this.total = response.data.total;
-        }).catch(function(error){
-          console.log(error);
-        });
-      },
-      /*刷新*/
-      flush(){
-        this.commitup();
-      }
+                this.dialogFormVisible1 = true;
+                for(var i in this.tableData){
+                    console.info(this.tableData[i])
+                    if(this.tableData[i].id == id){
+                        this.form1.name = this.tableData[i].name;
+                        this.form1.head_photo = this.tableData[i].head_photo;
+                        this.srcList=[];
+                        this.srcList.push(this.tableData[i].head_photo);
+                        this.form1.myself_background = this.tableData[i].myself_background;
+                        this.form1.monthly_income = this.tableData[i].monthly_income;
+                        this.form1.marital_status = this.tableData[i].marital_status;
+                        this.form1.children = this.tableData[i].children;
+                        this.form1.house = this.tableData[i].house;
+                    }
+                }
+            },
 
+            seesf(id){
+                this.dialogFormVisible2 = true;
+                for(var i in this.tableData){
+                    console.info(this.tableData[i])
+                    if(this.tableData[i].id == id){
+                        this.form2.realname = this.tableData[i].realname;
+                        this.form2.id_number = this.tableData[i].id_number;
+                        this.form2.image1 = this.tableData[i].image1;
+                        this.form2.image2 = this.tableData[i].image2;
+                        this.srcList1=[];
+                        this.srcList1.push(this.tableData[i].image1);
+                        this.srcList2=[];
+                        this.srcList2.push(this.tableData[i].image2);
+                    }
+                }
+
+            },
+            /*身份单个查返回数据*/
+
+            /*分页查询*/
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.ruleForm.rows = val;
+                this.ruleForm.page = 1;
+                let url = this.axios.urls.MEMBER_MANAGE_GETALL;
+                this.axios.post(url,this.ruleForm).then((response)=>{
+                    console.log("分页查询的："+response.data.data)
+                    // console.log(response.data);
+                    this.tableData = response.data.data;
+                    this.total = response.data.total;
+                }).catch(function(error){
+                    console.log(error);
+                });
+
+            },
+            handleCurrentChange(val) {//page页数
+                this.ruleForm.page = val;//改变表单
+
+                let url = this.axios.urls.MEMBER_MANAGE_GETALL;
+                this.axios.post(url,this.ruleForm).then((response)=>{
+                    console.log("分页查询的："+response.data.data)
+                    // console.log(response.data);
+                    this.tableData = response.data.data;
+                    this.total = response.data.total;
+                }).catch(function(error){
+                    console.log(error);
+                });
+            },
+            /*分页查询*/
+            /*刷新*/
+            flush(){
+                this.commitup();
+            }
+
+        }
     }
-  }
 </script>
-
-
-
-<style scoped>
-
-</style>

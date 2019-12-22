@@ -47,6 +47,8 @@
               <el-table-column prop="cltype" label="资料类型"   sortable>
                 <template slot-scope="scope">证件类型</template>
               </el-table-column>
+              <el-table-column prop="file" label="文件简介"   sortable>
+              </el-table-column>
               <el-table-column prop="apply_time" label="申请时间"   sortable>
               </el-table-column>
               <el-table-column prop="auditor_id" label="审核人"   sortable>
@@ -57,7 +59,7 @@
                 width="100"  >
                 <template slot-scope="scope"><!--toolbar按钮-->
                   <!--弹出框按钮-->
-                  <el-button v-if="scope.row.state == 1 "   @click="dd(scope.$index,scope.row)" icon="el-icon-edit" circle></el-button>
+                  <el-button v-if="scope.row.state == 1 "   @click="dd(scope.$index,scope.row)" type="info" icon="el-icon-edit" circle></el-button>
                   <el-button v-if="scope.row.state == 0 ||scope.row.state== 2 " type="primary" icon="el-icon-view" @click="see(scope.$index,scope.row)"circle></el-button>
                    <!--弹出框-->
                   <!--待审核编辑-->
@@ -315,6 +317,7 @@
       },
       /*修改状态*/
       update(state){
+        this.form.auditorId = this.$store.getters.getUserManage.userid;//用户的
         this.form.state = state;
         this.form.audit_time = this.getTime();
         let url = this.axios.urls.MEMBER_CEDITSTATE;

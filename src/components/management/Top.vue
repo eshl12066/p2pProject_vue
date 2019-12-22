@@ -23,7 +23,7 @@
         }
       },
       created(){
-        this.userManage = this.$store.getters.getUserManage;
+          this.userManage = this.$store.getters.getUserManage;
       },
 
       methods:{
