@@ -34,4 +34,5 @@ export default{
     return state.bidDetails;
   },
 
+
 }

@@ -130,7 +130,7 @@ export default {
   'SYSTEM_SETTING_SYSDICT_EDIT': '/setting/setDict/setdictUpdate',  //修改dict
   'SYSTEM_SETTING_SYSDICT_SELECTONE': '/setting/setDict/selectOne',  //查单个dict
 
-  'YSTEM_SETTING_SYSDICTITEM_SELECTBYDICTIDS': '/setting/setDictitem/selectByDictId',  //根据dictID查看dictitem详情
+  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID': '/setting/setDictitem/selectByDictId',  //根据dictID查看dictitem详情
   'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/setting/setDictitem/setdictitemDelByParentId',  //根据父ID删除所有子
   'SYSTEM_SETTING_SYSDICTITEM_SELECTBYID': '/setting/setDictitem/selectOne',  //根据ID查找单个
   'SYSTEM_SETTING_SYSDICTITEM_ADD': '/setting/setDictitem/setdictitemAdd',  //增加
