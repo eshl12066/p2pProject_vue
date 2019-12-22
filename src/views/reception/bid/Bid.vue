@@ -73,6 +73,7 @@
       <el-table :data="tableData" border style="width: 100%">
         <el-table-column prop="bid_request_amount" label="投资总额" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="current_rate" label="利息率" width="109" align="center" sortable></el-table-column>
+        <el-table-column prop="note" label="安全度" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="monthes_return" label="还款月数" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="total_reward_amount" label="总得利息" width="109" align="center" sortable></el-table-column>
         <el-table-column prop="return_type" label="还款方式" width="109" align="center"></el-table-column>
@@ -129,6 +130,7 @@
             currentRate:null,//利率
             monthesReturn:null,//还款月数
             totalRewardAmount:null,//总利息
+
           }
         }
       },

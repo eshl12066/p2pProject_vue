@@ -56,7 +56,7 @@
       this.detail.bidCount = this.bidD.bid_count;//已有多少人投资
       this.detail.myAmount = (this.detail.bidRequestAmount - this.detail.currentSum);//我的投资总额
       this.detail.name = this.bidD.name;
-      this.detail.score = this.bidD.certification_score;
+      this.detail.score = this.bidD.note;
       this.detail.rate = this.bidD.current_rate;
       this.detail.month = this.bidD.monthes_return;
     },

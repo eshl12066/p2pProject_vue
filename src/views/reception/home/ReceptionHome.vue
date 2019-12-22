@@ -143,7 +143,7 @@
     methods:{
       imgLoad(){
         this.$nextTick(()=>{
-          this.imgHeight=this.$refs.imgHeight[0].height
+          // this.imgHeight=this.$refs.imgHeight[0].height
         })
       },
       setBannerH(){
@@ -153,7 +153,7 @@
     mounted(){
       this.imgLoad();
       window.addEventListener('resize',()=>{
-        this.imgHeight=this.$refs.imgHeight[0].height
+        // this.imgHeight=this.$refs.imgHeight[0].height
         this.imgLoad();
       },false);
 

@@ -171,15 +171,16 @@
     name: "UserManage",
     data() {
       return {
-
+        total:0,
         selectRole:null,//下拉框的
         tableList:null,
-        total:null,
         ruleForm: {
           userstate:null,
           username:"",
           page:1,
-          rows:5
+          rows:10,
+          total:0
+
         }
         ,//弹出层1
         dialogFormVisible1: false,
@@ -300,7 +301,7 @@
         this.total = response.data.total;
         this.axios.post(turl,{}).then((response)=>{
           this.selectRole = response.data;
-
+            this.total = response.data.total;
         }).catch(function(error){
           console.log(error);
         });
@@ -312,6 +313,17 @@
     }
     ,
     methods:{
+      //这是当一页展示数据数量变化的时候的回掉函数
+      handleSizeChange: function(rwos) {
+          this.formInline.page = 1;
+          this.formInline.rows = rwos;
+          this.query();
+      },
+      //当当前页该改变的时候调用
+      handleCurrentChange: function(page) {
+          this.formInline.page = page;
+          this.query();
+      },
       query(){
         let url = this.axios.urls.SYSTEM_USER_USERQUERY;
         this.axios.post(url,this.ruleForm).then((response)=>{
@@ -506,33 +518,33 @@
 
       }
       ,
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-        this.ruleForm.rows = val;
-        this.ruleForm.page = 1;
-        let url = this.axios.urls.SYSTEM_USER_USERQUERY;
-        this.axios.post(url,this.ruleForm).then((response)=>{
-          console.log("分页查询的："+response.data.data)
-          this.tableList = response.data.data;
-          this.total = response.data.total;
-        }).catch(function(error){
-          console.log(error);
-        });
-
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-        this.ruleForm.page = val;
-
-        let url = this.axios.urls.SYSTEM_USER_USERQUERY;
-        this.axios.post(url,this.ruleForm).then((response)=>{
-          console.log("分页查询的："+response.data.data)
-          this.tableList = response.data.data;
-          this.total = response.data.total;
-        }).catch(function(error){
-          console.log(error);
-        });
-      },
+      // handleSizeChange(val) {
+      //   console.log(`每页 ${val} 条`);
+      //   this.ruleForm.rows = val;
+      //   this.ruleForm.page = 1;
+      //   let url = this.axios.urls.SYSTEM_USER_USERQUERY;
+      //   this.axios.post(url,this.ruleForm).then((response)=>{
+      //     console.log("分页查询的："+response.data.data)
+      //     this.tableList = response.data.data;
+      //     this.total = response.data.total;
+      //   }).catch(function(error){
+      //     console.log(error);
+      //   });
+      //
+      // },
+      // handleCurrentChange(val) {
+      //   console.log(`当前页: ${val}`);
+      //   this.ruleForm.page = val;
+      //
+      //   let url = this.axios.urls.SYSTEM_USER_USERQUERY;
+      //   this.axios.post(url,this.ruleForm).then((response)=>{
+      //     console.log("分页查询的："+response.data.data)
+      //     this.tableList = response.data.data;
+      //     this.total = response.data.total;
+      //   }).catch(function(error){
+      //     console.log(error);
+      //   });
+      // },
       shouquan(){
         let pList=this.form3.userids.join(',');
 

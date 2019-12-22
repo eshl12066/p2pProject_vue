@@ -11,7 +11,7 @@
         </el-steps>
       </div>
       <!--  1、步骤一  这是投标信息展示模块  -->
-      <el-form v-if="isShowData.basicInformation" :model="dictForm" :rules="dictRules" ref="dictForm">
+      <el-form v-if="isShowData.basicInformation">
         <el-row>
           <el-card class="box-card" style="background-color: whitesmoke;">
             <!--  头 部  -->
@@ -124,7 +124,7 @@
       this.detail.bidCount = this.bidD.bid_count;//已有多少人投资
       this.detail.myAmount = (this.detail.bidRequestAmount - this.detail.currentSum);//我的投资总额
       this.detail.name = this.bidD.name;
-      this.detail.score = this.bidD.certification_score;
+      this.detail.score = this.bidD.note;
       this.detail.rate = this.bidD.current_rate;
       this.detail.month = this.bidD.monthes_return;
     },
@@ -165,14 +165,18 @@
         this.info.bidRequestAmount = this.detail.bidRequestAmount;// 总 投标金额
         this.info.currentSum = this.detail.currentSum;//当前投标金额
         let url = this.axios.urls.SYSTEM_BID_BIDADD;
+        let url1 = this.axios.urls.SYSTEM_BID_BIDADD1;
         this.axios.post(url,this.info).then((response)=>{
-          alert("投标成功！")
+          this.axios.post(url1,this.info).then((response)=>{
+
+          })
+          alert("投标成功！");
           this.isShowData.confirm = false;
           this.isShowData.carryOut = true;
           this.stepsActive = 3;
         }).catch(function(error){//carch则是异常
           console.log("投资失败："+error);
-        });
+      });
       }
     }
   }

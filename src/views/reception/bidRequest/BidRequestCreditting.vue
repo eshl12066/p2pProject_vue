@@ -318,7 +318,6 @@
         // this.creInfo.disableDate = this.creInfo.disableDate[0];
         this.axios.post(url,this.creInfo).then((response)=>{
           alert("信用贷贷款申请成功！");
-
           this.isShowData.confirm = false;
           this.isShowData.carryOut = true;
           this.stepsActive = 4;

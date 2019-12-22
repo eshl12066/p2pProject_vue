@@ -53,8 +53,8 @@ export default {
 
   //业务模块
 
-  'ZFBTIAOZHUAN':'/asset/alipay/alipay.trade.page.pay.jsp',//支付宝跳转
-  'ALIPAY_PAY':'/asset/goAlipay',//沙箱支付宝
+  'ZFBTIAOZHUAN':'/asset/alipay.trade.page.pay.jsp',//支付宝跳转
+  'ALIPAY_PAY':'/asset/alipay/alipayIumpSum',//沙箱支付宝
 
 
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
@@ -82,7 +82,8 @@ export default {
   //投标模块
   'SYSTEM_BID_BIDQUERY': '/business/bid/bidQuery',//投资界面数据展示
   'SYSTEM_BID_SELECTONE': '/business/bid/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/business/bid/bidAdd',//进行投资
+  'SYSTEM_BID_BIDADD': '/business/bid/updateBid',//进行投资
+  'SYSTEM_BID_BIDADD1': '/business/bid/bidggg',//进行投资
 
   'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
   'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
@@ -93,8 +94,6 @@ export default {
 
   //会员模块
   'MEMBER_MANAGE_GETALL':'/member/members/getAll',//会员管理模糊查
-  'MEMBER_UPDATASCORE':'/member/members/updatascore',//修改分数
-
   'MEMBER_MANAGE_GETCALL':'/member/membersMaterials/getCAll',//会员材料模糊查询
   'MEMBER_MANAGE_GETRALL':'/member/membersRealname/getRAll',//会员实名模糊查
 
@@ -125,12 +124,16 @@ export default {
   //借款模块
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/business/bidRequest/insertBidRequest',//进行借款
 
+
+  //还款模块
+  'SYSTEM_REFUNDDETAIL_SELECTREFDPAGER': '/business/refundDetail/selectrefdPager',
+
   //设置模块
-  'SYSTEM_SETTING_SYSDICT_LISTALL': '/setting/setDict/selectAll',  //分页模糊查找字典表
-  'SYSTEM_SETTING_SYSDICT_ADD': '/setting/setDict/setdictAdd',  //增加dict
-  'SYSTEM_SETTING_SYSDICT_DEL': '/setting/setDict/setdictDel',  //删除dict
-  'SYSTEM_SETTING_SYSDICT_EDIT': '/setting/setDict/setdictUpdate',  //修改dict
-  'SYSTEM_SETTING_SYSDICT_SELECTONE': '/setting/setDict/selectOne',  //查单个dict
+  'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表
+  'SYSTEM_SETTING_SYSDICT_ADD': '/sysdict/sysdictAdd',  //增加dict
+  'SYSTEM_SETTING_SYSDICT_DEL': '/sysdict/sysdictDel',  //删除dict
+  'SYSTEM_SETTING_SYSDICT_EDIT': '/sysdict/sysdictUpdate',  //修改dict
+  'SYSTEM_SETTING_SYSDICT_SELECTONE': '/sysdict/selectOne',  //查单个dict
 
   'SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID': '/setting/setDictitem/selectByDictId',  //根据dictID查看dictitem详情
   'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/setting/setDictitem/setdictitemDelByParentId',  //根据父ID删除所有子
