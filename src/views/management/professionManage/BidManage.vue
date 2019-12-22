@@ -31,6 +31,18 @@
       </el-table-column>
       <el-table-column prop="bid_time" sortable label="投标时间"width="310"> </el-table-column>
     </el-table>
+      <div align="center">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="formInline.page"
+          :page-sizes="[5, 10, 100, 200]"
+          :page-size="formInline.rows"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
+      </div>
+
 
 
 
@@ -47,7 +59,7 @@
         </el-form-item>
         <el-form-item label="贷款类型" :label-width="formLabelWidth">
           <el-input readonly="readonly"  v-model="form1.bid_request_type" autocomplete="off"></el-input>
-        </el-form-item>
+        </el-form-item>ew
         <el-form-item label="贷款状态" :label-width="formLabelWidth">
           <el-input readonly="readonly"  v-model="form1.bid_request_state" autocomplete="off"></el-input>
         </el-form-item>
@@ -148,9 +160,13 @@
           zlVisibledel:false,
           formInline: {
             stop:'',
-            start:''
+            start:'',
+            page: 1,
+            rows: 10,
+            total:0,
           },
           tableData: [],
+          total:0,
           formLabelWidth: '120px',
           dialogFormVisible1:false,
           dialogFormVisible2:false,
@@ -167,7 +183,20 @@
         }
       },
       methods: {
-        handleClose(done) {
+          //这是当一页展示数据数量变化的时候的回掉函数
+          handleSizeChange: function(rwos) {
+              this.formInline.page = 1;
+              this.formInline.rows = rwos;
+              this.seach();
+          },
+          //当当前页该改变的时候调用
+          handleCurrentChange: function(page) {
+              this.formInline.page = page;
+              this.seach();
+          },
+
+
+          handleClose(done) {
           this.$confirm('确认关闭？')
             .then(_ => {
               done();
@@ -233,19 +262,16 @@
           return currentdate;
         },
         seach(){
-          var formData = {
-            start:'',
-            stop: ''
-          };
           if(this.value3!=null){
-            formData.start =  this.value3
+              this.formInline.start =  this.value3
           };
           if(this.value4!=null){
-            formData.stop =  this.value4
+              this.formInline.stop =  this.value4
           };
           var url2 = this.axios.urls.SYSTEM_BID_SELECTALL;
-          this.axios.post(url2, formData).then((response) => {
+          this.axios.post(url2, this.formInline).then((response) => {
             this.tableData = response.data.data;
+            this.total=response.data.total
           }).catch((response) => {
             console.log(response);
           });

@@ -132,12 +132,12 @@
 
       var url2 = this.axios.urls.SYSTEM_ASSET_RECHARGE_SELECTZFB;
       var  id = this.$store.getters.getUserMembers.id;//会员                             /////id******************************************
-
       this.user.members_id = id;
       this.getDateNow();
       this.axios.post(url2, {members_id:id}).then((response) => {
         this.user.trade_code = response.data.trade_code;
         this.user.usable_amount = response.data.usable_amount;
+        console.log(this.user.members_id)
       }).catch((response) => {
         console.log(response);
       });

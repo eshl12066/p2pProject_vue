@@ -79,11 +79,13 @@ export default {
   'SYSTEM_BID_SELECTUSERBIDREQUEST': '/business/bidRequest/selectUserBidRequest',//用户的贷款界面
 
 
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/moneyWithdrawQuery',  //分页模糊查找提现表
   //资产模块
   'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
   'SYSTEM_ASSET_RECHARGE_SELECTZFB': '/asset/moneyRecharge/selectZFB',  //根据ID获取支付宝账号
   'SYSTEM_ASSET_RECHARGE_UPDATEJE': '/asset/moneyRecharge/updateJE',  //根据ID修改资产
 
+  'SYSTEM_ASSET_WITHDRAW_LISTMEMBER0':'/asset/moneyWithdraw/selectOne',
 
   'SYSTEM_ASSET_WITHDRAW_LISTMEMBER': '/asset/moneyWithdraw/ListBymemberPager',  //分页模糊查找提现表  用户用
   'SYSTEM_ASSET_WITHDRAW_LISTUSER': '/asset/moneyWithdraw/ListByuserPager',  //分页模糊查找提现表  管理员用
@@ -101,7 +103,8 @@ export default {
   //投标模块
   'SYSTEM_BID_BIDQUERY': '/business/bid/bidQuery',//投资界面数据展示
   'SYSTEM_BID_SELECTONE': '/business/bid/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/business/bid/bidAdd',//进行投资
+  'SYSTEM_BID_BIDADD': '/business/bid/updateBid',//进行投资
+  'SYSTEM_BID_BIDADD1': '/business/bid/bidggg',//进行投资
 
   'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
   'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
@@ -142,6 +145,10 @@ export default {
   //借款模块
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/business/bidRequest/insertBidRequest',//进行借款
 
+
+  //还款模块
+  'SYSTEM_REFUNDDETAIL_SELECTREFDPAGER': '/business/refundDetail/selectrefdPager',
+
   //设置模块
   'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表
   'SYSTEM_SETTING_SYSDICT_ADD': '/sysdict/sysdictAdd',  //增加dict
@@ -156,6 +163,12 @@ export default {
   'SYSTEM_SETTING_SYSDICTITEM_DEL': '/sysdictitem/sysdictitemDel',  //删除
   'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/sysdictitem/sysdictitemUpdate',  //修改
 
+  'YSTEM_SETTING_SYSDICTITEM_SELECTBYDICTIDS': '/setting/setDictitem/selectByDictId',  //根据dictID查看dictitem详情
+  'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/setting/setDictitem/setdictitemDelByParentId',  //根据父ID删除所有子
+  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYID': '/setting/setDictitem/selectOne',  //根据ID查找单个
+  'SYSTEM_SETTING_SYSDICTITEM_ADD': '/setting/setDictitem/setdictitemAdd',  //增加
+  'SYSTEM_SETTING_SYSDICTITEM_DEL': '/setting/setDictitem/setdictitemDel',  //删除
+  'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/setting/setDictitem/setdictitemUpdate',  //修改
 
   'SYSTEM_SETTING_SETTING_SELECTALL': '/sysSetting/sysSettingQuery',  //查询所有
   'SYSTEM_SETTING_SETTING_EDIT': '/sysSetting/sysSettingUpdate',  //修改单个

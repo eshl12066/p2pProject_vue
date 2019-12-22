@@ -11,7 +11,7 @@
         <el-table-column prop="return_type" label="还款方式" width="109" align="center"></el-table-column>
         <el-table-column prop="bid_request_type" label="贷款类型" width="109" align="center"></el-table-column>
         <el-table-column prop="current_sum" label="现有投资" width="109" align="center" sortable></el-table-column>
-        <el-table-column label="投标进度" align="center" width="198">
+        <el-table-column label="投标进度" align="center" width="300">
           <template slot-scope="scope">
             <el-progress :percentage="scope.row.plan"></el-progress>
           </template>

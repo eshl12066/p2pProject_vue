@@ -5,8 +5,6 @@
     </el-col>
     <pre>
 
-
-
     </pre>
 
     <el-col :span="12" style="margin-left:100px;">
@@ -17,7 +15,7 @@
         <el-form-item label="资料图片" prop="image" >
           <el-col :span="12">
             <el-upload style="margin-left:80px;"
-                       action="http://localhost:8080/p2pProject/membersRealname/imgUpload"
+                       action="http://localhost:3001/gg/member/membersRealname/imgUpload"
                        list-type="picture-card"
                        :limit="1"
                        name="picture"
