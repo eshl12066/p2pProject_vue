@@ -5,6 +5,15 @@
 export default {
   //权限模块
   'SERVER': 'http://localhost:3001/gg', //服务器
+  'SYSTEM_USER_VERIFICATION':'/sysUser/verificationCode',//验证码验证
+  'SYSTEM_USER_DOLOGIN': '/sysUser/login', //用户登陆
+  'SYSTEM_USER_SELECTONE': '/sysUser/selectOne',//查询单个员工
+  'SYSTEM_USER_USERQUERY': '/sysUser/userQuery',//查询员工
+  'SYSTEM_USER_USERADD': '/sysUser/userAdd',//增加员工
+  'SYSTEM_USER_USERUPDATE': '/sysUser/userUpdate',//修改员工
+  'SYSTEM_USER_USERDEL': '/sysUser/userDel',//删除员工
+  'SYSTEM_USER_ADDUSERROLE': '/sysUser/addUserRole',//增加员工角色
+  'SERVER': 'http://localhost:3001/gg', //服务器
   'SYSTEM_USER_VERIFICATION':'/sys/sysUser/verificationCode',//验证码验证
   'SYSTEM_USER_DOLOGIN': '/sys/sysUser/login', //用户登陆
   'SYSTEM_USER_SELECTONE': '/sys/sysUser/selectOne',//查询单个员工
@@ -58,6 +67,18 @@ export default {
 
 
   'SYSTEM_ASSET_RECHARGE_LISTALL': '/asset/moneyRecharge/selectAll',  //分页模糊查找充值表
+  'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/selectAll',  //分页模糊查找充值表
+  //投标模块
+  'SYSTEM_BID_BIDQUERY': '/business/bid/bidQuery',//投资界面数据展示
+  'SYSTEM_BID_SELECTONE': '/business/bid/selectOne',//投资界面，查询单个投资数据
+  'SYSTEM_BID_BIDADD': '/business/bid/bidAdd',//进行投资
+
+  'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
+  'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
+
+  'SYSTEM_BID_SELECTUSERBIDREQUEST': '/business/bidRequest/selectUserBidRequest',//用户的贷款界面
+
+
   'SYSTEM_ASSET_WITHDRAW_LISTALL': '/asset/moneyWithdraw/moneyWithdrawQuery',  //分页模糊查找提现表
   //资产模块
   'SYSTEM_ASSET_RECHARGE_ADD': '/asset/moneyRecharge/moneyRechargeAdd',  //增加单个充值表
@@ -82,7 +103,8 @@ export default {
   //投标模块
   'SYSTEM_BID_BIDQUERY': '/business/bid/bidQuery',//投资界面数据展示
   'SYSTEM_BID_SELECTONE': '/business/bid/selectOne',//投资界面，查询单个投资数据
-  'SYSTEM_BID_BIDADD': '/business/bid/bidAdd',//进行投资
+  'SYSTEM_BID_BIDADD': '/business/bid/updateBid',//进行投资
+  'SYSTEM_BID_BIDADD1': '/business/bid/bidggg',//进行投资
 
   'SYSTEM_BID_SELECTUSERBID': '/business/bid/selectUserBid',//用户的投资界面
   'SYSTEM_BID_SELECTUSERBIDDETAILS': '/business/bid/selectUserBidDetails',//用户的投资详情
@@ -123,12 +145,23 @@ export default {
   //借款模块
   'SYSTEM_BIDREQUEST_INSERTBIDREQUEST': '/business/bidRequest/insertBidRequest',//进行借款
 
+
+  //还款模块
+  'SYSTEM_REFUNDDETAIL_SELECTREFDPAGER': '/business/refundDetail/selectrefdPager',
+
   //设置模块
-  'SYSTEM_SETTING_SYSDICT_LISTALL': '/setting/setDict/selectAll',  //分页模糊查找字典表
-  'SYSTEM_SETTING_SYSDICT_ADD': '/setting/setDict/setdictAdd',  //增加dict
-  'SYSTEM_SETTING_SYSDICT_DEL': '/setting/setDict/setdictDel',  //删除dict
-  'SYSTEM_SETTING_SYSDICT_EDIT': '/setting/setDict/setdictUpdate',  //修改dict
-  'SYSTEM_SETTING_SYSDICT_SELECTONE': '/setting/setDict/selectOne',  //查单个dict
+  'SYSTEM_SETTING_SYSDICT_LISTALL': '/sysdict/selectAll',  //分页模糊查找字典表
+  'SYSTEM_SETTING_SYSDICT_ADD': '/sysdict/sysdictAdd',  //增加dict
+  'SYSTEM_SETTING_SYSDICT_DEL': '/sysdict/sysdictDel',  //删除dict
+  'SYSTEM_SETTING_SYSDICT_EDIT': '/sysdict/sysdictUpdate',  //修改dict
+  'SYSTEM_SETTING_SYSDICT_SELECTONE': '/sysdict/selectOne',  //查单个dict
+
+  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID': '/sysdictitem/selectByDictId',  //根据dictID查看dictitem详情
+  'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/sysdictitem/sysdictitemDelByParentId',  //根据父ID删除所有子
+  'SYSTEM_SETTING_SYSDICTITEM_SELECTBYID': '/sysdictitem/selectOne',  //根据ID查找单个
+  'SYSTEM_SETTING_SYSDICTITEM_ADD': '/sysdictitem/sysdictitemAdd',  //增加
+  'SYSTEM_SETTING_SYSDICTITEM_DEL': '/sysdictitem/sysdictitemDel',  //删除
+  'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/sysdictitem/sysdictitemUpdate',  //修改
 
   'SYSTEM_SETTING_SYSDICTITEM_SELECTBYDICTID': '/setting/setDictitem/selectByDictId',  //根据dictID查看dictitem详情
   'SYSTEM_SETTING_SYSDICTITEM_DELBYPARENTID': '/setting/setDictitem/setdictitemDelByParentId',  //根据父ID删除所有子
@@ -137,15 +170,16 @@ export default {
   'SYSTEM_SETTING_SYSDICTITEM_DEL': '/setting/setDictitem/setdictitemDel',  //删除
   'SYSTEM_SETTING_SYSDICTITEM_EDIT': '/setting/setDictitem/setdictitemUpdate',  //修改
 
-  'SYSTEM_SETTING_SETTING_SELECTALL': '/setting/setSetting/sysSettingQuery',  //查询所有
-  'SYSTEM_SETTING_SETTING_EDIT': '/setting/setSetting/sysSettingUpdate',  //修改单个
-  'SYSTEM_SETTING_SETTING_SELECTONE': '/setting/setSetting/selectOne',  //查询单个
+  'SYSTEM_SETTING_SETTING_SELECTALL': '/sysSetting/sysSettingQuery',  //查询所有
+  'SYSTEM_SETTING_SETTING_EDIT': '/sysSetting/sysSettingUpdate',  //修改单个
+  'SYSTEM_SETTING_SETTING_SELECTONE': '/sysSetting/selectOne',  //查询单个
 
-  'SYSTEM_MESSAGE_SELECTONE': '/setting/setMessage/selectOne', //查找单个
-  'SYSTEM_MESSAGE_SELECTALL': '/setting/setMessage/selectAll', //查找全部
-  'SYSTEM_MESSAGE_DELECTBYID': '/setting/setMessage/messageDel', //删除单个
-  'SYSTEM_MESSAGE_INSERT': '/setting/setMessage/messageAdd', //增加
-  'SYSTEM_MESSAGE_EDIT': '/setting/setMessage/messageEdit', //修改
+
+  'SYSTEM_MESSAGE_SELECTONE': '/message/selectOne', //查找单个
+  'SYSTEM_MESSAGE_SELECTALL': '/message/selectAll', //查找全部
+  'SYSTEM_MESSAGE_DELECTBYID': '/message/messageDel', //删除单个
+  'SYSTEM_MESSAGE_INSERT': '/message/messageAdd', //增加
+  'SYSTEM_MESSAGE_EDIT': '/message/messageEdit', //修改
 
 //资产模块
 

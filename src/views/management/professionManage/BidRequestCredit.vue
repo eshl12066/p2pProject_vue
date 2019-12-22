@@ -380,10 +380,10 @@
         tableList3:null,
         tableList1:null,
         tableList7:null,
-        total0:null,
-        total3:null,
-        total1:null,
-        total7:null,
+        total0:0,
+        total3:0,
+        total1:0,
+        total7:0,
 
 
         ruleForm0: {
@@ -402,7 +402,7 @@
           bidRequestType:0,
           bidRequestState:1,
           page:1,
-          rows:5
+          rows:5,
         },
         ruleForm7: {
           bidRequestType:0,
@@ -463,19 +463,19 @@
       let url = this.axios.urls.SYSTEM_USERROLE_BIDREQUESTSELECT;
       this.axios.post(url,{"bidRequestType":0}).then((response)=>{
         console.log("分页查询的："+response.data.data)
-        // console.log(response.data);
-        this.tableList0 = response.data.r0.data;
-        this.total0 = response.data.r0.total;
+        console.log(response.data);
+          this.tableList0 = response.data.r0.data;
+          this.total0 = response.data.r0.total;
 
-        this.tableList3 = response.data.r3.data;
-        this.total3 = response.data.r3.total;
+          this.tableList3 = response.data.r3.data;
+          this.total3 = response.data.r3.total;
 
-        this.tableList1 = response.data.r1.data;
-        this.total1 = response.data.r1.total;
+          this.tableList1 = response.data.r1.data;
+          this.total1 = response.data.r1.total;
 
 
-        this.tableList7 = response.data.r7.data;
-        this.total7 = response.data.r7.total;
+          this.tableList7 = response.data.r7.data;
+          this.total7 = response.data.r7.total;
 
 
 
