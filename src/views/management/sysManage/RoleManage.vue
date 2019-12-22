@@ -299,11 +299,11 @@
         // console.log(response.data);
         this.tableList = response.data.data;
         this.total = response.data.total;
+          this.ruleForm.total = response.data.total;
       }).catch(function(error){
         console.log(error);
       });
-    }
-    ,
+    },
     methods:{
       query(){
         let url = this.axios.urls.SYSTEM_ROLE_ROLEQUERY;
@@ -312,12 +312,12 @@
           // console.log(response.data);
           this.tableList = response.data.data;
           this.total = response.data.total;
+          this.ruleForm.total = response.data.total;
         }).catch(function(error){
           console.log(error);
         });
 
-      }
-      ,
+      },
       updateDialog(roleid){
         this.dialogFormVisible2  = true;
         let url = this.axios.urls.SYSTEM_ROLE_SELECTONE;
@@ -508,6 +508,7 @@
           // console.log(response.data);
           this.tableList = response.data.data;
           this.total = response.data.total;
+            this.ruleForm.total = response.data.total;
         }).catch(function(error){
           console.log(error);
         });
@@ -523,6 +524,7 @@
           // console.log(response.data);
           this.tableList = response.data.data;
           this.total = response.data.total;
+            this.ruleForm.total = response.data.total;
         }).catch(function(error){
           console.log(error);
         });
