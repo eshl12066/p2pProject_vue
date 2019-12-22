@@ -59,7 +59,7 @@
         </el-form-item>
         <el-form-item label="贷款类型" :label-width="formLabelWidth">
           <el-input readonly="readonly"  v-model="form1.bid_request_type" autocomplete="off"></el-input>
-        </el-form-item>ew
+        </el-form-item>
         <el-form-item label="贷款状态" :label-width="formLabelWidth">
           <el-input readonly="readonly"  v-model="form1.bid_request_state" autocomplete="off"></el-input>
         </el-form-item>
